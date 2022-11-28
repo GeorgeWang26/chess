@@ -1,0 +1,16 @@
+how to check if current piece is under capture:
+
+regular piece is under capture 
+1. enemy piece can capture current piece
+2. the capture move is valid
+    2.1 after capture move, we now have a NEWBOARD
+    2.2 the enemy king is NOT under capture in the NEWBOARD
+
+king is under capture (AKA undercheck)
+1. enemy piece can capture king (DONT need to worry if enemy king is under capture after the capture move)
+
+
+
+
+
+make sure validMove() check if dest is same team
