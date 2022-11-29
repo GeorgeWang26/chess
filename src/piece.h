@@ -9,18 +9,21 @@ class Piece {
 protected:
     // make sure this is does NOT live on heap
     int pos[2];
-    std::string team;
+    std::string team;  // black, white
+    std::string type;  // king, queen, bishop, rook, knight, pawn
     bool undercap;
 
 public:
-    Piece(int row, int col, std::string team);
+    Piece(int row, int col, std::string team, std::string type);
     std::string getTeam() const;
+    std::string getType() const;
+
     bool getUndercap() const;
     void setUndercap(const Board &board);
 
     // return true as long as it obey moving rules and doesnt put own king in check
     // how to check if own king is in check? see notes.txt
-    virtual bool validmove(const Board &board, const int *dest, bool &canCheck, bool &captureEnemy, bool &escape) const = 0;
+    virtual bool validmove(const Board &board, const int *dest, const bool destIsKing, bool &canCheck, bool &captureEnemy, bool &escape) const = 0;
     // return a new allocated board
     Board* moveto(const Board &board, const int *dest) const;
 

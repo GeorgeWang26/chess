@@ -5,10 +5,16 @@
 
 using namespace std;
 
-Piece::Piece(int row, int col, string team): pos{row, col}, team{team}, undercap{false} {}
+Piece::Piece(int row, int col, string team, string type): 
+    pos{row, col}, team{team}, undercap{false}, type{type} 
+{}
 
 string Piece::getTeam() const {
     return team;
+}
+
+string Piece::getType() const {
+    return type;
 }
 
 bool Piece::getUndercap() const {
@@ -22,7 +28,7 @@ void Piece::setUndercap(const Board &board) {
     // check all 64 pos for now, optimize latter to only check straight, diagonal, horse, pawn
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            if (board.theBoard[i][j]->validmove(board, pos, fake, fake, fake)) {
+            if (board.theBoard[i][j]->validmove(board, pos, type=="king", fake, fake, fake)) {
                 undercap = true;
                 return;
             }
