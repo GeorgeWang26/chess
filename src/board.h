@@ -7,13 +7,13 @@ class Piece;
 
 class Board {
     // vector<vector<std::unique_ptr(Piece)>>* theBoard;
-    Piece* theBoard[8][8];
 public:
-    Piece*** getBoard();
-    bool validBoard();
-    Piece& getPiece(vector<int> &pos);
+    Piece* theBoard[8][8];
+    
     Board();
     ~Board() {};
+    bool validBoard();
+    Piece* getPiece(int *pos);
 };
 
 #endif

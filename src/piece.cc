@@ -1,5 +1,5 @@
 #include "piece.h"
-// #include "board.h"
+#include "board.h"
 #include <string>
 #include <memory>
 
@@ -19,6 +19,10 @@ string Piece::getType() const {
 
 bool Piece::getUndercap() const {
     return undercap;
+}
+
+bool Piece::getUndercheck(const Board &board, const string team) const {
+    return false;
 }
 
 void Piece::setUndercap(const Board &board) {
@@ -49,9 +53,5 @@ bool Piece::canCastle(const Board &board, const string team) const {
 }
 
 bool Piece::canExpassant(const Board &board, const string team) const {
-    return false;
-}
-
-bool Piece::getUndercheck(const Board &board, const string team) const {
     return false;
 }

@@ -13,7 +13,7 @@ Board::Board() {
     }
     // default starting positions
     // setting white
-    for (i = 0; i < 8; ++i) {
+    for (int i = 0; i < 8; ++i) {
         if ((i == 0) || (i == 7)) { // rook
             theBoard[0][i] = new Rook(); // complete constructor late
         } else if ((i == 1) || (i == 6)) { // knight
@@ -28,7 +28,7 @@ Board::Board() {
         theBoard[1][i] = new Pawn();
     }
     // setting black
-    for (i = 0; i < 8; ++i) {
+    for (int i = 0; i < 8; ++i) {
         if ((i == 0) || (i == 7)) { // rook
             theBoard[7][i] = new Rook(); // complete constructor late
         } else if ((i == 1) || (i == 6)) { // knight
@@ -54,11 +54,7 @@ Board::~Board() {
     }
 }
 
-Piece*** Board::getBoard() {
-    return theBoard;
-}
-
-Bool Board::validBoard() {
+bool Board::validBoard() {
     int wKing = 0;
     int bKing = 0;
 
@@ -68,7 +64,7 @@ Bool Board::validBoard() {
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
             // both teams must have a kind on the board
-            if (theBoard[i][j].getType() == "king") { // includ piece type parameter
+            if (theBoard[i][j]->getType() == "king") { // includ piece type parameter
                 if (theBoard[i][j].getTeam() == "white") {
                     wKing++;
                 } else {
@@ -77,13 +73,13 @@ Bool Board::validBoard() {
             }
             // pawns cannot be on the first row of their own side
             // each team cannot have more than 8 pawns
-            if (theBoard[i][j].getType() == "pawn") {
+            if (theBoard[i][j]->getType() == "pawn") {
                 // invalid pawn position
                 // pawns cannot be on the first or last row of the board
                 if ((i == 0) || (i == 7)) {
                     return false;
                 }
-                if (theBoard[i][j].getTeam() == "white") {
+                if (theBoard[i][j]->getTeam() == "white") {
                     wPawn++;
                 } else {
                     bPawn++;
@@ -97,6 +93,6 @@ Bool Board::validBoard() {
     return true;
 }
 
-Piece& Board::getPiece(vector<int> &pos) {
+Piece* Board::getPiece(int *pos) {
     return theBoard[pos[0]][pos[1]];
 }

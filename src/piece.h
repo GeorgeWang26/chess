@@ -21,6 +21,8 @@ public:
     bool getUndercap() const;
     void setUndercap(const Board &board);
 
+    virtual bool getUndercheck(const Board &board, const std::string team) const;
+
     // return true as long as it obey moving rules and doesnt put own king in check
     // how to check if own king is in check? see notes.txt
     virtual bool validmove(const Board &board, const int *dest, const bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) const = 0;
@@ -31,6 +33,7 @@ public:
     virtual bool canCastle(const Board &board, const std::string team) const;
     // only override in Pawn
     virtual bool canExpassant(const Board &board, const std::string team) const;
+
 };
 
 #endif
