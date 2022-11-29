@@ -31,10 +31,6 @@ public:
     virtual bool canCastle(const Board &board, const std::string team) const;
     // only override in Pawn
     virtual bool canExpassant(const Board &board, const std::string team) const;
-
-    // only override in King
-    // return true as long as enemy piece can capture king, regardless if this capture move will put enemy king in check
-    virtual bool getUndercheck(const Board &board, const std::string team) const;
 };
 
 #endif

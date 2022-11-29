@@ -96,7 +96,3 @@ Bool Board::validBoard() {
 Piece& Board::getPiece(vector<int> &pos) {
     return theBoard[pos[0]][pos[1]];
 }
-
-
-
-

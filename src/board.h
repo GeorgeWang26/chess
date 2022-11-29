@@ -10,7 +10,7 @@ class Board {
     Piece* theBoard[8][8];
 
     public:
-        Bool validBoard();
+        bool validBoard();
         Piece& getPiece(vector<int> &pos);
         Board();
         ~Board() {};
