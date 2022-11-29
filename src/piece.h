@@ -23,7 +23,7 @@ public:
 
     // return true as long as it obey moving rules and doesnt put own king in check
     // how to check if own king is in check? see notes.txt
-    virtual bool validmove(const Board &board, const int *dest, const bool destIsKing, bool &canCheck, bool &captureEnemy, bool &escape) const = 0;
+    virtual bool validmove(const Board &board, const int *dest, const bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) const = 0;
     // return a new allocated board
     Board* moveto(const Board &board, const int *dest) const;
 

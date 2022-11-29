@@ -8,15 +8,12 @@ class Piece;
 class Board {
     // vector<vector<std::unique_ptr(Piece)>>* theBoard;
     Piece* theBoard[8][8];
-
-    public:
-        Bool validBoard();
-        Piece& getPiece(vector<int> &pos);
-        Board();
-        ~Board() {};
-}
+public:
+    Piece*** getBoard();
+    bool validBoard();
+    Piece& getPiece(vector<int> &pos);
+    Board();
+    ~Board() {};
+};
 
 #endif
-
-
-

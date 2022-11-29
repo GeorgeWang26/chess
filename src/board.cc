@@ -54,6 +54,10 @@ Board::~Board() {
     }
 }
 
+Piece*** Board::getBoard() {
+    return theBoard;
+}
+
 Bool Board::validBoard() {
     int wKing = 0;
     int bKing = 0;
