@@ -9,23 +9,23 @@ Piece::Piece(int row, int col, string team, string type):
     pos{row, col}, team{team}, undercap{false}, type{type} 
 {}
 
-string Piece::getTeam() const {
+string Piece::getTeam() {
     return team;
 }
 
-string Piece::getType() const {
+string Piece::getType() {
     return type;
 }
 
-bool Piece::getUndercap() const {
+bool Piece::getUndercap() {
     return undercap;
 }
 
-bool Piece::getUndercheck(const Board &board, const string team) const {
+bool Piece::getUndercheck(Board &board) {
     return false;
 }
 
-void Piece::setUndercap(const Board &board) {
+void Piece::setUndercap(Board &board) {
     // regular check here
     undercap = false;
     bool fake = false;
@@ -40,7 +40,7 @@ void Piece::setUndercap(const Board &board) {
     }
 }
 
-Board* Piece::moveto(const Board &board, const int *dest) const {
+Board* Piece::moveto(Board &board, int *dest) {
     Board *nb = new Board {board};
     nb->theBoard[dest[0]][dest[1]] = nb->theBoard[pos[0]][pos[1]];
     delete(nb->theBoard[pos[0]][pos[1]]);
@@ -48,10 +48,10 @@ Board* Piece::moveto(const Board &board, const int *dest) const {
     return nb;
 }
 
-bool Piece::canCastle(const Board &board, const string team) const {
+bool Piece::canCastle(Board &board) {
     return false;
 }
 
-bool Piece::canExpassant(const Board &board, const string team) const {
+bool Piece::canExpassant(Board &board) {
     return false;
 }
