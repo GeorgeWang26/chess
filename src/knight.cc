@@ -12,21 +12,21 @@ bool Knight::validmove(Board &board, int *dest, bool destIsKing, bool &canCheck,
         ( (dest[0] == pos[0] + 1) && ((dest[1] == pos[1] + 2) || (dest[1] == pos[1] - 2)) ) ||
         ( (dest[0] == pos[0] - 1) && ((dest[1] == pos[1] + 2) || (dest[1] == pos[1] - 2)) ) ||
         ( (dest[0] == pos[0] - 2) && ((dest[1] == pos[1] + 1) || (dest[1] == pos[1] - 1)) )) {
-        // check for same team piece in test square
+        // check for same team piece in dest square
         if (board.theBoard[dest[0]][dest[1]]->getTeam() != getTeam()) {
             Board* newBoard = moveto(board, dest);
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     Piece *p = newBoard->theBoard[i][j];
                     if (p->getTeam() == team && p->getType() == "king") {
-                        if (p->getUndercheck(*newBoard)) {
-                            return false;
-                        } else {
-                            return true;
-                        }
+                        return !p->getUndercheck(*newBoard);
                     }
                 }
             }
+        } else {
+            return false;
         }
+    } else {
+        return false;
     }
 }
