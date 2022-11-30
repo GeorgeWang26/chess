@@ -30,10 +30,10 @@ public:
     // return a new allocated board
     Board* moveto(Board &board, int *dest);
 
-    // only override in King and Rook
+    // only override in King
     virtual bool canCastle(Board &board);
     // only override in Pawn
-    virtual bool canExpassant(Board &board);
+    virtual bool canEnpassant(Board &board);
 
 };
 
