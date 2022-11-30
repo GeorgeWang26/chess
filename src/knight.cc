@@ -27,6 +27,10 @@ bool Knight::validmove(Board &board, int *dest, bool destIsKing, bool &canCheck,
                     }
                 }
             }
+        } else {
+            return false;
         }
+    } else {
+        return false;
     }
 }
