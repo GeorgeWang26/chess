@@ -31,11 +31,16 @@ bool King::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
                     Piece *p = nb->theBoard[i][j];
                     // check p != nullptr
                     if (p && p->getTeam() == team && p->getType() == "king") {
-                        return !p->getUndercheck(*nb);
+                        if (p->getUndercheck(*nb)) {
+                            delete nb;
+                            return false;
+                        } else {
+                            delete nb;
+                            return true;
+                        }
                     }
                 }
             }
-            delete nb;
         }
     }
 }

@@ -62,11 +62,14 @@ bool Bishop::validmove(Board &board, int *dest, bool destIsKing, bool &canCheck,
         for (int j = 0; j < 8; j++) {
             Piece *p = newBoard->theBoard[i][j];
             if (p->getTeam() == team && p->getType() == "king") {
-                
-                return !p->getUndercheck(*newBoard);
-
+                if (p->getUndercheck(*newBoard)) {
+                    delete newBoard;
+                    return false;
+                } else {
+                    delete newBoard;
+                    return true;
+                }
             }
         }
     }
-
 }
