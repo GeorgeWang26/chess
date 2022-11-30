@@ -19,20 +19,23 @@ bool King::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
             // suicide=true only when validmove() is called from King::getUndercheck()
             //      so dest is always the enemy king, so capture enemy always = true (altho this should not be needed at all)
             // also, since we are checking if it's valid to check enemy king, it doesn't matter if
-            // this will put our own king in danger, because validmove() is now called from enemy's turn
+            // this will put our own king in danger, because validmove() is now called from enemy's king
             // SOOOOO as long as move is within valid range, return true 
             captureEnemy = true;
             return true;
+
         } else {
             Board *nb = moveto(board, dest);
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     Piece *p = nb->theBoard[i][j];
-                    if (p->getTeam() == team && p->getType() == "king") {
-
+                    // check p != nullptr
+                    if (p && p->getTeam() == team && p->getType() == "king") {
+                        return !p->getUndercheck(*nb);
                     }
                 }
             }
+            delete nb;
         }
     }
 }
@@ -49,7 +52,9 @@ bool King::getUndercheck(Board &board) {
         for (int j = 0; j < 8; j++) {
             // suicide = true
             // validmove will make sure [i][j] cant be same team as dest(current king)
-            if (board.theBoard[i][j]->validmove(board, pos, true, fake, fake, fake)) {
+            Piece *p = board.theBoard[i][j];
+            // check p != nullptr
+            if (p && p->getTeam() != team && p->validmove(board, pos, true, fake, fake, fake)) {
                 return true;
             }
         }

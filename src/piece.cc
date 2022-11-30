@@ -32,7 +32,8 @@ void Piece::setUndercap(Board &board) {
     // check all 64 pos for now, optimize latter to only check straight, diagonal, horse, pawn
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            if (board.theBoard[i][j]->validmove(board, pos, type=="king", fake, fake, fake)) {
+            // suicide = false
+            if (board.theBoard[i][j]->validmove(board, pos, false, fake, fake, fake)) {
                 undercap = true;
                 return;
             }

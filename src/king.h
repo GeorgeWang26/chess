@@ -9,7 +9,7 @@ class King: public Piece{
     bool ifMoved;
 public:
     King(int row, int col, std::string team);
-    bool validmove(Board &board, int *dest, bool destIsKing, bool &canCheck, bool &captureEnemy, bool &escape) override;
+    bool validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) override;
     bool canCastle(Board &board) override;
     bool getUndercheck(Board &board) override;
 };
