@@ -3,7 +3,7 @@
 
 bool Bishop::validmove(Board &board, int *dest, bool destIsKing, bool &canCheck, bool &captureEnemy, bool &escape) {
     // check for invalid squares
-    if ((dest[0] < 0 ) || (dest[0] > 7) || (dest[1] < 0 ) || (dest[1] > 7)) {
+    if ((dest[0] < 0 ) || (dest[0] > 7) || (dest[1] < 0 ) || (dest[1] > 7) || board.theBoard[dest[0]][dest[1]]->getTeam() == team) {
         return false;
     }
 
