@@ -52,6 +52,6 @@ bool Piece::canCastle(Board &board) {
     return false;
 }
 
-bool Piece::canExpassant(Board &board) {
+bool Piece::canEnpassant(Board &board) {
     return false;
 }
