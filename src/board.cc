@@ -59,6 +59,32 @@ Board::~Board() {
     }
 }
 
+Board::Board(const Board &other) {
+
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            if (other.theBoard[i][j] != nullptr) {
+                if (other.theBoard[i][j]->getType() == "rook") {
+                    theBoard[i][j] = new Rook(i, j, other.theBoard[i][j]->getTeam(), other.theBoard[i][j]->getUndercap(), other.theBoard[i][j]->getMoved());
+                } else if (other.theBoard[i][j]->getType() == "knight") {
+                    theBoard[i][j] = new Knight(i, j, other.theBoard[i][j]->getTeam(), other.theBoard[i][j]->getUndercap(), other.theBoard[i][j]->getMoved());
+                } else if (other.theBoard[i][j]->getType() == "bishop") {
+                    theBoard[i][j] = new Bishop(i, j, other.theBoard[i][j]->getTeam(), other.theBoard[i][j]->getUndercap(), other.theBoard[i][j]->getMoved());
+                } else if (other.theBoard[i][j]->getType() == "king") {
+                    theBoard[i][j] = new King(i, j, other.theBoard[i][j]->getTeam(), other.theBoard[i][j]->getUndercap(), other.theBoard[i][j]->getMoved());
+                } else if (other.theBoard[i][j]->getType() == "queen") {
+                    theBoard[i][j] = new Queen(i, j, other.theBoard[i][j]->getTeam(), other.theBoard[i][j]->getUndercap(), other.theBoard[i][j]->getMoved());
+                } else if (other.theBoard[i][j]->getType() == "pawn") {
+                    theBoard[i][j] = new Pawn(i, j, other.theBoard[i][j]->getTeam(), other.theBoard[i][j]->getUndercap(), other.theBoard[i][j]->getMoved());
+                }
+            } else {
+                theBoard[i][j] = nullptr;
+            }
+        }
+    }
+}
+
+
 bool Board::validBoard() {
     int wKing = 0;
     int bKing = 0;
@@ -97,6 +123,7 @@ bool Board::validBoard() {
     }
     return true;
 }
+
 
 // Piece* Board::getPiece(int *pos) {
 //     return theBoard[pos[0]][pos[1]];

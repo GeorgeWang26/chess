@@ -12,6 +12,7 @@ public:
     
     Board();
     ~Board() {};
+    Board(const Board &other);
     bool validBoard();
     // Piece* getPiece(int *pos);
 };
