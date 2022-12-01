@@ -1,7 +1,7 @@
 #include "bishop.h"
 #include "board.h"
 
-bool Bishop::validmove(Board &board, int *dest, bool destIsKing, bool &canCheck, bool &captureEnemy, bool &escape) {
+bool Bishop::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) {
     // check for invalid squares
     if ((dest[0] < 0 ) || (dest[0] > 7) || (dest[1] < 0 ) || (dest[1] > 7) || board.theBoard[dest[0]][dest[1]]->getTeam() == team) {
         return false;
@@ -57,19 +57,40 @@ bool Bishop::validmove(Board &board, int *dest, bool destIsKing, bool &canCheck,
         return false;
     }
 
-    Board* newBoard = moveto(board, dest);
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
-            Piece *p = newBoard->theBoard[i][j];
-            if (p->getTeam() == team && p->getType() == "king") {
-                if (p->getUndercheck(*newBoard)) {
-                    delete newBoard;
-                    return false;
-                } else {
-                    delete newBoard;
-                    return true;
+    if (suicide) {
+        captureEnemy = true;
+        return true;
+    } else {
+        Board* newBoard = moveto(board, dest);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Piece *p = newBoard->theBoard[i][j];
+                if (p->getTeam() == team && p->getType() == "king") {
+                    if (p->getUndercheck(*newBoard)) {
+                        delete newBoard;
+                        return false;
+                    } else {
+                        delete newBoard;
+                        return true;
+                    }
                 }
             }
         }
     }
+}
+
+
+bool Bishop::getUndercheck(Board &board) {
+    bool fake;
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            // suicide = true
+            // validmove will make sure [i][j] cant be same team as dest(current king)
+            Piece *p = board.theBoard[i][j];
+            if (p && p->getTeam() != team && p->validmove(board, pos, true, fake, fake, fake)) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
