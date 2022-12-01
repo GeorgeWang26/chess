@@ -61,6 +61,6 @@ Board* Piece::moveto(Board &board, int *dest) {
     return nb;
 }
 
-bool Piece::canEnpassant(Board &board) {
-    return false;
-}
+// bool Piece::enpassant(Board &board) {
+//     return false;
+// }

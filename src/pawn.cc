@@ -5,8 +5,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
     if (team == "white") {
         if (dest[0] > 7 || dest[0] < 0 || dest[1] > 7 || dest[1] < 0 || board.theBoard[dest[0]][dest[1]]->getTeam() == team || (pos[0] == dest[0] && pos[1] == dest[1])) {
             return false;
-        }
-        else if (getMoved()) {
+        } else if (getMoved()) {
             if (board.theBoard[pos[0] + 1][pos[1]] == nullptr) {
                 if (dest[0] == pos[0] + 1 && dest[1] == pos[1]) {
                     if (suicide) {
@@ -26,8 +25,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
                         } 
                     }                            
                 }
-            }
-            else if (board.theBoard[pos[0] + 1][pos[1] - 1] != nullptr) {
+            } else if (board.theBoard[pos[0] + 1][pos[1] - 1] != nullptr) {
                 if (dest[0] == pos[0] + 1 && dest[1] == pos[1] - 1) {
                     if (suicide) {
                         captureEnemy = true;
@@ -46,8 +44,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
                         }
                     }                
                 }
-            }
-            else if (board.theBoard[pos[0] + 1][pos[1] + 1] != nullptr) {
+            } else if (board.theBoard[pos[0] + 1][pos[1] + 1] != nullptr) {
                 if (dest[0] == pos[0] + 1 && dest[1] == pos[1] + 1) {
                     if (suicide) {
                         captureEnemy = true;
@@ -67,8 +64,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
                     }           
                 }
             }
-        }
-        else if (!getMoved()) {
+        } else if (!getMoved()) {
             if (dest[0] == pos[0] + 1 || dest[0] == pos[0] + 2) {
                 if (suicide) {
                     captureEnemy = true;
@@ -87,12 +83,11 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
                     }
                 }
             }
-        }
-        else {
+        } else {
             return false;
         }
-    }
-    else if (team == "black") {
+    } else {
+        // team == "black"
         if (dest[0] > 7 || dest[0] < 0 || dest[1] > 7 || dest[1] < 0 || board.theBoard[dest[0]][dest[1]]->getTeam() == team || (pos[0] == dest[0] && pos[1] == dest[1])) {
             return false;
         }
@@ -116,8 +111,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
                         }
                     }            
                 }
-            }
-            else if (board.theBoard[pos[0] - 1][pos[1] - 1] != nullptr) {
+            } else if (board.theBoard[pos[0] - 1][pos[1] - 1] != nullptr) {
                 if (dest[0] == pos[0] - 1 && dest[1] == pos[1] - 1) {
                     if (suicide) {
                         captureEnemy = true;
@@ -136,8 +130,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
                         } 
                     }                 
                 }
-            }
-            else if (board.theBoard[pos[0] + 1][pos[1] + 1] != nullptr) {
+            } else if (board.theBoard[pos[0] + 1][pos[1] + 1] != nullptr) {
                 if (dest[0] == pos[0] - 1 && dest[1] == pos[1] + 1) {
                     if (suicide) {
                         captureEnemy = true;
@@ -156,8 +149,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
                         } 
                     }                  
                 }
-            }
-            else if (canEnpassant(board, dest)) {
+            } else if (enpassant(board, dest)) {
                 if (suicide) {
                     captureEnemy = true;
                     return true;
@@ -175,8 +167,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
                     } 
                 } 
             }
-        }
-        else if (!getMoved()) {
+        } else if (!getMoved()) {
             // if (dest[0] == pos[0] - 1 || dest[0] == pos[0] - 2) {
             //     if (suicide) {
             //         captureEnemy = true;
@@ -241,8 +232,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
                     }
                 }
             }
-        }               
-        else {
+        } else {
             return false;
         }
     }
@@ -265,7 +255,7 @@ bool Pawn::getUndercheck(Board &board) {
 }
 
 // if getMoved() is true and 
-bool Pawn::canEnpassant(Board &board, int *dest) {
+bool Pawn::enpassant(Board &board, int *dest) {
     if (board.theBoard[dest[0]][dest[1]]->getType()) {
         board.theBoard
     }

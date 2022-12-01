@@ -36,7 +36,7 @@ public:
     virtual Board* moveto(Board &board, int *dest);
 
     // only override in Pawn
-    virtual bool canEnpassant(Board &board);
+    // virtual bool canEnpassant(Board &board);
 
 };
 
