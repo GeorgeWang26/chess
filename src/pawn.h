@@ -8,7 +8,8 @@ class Pawn: public Piece {
     bool enpassant;
 public:
     bool validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) override;
-    virtual bool canEnpassant(Board &board) override;
+    bool getUndercheck(Board &board) override;
+    virtual bool canEnpassant(Board &board, int *dest) override;
 };
 
 #endif

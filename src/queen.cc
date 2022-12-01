@@ -1,12 +1,14 @@
 #include "board.h"
+#include "bishop.h"
+#include "rook.h"
 #include "queen.h"
 
-bool Queen::validmove(Board &board, int *dest, bool destIsKing, bool &canCheck, bool &captureEnemy, bool &escape) {
-    if ((dest[0] < 0 ) || (dest[0] > 7) || (dest[1] < 0 ) || (dest[1] > 7) || board.theBoard[dest[0]][dest[1]]->getTeam() == team) {
+bool Queen::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) {
+    if (!(0 <= dest[0] && dest[0] < 8 && 0 <= dest[1] && dest[1] < 8) || board.theBoard[dest[0]][dest[1]]->getTeam() == team) {
         return false;
     }
-    // check diagonal
-    if (abs((dest[0] - pos[0])) == abs((dest[1] - pos[1]))) {
+
+    if (abs((dest[0] - pos[0])) == abs((dest[1] - pos[1]))) { // check for diagonal moves
         int it = abs((dest[0] - pos[0])) - 1;
         int tx;
         int ty;
@@ -51,12 +53,72 @@ bool Queen::validmove(Board &board, int *dest, bool destIsKing, bool &canCheck, 
                 ++ty;
             }
         }
+    } else if (dest[0] == pos[0] && dest[1] > pos[1]) { // check for horozontal/vertical moves
+        int i = dest[0];
+        for (int j = pos[1]; j < dest[1]; j++) {
+            if (board.theBoard[i][j]) {
+                return false;
+            }
+        }
+    } else if (dest[0] == pos[0] && dest[1] < pos[1]) {
+        int i = dest[0];
+        for (int j = pos[1]; j > dest[1]; j--) {
+            if (board.theBoard[i][j]) {
+                return false;
+            }
+        }
+    } else if (dest[0] > pos[0] && dest[1] == pos[1]) {
+        int j = dest[1];
+        for (int i = pos[0]; i < dest[0]; i++) {
+            if (board.theBoard[i][j]) {
+                return false;
+            }
+        }
+    } else if (dest[0] < pos[0] && dest[1] == pos[1]) {
+        int j = dest[1];
+        for (int i = pos[0]; i > dest[0]; i--) {
+            if (board.theBoard[i][j]) {
+                return false;
+            }
+        }
     } else {
         return false;
     }
-    // check horozontal and vertical
-    if (!((dest[0] == pos[0]) || (dest[1] == pos[1]))) {
-        return false;
+
+    if (suicide) {
+        captureEnemy = true;
+        return true;
+    } else {
+        Board* nb = moveto(board, dest);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Piece *p = nb->theBoard[i][j];
+                // check p != nullptr
+                if (p && p->getTeam() == team && p->getType() == "king") {
+                    if(p->getUndercheck(*nb)) {
+                        delete nb;
+                        return false;
+                    } else {
+                        delete nb;
+                        return true;
+                    }
+                }
+            }
+        }
     }
-    
+}
+
+bool Queen::getUndercheck(Board &board) {
+    bool fake;
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            // suicide = true
+            // validmove will make sure [i][j] cant be same team as dest(current king)
+            Piece *p = board.theBoard[i][j];
+            if (p && p->getTeam() != team && p->validmove(board, pos, true, fake, fake, fake)) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
