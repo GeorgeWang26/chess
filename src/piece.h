@@ -12,14 +12,17 @@ protected:
     std::string team;  // black, white
     std::string type;  // king, queen, bishop, rook, knight, pawn
     bool undercap;
+    bool moved;
 
 public:
-    Piece(int row, int col, std::string team, std::string type);
+    Piece(int row, int col, std::string team, std::string type, bool undercap, bool moved);
     std::string getTeam();
     std::string getType();
 
     bool getUndercap();
     void setUndercap(Board &board);
+
+    bool getMoved();
 
     // only override in King
     virtual bool getUndercheck(Board &board);
@@ -30,8 +33,8 @@ public:
     // return a new allocated board
     Board* moveto(Board &board, int *dest);
 
-    // only override in King
-    virtual bool canCastle(Board &board);
+    // only override in King AND ROOK (altho castle can ONLY be initiated from king)
+    // virtual bool canCastle(Board &board);
     // only override in Pawn
     virtual bool canEnpassant(Board &board);
 

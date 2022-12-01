@@ -4,7 +4,7 @@
 #include "piece.h"
 
 class Pawn: public Piece {
-    bool hasMoved;
+    // bool hasMoved;
     bool enpassant;
 public:
     bool validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) override;

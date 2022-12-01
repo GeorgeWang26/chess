@@ -6,7 +6,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
         if (dest[0] > 7 || dest[0] < 0 || dest[1] > 7 || dest[1] < 0 || board.theBoard[dest[0]][dest[1]]->getTeam() == team || (pos[0] == dest[0] && pos[1] == dest[1])) {
             return false;
         }
-        else if (hasMoved) {
+        else if (getMoved()) {
             if (board.theBoard[pos[0] + 1][pos[1]] == nullptr) {
                 if (dest[0] == pos[0] + 1 && dest[1] == pos[1]) {
                     // if no 送将 => return true; 
@@ -53,7 +53,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
                 }
             }
         }
-        else if (!hasMoved) {
+        else if (!getMoved()) {
             if (dest[0] == pos[0] + 1 || dest[0] == pos[0] + 2) {
                 // if no 送将 => return true;
                 for (int i = 0; i < 8; i++) {
@@ -76,7 +76,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
         if (dest[0] > 7 || dest[0] < 0 || dest[1] > 7 || dest[1] < 0 || board.theBoard[dest[0]][dest[1]]->getTeam() == team || (pos[0] == dest[0] && pos[1] == dest[1])) {
             return false;
         }
-        else if (hasMoved) {
+        else if (getMoved()) {
             if (board.theBoard[pos[0] - 1][pos[1]] == nullptr) {
                 if (dest[0] == pos[0] - 1 && dest[1] == pos[1]) {
                     // if no 送将 => return true;
@@ -123,7 +123,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
                 }
             }
         }
-        else if (!hasMoved) {
+        else if (!getMoved()) {
             if (dest[0] == pos[0] - 1 || dest[0] == pos[0] - 2) {
                 // if no 送将 => return true;
                 for (int i = 0; i < 8; i++) {
