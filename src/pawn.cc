@@ -157,9 +157,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
                     }                  
                 }
             }
-        }
-        else if (!getMoved()) {
-            if (dest[0] == pos[0] - 1 || dest[0] == pos[0] - 2) {
+            else if (canEnpassant(board, dest)) {
                 if (suicide) {
                     captureEnemy = true;
                     return true;
@@ -172,6 +170,72 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
                             // check p != nullptr
                             if (p && p->getTeam() == team && p->getType() == "king") {
                                 return !p->getUndercheck(*nb);
+                            }
+                        }
+                    } 
+                } 
+            }
+        }
+        else if (!getMoved()) {
+            // if (dest[0] == pos[0] - 1 || dest[0] == pos[0] - 2) {
+            //     if (suicide) {
+            //         captureEnemy = true;
+            //         return true;
+            //     } else {
+            //         // if no 送将 => return true;
+            //         for (int i = 0; i < 8; i++) {
+            //             for (int j = 0; j < 8; j++) {
+            //                 Board* nb = moveto(board, dest);
+            //                 Piece *p = nb->theBoard[i][j];
+            //                 // check p != nullptr
+            //                 if (p && p->getTeam() == team && p->getType() == "king") {
+            //                     return !p->getUndercheck(*nb);
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
+
+            if (dest[0] == (pos[0] - 1)) {
+                if (suicide) {
+                    captureEnemy = true;
+                    return true;
+                } else {
+                    // if no 送将 => return true;
+                    for (int i = 0; i < 8; i++) {
+                        for (int j = 0; j < 8; j++) {
+                            Board* nb = moveto(board, dest);
+                            Piece *p = nb->theBoard[i][j];
+                            // check p != nullptr
+                            if (p && p->getTeam() == team && p->getType() == "king") {
+                                if (!p->getUndercheck(*nb)) {
+                                    return true;
+                                } 
+                                return false;
+                                // return !p->getUndercheck(*nb);
+                            }
+                        }
+                    }
+                }
+            } else if (dest[0] == (pos[0] - 2)) {
+                if (suicide) {
+                    captureEnemy = true;
+                    return true;
+                } else {
+                    // if no 送将 => return true;
+                    for (int i = 0; i < 8; i++) {
+                        for (int j = 0; j < 8; j++) {
+                            Board* nb = moveto(board, dest);
+                            Piece *p = nb->theBoard[i][j];
+                            // check p != nullptr
+                            if (p && p->getTeam() == team && p->getType() == "king") {
+                                if (!p->getUndercheck(*nb)) {
+                                    moved = true;
+                                    enpassant = true;
+                                    return true;
+                                } 
+                                return false;
+                                // return !p->getUndercheck(*nb);
                             }
                         }
                     }
@@ -198,4 +262,11 @@ bool Pawn::getUndercheck(Board &board) {
         }
     }
     return false;  
+}
+
+// if getMoved() is true and 
+bool Pawn::canEnpassant(Board &board, int *dest) {
+    if (board.theBoard[dest[0]][dest[1]]->getType()) {
+        board.theBoard
+    }
 }
