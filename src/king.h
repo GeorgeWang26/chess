@@ -2,11 +2,8 @@
 #define KING_H
 
 #include "piece.h"
-#include <iostream>
-
 
 class King: public Piece{
-    // bool hasMoved;
     bool castle(Board &board, int *dest);
 public:
     King(int row, int col, std::string team, bool undercap, bool moved);

@@ -1,6 +1,5 @@
 #include "rook.h"
 #include "board.h"
-#include <iostream>
 
 using namespace std;
 
@@ -8,39 +7,50 @@ Rook::Rook(int row, int col, string team, bool undercap, bool moved):
     Piece{row, col, team, "rook", undercap, moved, false}
 {}
 
+
 bool Rook::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) {
-    if (!(0 <= dest[0] && dest[0] < 8 && 0 <= dest[1] && dest[1] < 8) || board.theBoard[dest[0]][dest[1]]->getTeam() == team) {
+    Piece *destpiece = board.theBoard[dest[0]][dest[1]];
+    if (!(0 <= dest[0] && dest[0] < 8 && 0 <= dest[1] && dest[1] < 8) || (destpiece != nullptr && destpiece->getTeam() == team)) {
         // dest is: out of bounds, same team (if dest==pos, team will be same)
         return false;
-    } else if (dest[0] == pos[0] && dest[1] > pos[1]) {
-        int i = dest[0];
-        for (int j = pos[1]; j < dest[1]; j++) {
-            if (board.theBoard[i][j]) {
+    }
+    // if dest has a piece, then it's guranteed to be different team!!!!!!!!!!
+    
+    // check that all middle pieces (except start and dest) are nullptrs
+    if (dest[0] == pos[0] && dest[1] > pos[1]) {
+        // go right
+        int i = pos[0];
+        for (int j = pos[1]+1; j < dest[1]; j++) {
+            if (board.theBoard[i][j] != nullptr) {
                 return false;
             }
         }
     } else if (dest[0] == pos[0] && dest[1] < pos[1]) {
-        int i = dest[0];
-        for (int j = pos[1]; j > dest[1]; j--) {
-            if (board.theBoard[i][j]) {
+        // go left
+        int i = pos[0];
+        for (int j = pos[1]-1; j > dest[1]; j--) {
+            if (board.theBoard[i][j] != nullptr) {
                 return false;
             }
         }
     } else if (dest[0] > pos[0] && dest[1] == pos[1]) {
-        int j = dest[1];
-        for (int i = pos[0]; i < dest[0]; i++) {
-            if (board.theBoard[i][j]) {
+        // go up
+        int j = pos[1];
+        for (int i = pos[0]+1; i < dest[0]; i++) {
+            if (board.theBoard[i][j] != nullptr) {
                 return false;
             }
         }
     } else if (dest[0] < pos[0] && dest[1] == pos[1]) {
-        int j = dest[1];
-        for (int i = pos[0]; i > dest[0]; i--) {
-            if (board.theBoard[i][j]) {
+        // go down
+        int j = pos[1];
+        for (int i = pos[0]-1; i > dest[0]; i--) {
+            if (board.theBoard[i][j] != nullptr) {
                 return false;
             }
         }
     } else {
+        // not following straight lines
         return false;
     }
     
@@ -48,13 +58,12 @@ bool Rook::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
         captureEnemy = true;
         return true;
     } else {
-        Board* nb = moveto(board, dest);
+        Board *nb = moveto(board, dest);
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Piece *p = nb->theBoard[i][j];
-                // check p != nullptr
-                if (p && p->getTeam() == team && p->getType() == "king") {
-                    if(p->getUndercheck(*nb)) {
+                if (p != nullptr && p->getTeam() == team && p->getType() == "king") {
+                    if (p->getUndercheck(*nb)) {
                         delete nb;
                         return false;
                     } else {

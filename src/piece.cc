@@ -1,6 +1,5 @@
 #include "piece.h"
 #include "board.h"
-#include <memory>
 
 using namespace std;
 
@@ -8,27 +7,40 @@ Piece::Piece(int row, int col, string team, string type, bool undercap, bool mov
     pos{row, col}, team{team}, type{type}, undercap{undercap}, moved{moved}, canEnpassant{canEnpassant}
 {}
 
+
+Piece::~Piece() {
+    // nothing need to be freed
+}
+
+
 string Piece::getTeam() {
     return team;
 }
+
 
 string Piece::getType() {
     return type;
 }
 
+
 bool Piece::getUndercap() {
     return undercap;
 }
 
+
 void Piece::setUndercap(Board &board) {
+    if (getType() == "king") {
+        undercap = getUndercheck(board);
+    }
     // regular check here
     undercap = false;
     bool fake = false;
     // check all 64 pos for now, optimize latter to only check straight, diagonal, horse, pawn
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
+            Piece *p = board.theBoard[i][j];
             // suicide = false
-            if (board.theBoard[i][j]->validmove(board, pos, false, fake, fake, fake)) {
+            if (p != nullptr && p->validmove(board, pos, false, fake, fake, fake)) {
                 undercap = true;
                 return;
             }
@@ -36,21 +48,21 @@ void Piece::setUndercap(Board &board) {
     }
 }
 
+
 bool Piece::getMoved() {
     return moved;
 }
+
 
 bool Piece::getEnpassant() {
     return canEnpassant;
 }
 
+
 void Piece::setEnpassant(bool status) {
     canEnpassant = status;
 }
 
-bool Piece::getUndercheck(Board &board) {
-    return false;
-}
 
 Board* Piece::moveto(Board &board, int *dest) {
     // deepcopy old board
@@ -76,4 +88,9 @@ Board* Piece::moveto(Board &board, int *dest) {
     // return new board (heap allocated)
     // USER NEEEEEEED TO DELETE
     return nb;
+}
+
+
+bool Piece::getUndercheck(Board &board) {
+    return false;
 }

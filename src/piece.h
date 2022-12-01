@@ -17,6 +17,7 @@ protected:
 
 public:
     Piece(int row, int col, std::string team, std::string type, bool undercap, bool moved, bool canEnpassant);
+    virtual ~Piece();
     std::string getTeam();
     std::string getType();
 
@@ -27,17 +28,17 @@ public:
     bool getEnpassant();
     void setEnpassant(bool status);
 
-    // OOOOOOOOOOOOOONLY OVERRIDE IN KING
-    virtual bool getUndercheck(Board &board);
-
     // return true as long as it obey moving rules and doesnt put own king in check
     // how to check if own king is in check? see notes.txt
     virtual bool validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) = 0;
     
     // return a new dynamically allocated board, user need to delete
-    // OOOOOOOOOOOOOONLY OVERRIDE IN KING TO MOVE BOTH KING AND ROOK IF IS CASTLE
+    // OOOOOOOOOOOOOONLY OVERRIDE IN KING(castle) AND PAWN(enpassant)
     // should set all canEnpassant=false
     virtual Board* moveto(Board &board, int *dest);
+
+    // OOOOOOOOOOOOOONLY OVERRIDE IN KING
+    virtual bool getUndercheck(Board &board);
 };
 
 #endif

@@ -1,6 +1,5 @@
 #include "king.h"
 #include "board.h"
-#include <iostream>
 
 using namespace std;
 
@@ -8,11 +7,16 @@ King::King(int row, int col, string team, bool undercap, bool moved):
     Piece{row, col, team, "king", undercap, moved, false}
 {}
 
+
 bool King::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) {
-    if (!(0 <= dest[0] && dest[0] < 8 && 0 <= dest[1] && dest[1] < 8) || board.theBoard[dest[0]][dest[1]]->getTeam() == team) {
+    Piece *destpiece = board.theBoard[dest[0]][dest[1]];
+    if (!(0 <= dest[0] && dest[0] < 8 && 0 <= dest[1] && dest[1] < 8) || (destpiece != nullptr && destpiece->getTeam() == team)) {
         // dest is: out of bounds, same team (if dest==pos, team will be same)
         return false;
-    } else if (pos[0]-1 <= dest[0] && dest[0] <= pos[0]+1 && pos[1]-1 <= dest[1] && dest[1] <= pos[1]+1) {
+    }
+    // if dest has a piece, then it's guranteed to be different team!!!!!!!!!!
+    
+    if (abs(dest[0] - pos[0]) == 1 && abs(dest[1] - pos[1]) == 1) {
         // move is within valid range
         if (suicide) {
             // suicide=true only when validmove() is called from King::getUndercheck()
@@ -27,8 +31,7 @@ bool King::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     Piece *p = nb->theBoard[i][j];
-                    // check p != nullptr
-                    if (p && p->getTeam() == team && p->getType() == "king") {
+                    if (p != nullptr && p->getTeam() == team && p->getType() == "king") {
                         if (p->getUndercheck(*nb)) {
                             delete nb;
                             return false;
@@ -47,21 +50,22 @@ bool King::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
     return false;
 }
 
+
 bool King::castle(Board &board, int *dest) {
     int row = pos[0];
 
-    if (getMoved() || dest[0] != row || abs(dest[1] - pos[1]) == 2 || getUndercheck(board)) {
+    if (getMoved() || dest[0] != row || abs(dest[1] - pos[1]) != 2 || getUndercheck(board)) {
         return false;
     }
-    // king never moved before, dest on same row, col diff by 2, and king not in check at start pos
+    // now it's guranteed that king never moved before, dest on same row, col diff by 2, and king not in check at start pos
     if (dest[1] == 2) {
         // left castle
         // [row][0] is allie rook that never moved before
-        Piece *rook = board.theBoard[row][0];
-        if (rook && rook->getTeam() == team && rook->getType() == "rook" && !rook->getMoved()) {
+        Piece *leftrook = board.theBoard[row][0];
+        if (leftrook != nullptr && leftrook->getTeam() == team && leftrook->getType() == "rook" && !leftrook->getMoved()) {
             // no piece between king and rook
             for (int i = 1; i <= 3; i++) {
-                if (board.theBoard[row][i]) {
+                if (board.theBoard[row][i] != nullptr) {
                     return false;
                 }
             }
@@ -80,13 +84,13 @@ bool King::castle(Board &board, int *dest) {
     } else {
         // right castle, dest[1] == 6
         // [row][7] is allie rook that never moved before
-        Piece *rook = board.theBoard[row][7];
-        if (rook && rook->getTeam() == team && rook->getType() == "rook" && !rook->getMoved()) {
+        Piece *rightrook = board.theBoard[row][7];
+        if (rightrook != nullptr && rightrook->getTeam() == team && rightrook->getType() == "rook" && !rightrook->getMoved()) {
             // no piece between king and rook
             // make sure king is not in check on middle and end pos
             for (int i = 5; i <= 6; i++) {
                 // no piece in between
-                if (board.theBoard[row][i]) {
+                if (board.theBoard[row][i] != nullptr) {
                     return false;;
                 }
                 // not in check
@@ -104,6 +108,7 @@ bool King::castle(Board &board, int *dest) {
     return false;
 }
 
+
 bool King::getUndercheck(Board &board) {
     // see if king is under check from ANY enemy (go through all 64 pieces)
     // validmove(dest=pos, suicide=true)
@@ -113,8 +118,7 @@ bool King::getUndercheck(Board &board) {
             // suicide = true
             // validmove will make sure [i][j] cant be same team as dest(current king)
             Piece *p = board.theBoard[i][j];
-            // check p != nullptr
-            if (p && p->getTeam() != team && p->validmove(board, pos, true, fake, fake, fake)) {  
+            if (p != nullptr && p->getTeam() != team && p->validmove(board, pos, true, fake, fake, fake)) {  
                 /*
                 if king is now black
                 then every p enter the condition will be white
@@ -128,6 +132,7 @@ bool King::getUndercheck(Board &board) {
     }
     return false;
 }
+
 
 Board* King::moveto(Board &board, int *dest) {
     Board *nb = Piece::moveto(board, dest);
