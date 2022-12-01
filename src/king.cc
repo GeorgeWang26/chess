@@ -1,7 +1,6 @@
 #include "king.h"
 #include "board.h"
 #include <iostream>
-#include <string>
 
 using namespace std;
 

@@ -1,6 +1,12 @@
 #include "knight.h"
 #include "board.h"
 
+using namespace std;
+
+Knight::Knight(int row, int col, string team, bool undercap, bool moved):
+    Piece{row, col, team, "knight", undercap, moved}
+{}
+
 bool Knight::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) {
     // check for invalid squares
     if ((dest[0] < 0 ) || (dest[0] > 7) || (dest[1] < 0 ) || (dest[1] > 7)) {

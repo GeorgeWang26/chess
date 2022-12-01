@@ -1,6 +1,5 @@
 #include "piece.h"
 #include "board.h"
-#include <string>
 #include <memory>
 
 using namespace std;

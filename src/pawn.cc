@@ -1,6 +1,10 @@
 #include "pawn.h"
 #include "board.h"
 
+Pawn::Pawn(int row, int col, string team, bool undercap, bool moved):
+    Piece{row, col, team, "pawn", undercap, moved}
+{}
+
 bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) {
     if (team == "white") {
         if (dest[0] > 7 || dest[0] < 0 || dest[1] > 7 || dest[1] < 0 || board.theBoard[dest[0]][dest[1]]->getTeam() == team || (pos[0] == dest[0] && pos[1] == dest[1])) {
