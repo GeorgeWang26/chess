@@ -6,7 +6,6 @@
 class Knight: public Piece {
 
     public:
-        
         bool validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) override;
         bool getUndercheck(Board &board) override;
 };

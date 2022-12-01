@@ -9,36 +9,71 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
         else if (hasMoved) {
             if (board.theBoard[pos[0] + 1][pos[1]] == nullptr) {
                 if (dest[0] == pos[0] + 1 && dest[1] == pos[1]) {
-                    // if no 送将 => return true; 
-                    for (int i = 0; i < 8; i++) {
-                        for (int j = 0; j < 8; j++) {
-                            Board* nb = moveto(board, dest);
-                            Piece *p = nb->theBoard[i][j];
-                            // check p != nullptr
-                            if (p && p->getTeam() == team && p->getType() == "king") {
-                                return !p->getUndercheck(*nb);
+                    if (suicide) {
+                        captureEnemy = true;
+                        return true;
+                    } else {
+                        // if no 送将 => return true; 
+                        for (int i = 0; i < 8; i++) {
+                            for (int j = 0; j < 8; j++) {
+                                Board* nb = moveto(board, dest);
+                                Piece *p = nb->theBoard[i][j];
+                                // check p != nullptr
+                                if (p && p->getTeam() == team && p->getType() == "king") {
+                                    return !p->getUndercheck(*nb);
+                                }
                             }
-                        }
-                    }                              
+                        } 
+                    }                            
                 }
             }
             else if (board.theBoard[pos[0] + 1][pos[1] - 1] != nullptr) {
                 if (dest[0] == pos[0] + 1 && dest[1] == pos[1] - 1) {
-                    // if no 送将 => return true;  
-                    for (int i = 0; i < 8; i++) {
-                        for (int j = 0; j < 8; j++) {
-                            Board* nb = moveto(board, dest);
-                            Piece *p = nb->theBoard[i][j];
-                            // check p != nullptr
-                            if (p && p->getTeam() == team && p->getType() == "king") {
-                                return !p->getUndercheck(*nb);
+                    if (suicide) {
+                        captureEnemy = true;
+                        return true;
+                    } else {
+                        // if no 送将 => return true;  
+                        for (int i = 0; i < 8; i++) {
+                            for (int j = 0; j < 8; j++) {
+                                Board* nb = moveto(board, dest);
+                                Piece *p = nb->theBoard[i][j];
+                                // check p != nullptr
+                                if (p && p->getTeam() == team && p->getType() == "king") {
+                                    return !p->getUndercheck(*nb);
+                                }
                             }
                         }
-                    }                      
+                    }                
                 }
             }
             else if (board.theBoard[pos[0] + 1][pos[1] + 1] != nullptr) {
                 if (dest[0] == pos[0] + 1 && dest[1] == pos[1] + 1) {
+                    if (suicide) {
+                        captureEnemy = true;
+                        return true;
+                    } else {
+                        // if no 送将 => return true;
+                        for (int i = 0; i < 8; i++) {
+                            for (int j = 0; j < 8; j++) {
+                                Board* nb = moveto(board, dest);
+                                Piece *p = nb->theBoard[i][j];
+                                // check p != nullptr
+                                if (p && p->getTeam() == team && p->getType() == "king") {
+                                    return !p->getUndercheck(*nb);
+                                }
+                            }
+                        }  
+                    }           
+                }
+            }
+        }
+        else if (!hasMoved) {
+            if (dest[0] == pos[0] + 1 || dest[0] == pos[0] + 2) {
+                if (suicide) {
+                    captureEnemy = true;
+                    return true;
+                } else {
                     // if no 送将 => return true;
                     for (int i = 0; i < 8; i++) {
                         for (int j = 0; j < 8; j++) {
@@ -49,22 +84,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
                                 return !p->getUndercheck(*nb);
                             }
                         }
-                    }                
-                }
-            }
-        }
-        else if (!hasMoved) {
-            if (dest[0] == pos[0] + 1 || dest[0] == pos[0] + 2) {
-                // if no 送将 => return true;
-                for (int i = 0; i < 8; i++) {
-                        for (int j = 0; j < 8; j++) {
-                            Board* nb = moveto(board, dest);
-                            Piece *p = nb->theBoard[i][j];
-                            // check p != nullptr
-                            if (p && p->getTeam() == team && p->getType() == "king") {
-                                return !p->getUndercheck(*nb);
-                            }
-                        }
+                    }
                 }
             }
         }
@@ -79,54 +99,73 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
         else if (hasMoved) {
             if (board.theBoard[pos[0] - 1][pos[1]] == nullptr) {
                 if (dest[0] == pos[0] - 1 && dest[1] == pos[1]) {
-                    // if no 送将 => return true;
-                    for (int i = 0; i < 8; i++) {
-                        for (int j = 0; j < 8; j++) {
-                            Board* nb = moveto(board, dest);
-                            Piece *p = nb->theBoard[i][j];
-                            // check p != nullptr
-                            if (p && p->getTeam() == team && p->getType() == "king") {
-                                return !p->getUndercheck(*nb);
+                    if (suicide) {
+                        captureEnemy = true;
+                        return true;
+                    } else {
+                        // if no 送将 => return true;
+                        for (int i = 0; i < 8; i++) {
+                            for (int j = 0; j < 8; j++) {
+                                Board* nb = moveto(board, dest);
+                                Piece *p = nb->theBoard[i][j];
+                                // check p != nullptr
+                                if (p && p->getTeam() == team && p->getType() == "king") {
+                                    return !p->getUndercheck(*nb);
+                                }
                             }
                         }
-                    }           
+                    }            
                 }
             }
             else if (board.theBoard[pos[0] - 1][pos[1] - 1] != nullptr) {
                 if (dest[0] == pos[0] - 1 && dest[1] == pos[1] - 1) {
-                    // if no 送将 => return true;
-                    for (int i = 0; i < 8; i++) {
-                        for (int j = 0; j < 8; j++) {
-                            Board* nb = moveto(board, dest);
-                            Piece *p = nb->theBoard[i][j];
-                            // check p != nullptr
-                            if (p && p->getTeam() == team && p->getType() == "king") {
-                                return !p->getUndercheck(*nb);
+                    if (suicide) {
+                        captureEnemy = true;
+                        return true;
+                    } else {
+                        // if no 送将 => return true;
+                        for (int i = 0; i < 8; i++) {
+                            for (int j = 0; j < 8; j++) {
+                                Board* nb = moveto(board, dest);
+                                Piece *p = nb->theBoard[i][j];
+                                // check p != nullptr
+                                if (p && p->getTeam() == team && p->getType() == "king") {
+                                    return !p->getUndercheck(*nb);
+                                }
                             }
-                        }
-                    }                   
+                        } 
+                    }                 
                 }
             }
             else if (board.theBoard[pos[0] + 1][pos[1] + 1] != nullptr) {
                 if (dest[0] == pos[0] - 1 && dest[1] == pos[1] + 1) {
-                    // if no 送将 => return true;
-                    for (int i = 0; i < 8; i++) {
-                        for (int j = 0; j < 8; j++) {
-                            Board* nb = moveto(board, dest);
-                            Piece *p = nb->theBoard[i][j];
-                            // check p != nullptr
-                            if (p && p->getTeam() == team && p->getType() == "king") {
-                                return !p->getUndercheck(*nb);
+                    if (suicide) {
+                        captureEnemy = true;
+                        return true;
+                    } else {
+                        // if no 送将 => return true;
+                        for (int i = 0; i < 8; i++) {
+                            for (int j = 0; j < 8; j++) {
+                                Board* nb = moveto(board, dest);
+                                Piece *p = nb->theBoard[i][j];
+                                // check p != nullptr
+                                if (p && p->getTeam() == team && p->getType() == "king") {
+                                    return !p->getUndercheck(*nb);
+                                }
                             }
-                        }
-                    }                   
+                        } 
+                    }                  
                 }
             }
         }
         else if (!hasMoved) {
             if (dest[0] == pos[0] - 1 || dest[0] == pos[0] - 2) {
-                // if no 送将 => return true;
-                for (int i = 0; i < 8; i++) {
+                if (suicide) {
+                    captureEnemy = true;
+                    return true;
+                } else {
+                    // if no 送将 => return true;
+                    for (int i = 0; i < 8; i++) {
                         for (int j = 0; j < 8; j++) {
                             Board* nb = moveto(board, dest);
                             Piece *p = nb->theBoard[i][j];
@@ -135,6 +174,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
                                 return !p->getUndercheck(*nb);
                             }
                         }
+                    }
                 }
             }
         }               
@@ -142,4 +182,20 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
             return false;
         }
     }
+}
+
+
+bool Pawn::getUndercheck(Board &board) {
+    bool fake;
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            // suicide = true
+            // validmove will make sure [i][j] cant be same team as dest(current king)
+            Piece *p = board.theBoard[i][j];
+            if (p && p->getTeam() != team && p->validmove(board, pos, true, fake, fake, fake)) {
+                return true;
+            }
+        }
+    }
+    return false;  
 }
