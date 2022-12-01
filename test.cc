@@ -3,27 +3,27 @@
 
 using namespace std;
 
-struct A{
-    int n;
-    A (int n): n{n} {}
+class A{
+public:
+    int a;
+    int arr[2];
+    A(int a, int ar1, int ar2):
+        a{a}, arr{ar1, ar2} 
+    {}
 };
 
 int main() {
-    auto a = make_unique<A>(1);
-    auto b = make_unique<A>(9);
-    cout << a->n << "  " << b->n << endl;
-    b = make_unique<A>(77);
-    cout << a->n << "  " << b->n << endl;
-    b.reset(new A {4});
-    cout << a->n << "  " << b->n << endl;
-    cout << (a==nullptr) << endl;
-    a = nullptr;
-    cout << (a==nullptr) << endl;
-    // cant do a=b directly
-    a.reset(new A {*b});
-    cout << a->n << "  " << b->n << endl;
-    a->n = 9;
-    cout << a->n << "  " << b->n << endl;
-    b->n = 10;
-    cout << a->n << "  " << b->n << endl;
+    A b {1, 2, 3};
+    A c = b;
+    cout << b.a << b.arr[0] << b.arr[1] << endl;
+    cout << c.a << c.arr[0] << c.arr[1] << endl;
+    b.a = 7;
+    b.arr[0] = 8;
+    b.arr[1] = 9;
+    c.a = 4;
+    c.arr[0] = 5;
+    c.arr[1] = 6;
+    cout << b.a << b.arr[0] << b.arr[1] << endl;
+    cout << c.a << c.arr[0] << c.arr[1] << endl;
+    cout << abs(-3) << endl;
 }

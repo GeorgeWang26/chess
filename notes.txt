@@ -14,3 +14,9 @@ king is under capture (AKA undercheck)
 
 
 make sure validMove() check if dest is same team
+
+
+
+
+************************************************************
+add constructor to all piece class

@@ -5,8 +5,8 @@
 
 using namespace std;
 
-Piece::Piece(int row, int col, string team, string type): 
-    pos{row, col}, team{team}, undercap{false}, type{type} 
+Piece::Piece(int row, int col, string team, string type, bool undercap, bool moved):
+    pos{row, col}, team{team}, type{type}, undercap{undercap}, moved{moved}
 {}
 
 string Piece::getTeam() {
@@ -19,10 +19,6 @@ string Piece::getType() {
 
 bool Piece::getUndercap() {
     return undercap;
-}
-
-bool Piece::getUndercheck(Board &board) {
-    return false;
 }
 
 void Piece::setUndercap(Board &board) {
@@ -41,17 +37,33 @@ void Piece::setUndercap(Board &board) {
     }
 }
 
+bool Piece::getMoved() {
+    return moved;
+}
+
+bool Piece::getUndercheck(Board &board) {
+    return false;
+}
+
 Board* Piece::moveto(Board &board, int *dest) {
+    // deepcopy old board
     Board *nb = new Board {board};
+    // delete old piece at dest, could be nullptr or actual piece (heap allocated)
+    delete(nb->theBoard[dest[0]][dest[1]]);
+    // set dest to be the current piece (which is at pos)
     nb->theBoard[dest[0]][dest[1]] = nb->theBoard[pos[0]][pos[1]];
-    delete(nb->theBoard[pos[0]][pos[1]]);
+    // set pos to be nullptr
     nb->theBoard[pos[0]][pos[1]] = nullptr;
+    // now piece has moved
+    nb->theBoard[dest[0]][dest[1]]->moved = true;
+    // return new board (heap allocated)
+    // USER NEEEEEEED TO DELETE
     return nb;
 }
 
-bool Piece::canCastle(Board &board) {
-    return false;
-}
+// bool Piece::canCastle(Board &board) {
+//     return false;
+// }
 
 bool Piece::canEnpassant(Board &board) {
     return false;
