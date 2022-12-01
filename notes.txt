@@ -20,3 +20,27 @@ make sure validMove() check if dest is same team
 
 ************************************************************
 add constructor to all piece class
+
+
+
+
+
+
+
+
+
+
+
+in pieces::moveto(), it should reset enpassant status for every single piece (perhaps add some virtual function in Piece)
+
+in Pawn::moveto(), it should first reset ALL enpassant status, THEN activate CUR PAWN's enpassant status IF its moving for the first
+time and move is 2 blocks, and there are enemy pawns beside it after the move
+
+so if the black pawn beside it, tries to move sideways in the following move, it will be allowed
+
+AKA, in pawn::validmove(), if trying to move sideways by 1, and dest is ENEMY PAWN with enpassant activated, the move will be valid
+
+
+
+
+

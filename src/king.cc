@@ -9,12 +9,11 @@ King::King(int row, int col, string team, bool undercap, bool moved):
     Piece{row, col, team, "king", undercap, moved}
 {}
 
-// NEED TO CHECK FOR CASTLE
 bool King::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) {
     if (!(0 <= dest[0] && dest[0] < 8 && 0 <= dest[1] && dest[1] < 8) || board.theBoard[dest[0]][dest[1]]->getTeam() == team) {
         // dest is: out of bounds, same team (if dest==pos, team will be same)
         return false;
-    } else if (castle(board, dest) || (pos[0]-1 <= dest[0] && dest[0] <= pos[0]+1 && pos[1]-1 <= dest[1] && dest[1] <= pos[1]+1)) {
+    } else if (pos[0]-1 <= dest[0] && dest[0] <= pos[0]+1 && pos[1]-1 <= dest[1] && dest[1] <= pos[1]+1) {
         // move is within valid range
         if (suicide) {
             // suicide=true only when validmove() is called from King::getUndercheck()
@@ -36,29 +35,17 @@ bool King::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
                             return false;
                         } else {
                             delete nb;
-
-                            /*
-                            
-                            
-                            
-                            
-                            SOMEHOW PASS THE INFO THAT WE ARE TRYING TO CASTLE
-                            SO MOVETO CAN MOVE ROOK AS WELL
-                            
-                            
-                            
-                            
-                            */
-
-
-
                             return true;
                         }
                     }
                 }
             }
         }
+    } else if (castle(board, dest)) {
+        // already checked all needed requirement in castle()
+        return true;
     }
+    return false;
 }
 
 bool King::castle(Board &board, int *dest) {
@@ -128,20 +115,41 @@ bool King::getUndercheck(Board &board) {
             // validmove will make sure [i][j] cant be same team as dest(current king)
             Piece *p = board.theBoard[i][j];
             // check p != nullptr
-
-            /*
-            if king is now black
-            then every p enter the condition will be white
-            so black king is undercheck as long as white p can move to my pos
-            regardless if the move will put white king under check
-            AKA suicide
-            */
-
-
-            if (p && p->getTeam() != team && p->validmove(board, pos, true, fake, fake, fake)) {
+            if (p && p->getTeam() != team && p->validmove(board, pos, true, fake, fake, fake)) {  
+                /*
+                if king is now black
+                then every p enter the condition will be white
+                so black king is undercheck as long as white p can move to my pos
+                regardless if the move will put white king under check
+                AKA suicide=true
+                */
                 return true;
             }
         }
     }
     return false;
+}
+
+Board* King::moveto(Board &board, int *dest) {
+    Board *nb = Piece::moveto(board, dest);
+    if (castle(board, dest)) {
+        int row = pos[0];
+        // move rook, set rook's moved status to true, or simply using piece::moveto()
+        if (dest[1] == 2) {
+            // left castle
+            Piece *leftrook = nb->theBoard[row][0];
+            int arr[] = {row, 3};
+            Board *nnb = leftrook->moveto(*nb, arr);
+            delete nb;
+            nb = nnb;
+        } else {
+            // right castle
+            Piece *rightrook = nb->theBoard[row][7];
+            int arr[] = {row, 5};
+            Board *nnb = rightrook->moveto(*nb, arr);
+            delete nb;
+            nb = nnb;
+        }
+    }
+    return nb;
 }

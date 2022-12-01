@@ -30,11 +30,11 @@ public:
     // return true as long as it obey moving rules and doesnt put own king in check
     // how to check if own king is in check? see notes.txt
     virtual bool validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) = 0;
+    
     // return a new allocated board
-    Board* moveto(Board &board, int *dest);
+    // ONLY OVERRIDE IN KING TO MOVE BOTH KING AND ROOK IF IS CASTLE
+    virtual Board* moveto(Board &board, int *dest);
 
-    // only override in King AND ROOK (altho castle can ONLY be initiated from king)
-    // virtual bool canCastle(Board &board);
     // only override in Pawn
     virtual bool canEnpassant(Board &board);
 

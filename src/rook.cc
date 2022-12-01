@@ -61,7 +61,3 @@ bool Rook::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
         }
     }
 }
-
-// bool Rook::canCastle(Board &board) {
-//     return getMoved();
-// }

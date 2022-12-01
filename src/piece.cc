@@ -61,10 +61,6 @@ Board* Piece::moveto(Board &board, int *dest) {
     return nb;
 }
 
-// bool Piece::canCastle(Board &board) {
-//     return false;
-// }
-
 bool Piece::canEnpassant(Board &board) {
     return false;
 }
