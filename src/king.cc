@@ -5,7 +5,7 @@
 using namespace std;
 
 King::King(int row, int col, string team, bool undercap, bool moved):
-    Piece{row, col, team, "king", undercap, moved}
+    Piece{row, col, team, "king", undercap, moved, false}
 {}
 
 bool King::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) {

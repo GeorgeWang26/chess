@@ -13,9 +13,10 @@ protected:
     std::string type;  // king, queen, bishop, rook, knight, pawn
     bool undercap;
     bool moved;
+    bool canEnpassant;
 
 public:
-    Piece(int row, int col, std::string team, std::string type, bool undercap, bool moved);
+    Piece(int row, int col, std::string team, std::string type, bool undercap, bool moved, bool canEnpassant);
     std::string getTeam();
     std::string getType();
 
@@ -23,21 +24,20 @@ public:
     void setUndercap(Board &board);
 
     bool getMoved();
+    bool getEnpassant();
+    void setEnpassant(bool status);
 
-    // only override in King
+    // OOOOOOOOOOOOOONLY OVERRIDE IN KING
     virtual bool getUndercheck(Board &board);
 
     // return true as long as it obey moving rules and doesnt put own king in check
     // how to check if own king is in check? see notes.txt
     virtual bool validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) = 0;
     
-    // return a new allocated board
-    // ONLY OVERRIDE IN KING TO MOVE BOTH KING AND ROOK IF IS CASTLE
+    // return a new dynamically allocated board, user need to delete
+    // OOOOOOOOOOOOOONLY OVERRIDE IN KING TO MOVE BOTH KING AND ROOK IF IS CASTLE
+    // should set all canEnpassant=false
     virtual Board* moveto(Board &board, int *dest);
-
-    // only override in Pawn
-    // virtual bool canEnpassant(Board &board);
-
 };
 
 #endif

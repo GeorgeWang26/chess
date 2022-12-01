@@ -1,12 +1,12 @@
 #include "board.h"
-#include "bishop.h"
-#include "rook.h"
+// #include "bishop.h"
+// #include "rook.h"
 #include "queen.h"
 
 using namespace std;
 
 Queen::Queen(int row, int col, string team, bool undercap, bool moved):
-    Piece{row, col, team, "queen", undercap, moved}
+    Piece{row, col, team, "queen", undercap, moved, false}
 {}
 
 bool Queen::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) {

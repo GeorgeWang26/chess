@@ -3,8 +3,8 @@
 
 using namespace std;
 
-Pawn::Pawn(int row, int col, string team, bool undercap, bool moved):
-    Piece{row, col, team, "pawn", undercap, moved}
+Pawn::Pawn(int row, int col, string team, bool undercap, bool moved, bool canEnpassant):
+    Piece{row, col, team, "pawn", undercap, moved, canEnpassant}
 {}
 
 
@@ -18,6 +18,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
     bool valid = false;
     Piece *destpiece = board.theBoard[dest[0]][dest[1]];
 
+    // regular moves
     if (team == "white") {
         // white can only go up
         if (dest[0] == pos[0]+1 && dest[1] == pos[1]-1 && destpiece != nullptr && destpiece->getTeam() != team) {
@@ -30,8 +31,8 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
             // move foward by 1
             valid = true;
         } else if (!getMoved() && dest[0] == pos[0]+2 && dest[1] == pos[1] && destpiece == nullptr) {
-            // first move by 2, MAY enpassant
-            valid = true;        
+            // first move by 2, check if Piece::canEnpassant should set to true in Pawn::moveto()
+            valid = true;
         }
     } else {
         // team == "black"
@@ -46,9 +47,13 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
             // move down by 1
             valid = true;
         } else if (!getMoved() && dest[0] == pos[0]-2 && dest[1] == pos[1] && destpiece == nullptr) {
-            // first move by 2, MAY enpassant
-            valid = true;        
+            // first move by 2, check if Piece::canEnpassant should set to true in Pawn::moveto()
+            valid = true;
         }
+    }
+
+    if (enpassant(board, dest)) {
+        valid = true;
     }
 
     if (!valid) {
@@ -76,4 +81,24 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
             }
         }
     }
+}
+
+
+bool Pawn::enpassant(Board &board, int *dest) {
+    Piece *destpiece = board.theBoard[dest[0]][dest[1]];
+    if (dest[0] == pos[0] && abs(dest[1] - pos[1]) == 1 && destpiece != nullptr && destpiece->getTeam() != team
+            && destpiece->getType() == "pawn" && destpiece->getEnpassant()) {
+        return true;
+    }
+    return false;
+}
+
+
+Board* Pawn::moveto(Board &board, int *dest) {
+    Board *nb = Piece::moveto(board, dest);
+    if (!getMoved() && abs(dest[1] - pos[1]) == 2) {
+        // first move by 2, trigger enpassant
+        nb->theBoard[dest[0]][dest[1]]->setEnpassant(true);
+    }
+    return nb;
 }

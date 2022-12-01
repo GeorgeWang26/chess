@@ -5,7 +5,7 @@
 using namespace std;
 
 Rook::Rook(int row, int col, string team, bool undercap, bool moved):
-    Piece{row, col, team, "rook", undercap, moved}
+    Piece{row, col, team, "rook", undercap, moved, false}
 {}
 
 bool Rook::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) {

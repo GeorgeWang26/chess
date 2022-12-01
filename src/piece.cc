@@ -4,8 +4,8 @@
 
 using namespace std;
 
-Piece::Piece(int row, int col, string team, string type, bool undercap, bool moved):
-    pos{row, col}, team{team}, type{type}, undercap{undercap}, moved{moved}
+Piece::Piece(int row, int col, string team, string type, bool undercap, bool moved, bool canEnpassant):
+    pos{row, col}, team{team}, type{type}, undercap{undercap}, moved{moved}, canEnpassant{canEnpassant}
 {}
 
 string Piece::getTeam() {
@@ -40,6 +40,14 @@ bool Piece::getMoved() {
     return moved;
 }
 
+bool Piece::getEnpassant() {
+    return canEnpassant;
+}
+
+void Piece::setEnpassant(bool status) {
+    canEnpassant = status;
+}
+
 bool Piece::getUndercheck(Board &board) {
     return false;
 }
@@ -55,11 +63,17 @@ Board* Piece::moveto(Board &board, int *dest) {
     nb->theBoard[pos[0]][pos[1]] = nullptr;
     // now piece has moved
     nb->theBoard[dest[0]][dest[1]]->moved = true;
+    
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            Piece *p = nb->theBoard[i][j];
+            if (p != nullptr) {
+                p->setEnpassant(false);
+            }
+        }
+    }
+    
     // return new board (heap allocated)
     // USER NEEEEEEED TO DELETE
     return nb;
 }
-
-// bool Piece::enpassant(Board &board) {
-//     return false;
-// }

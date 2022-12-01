@@ -30,7 +30,7 @@ Board::Board() {
         } else {
             theBoard[0][i] = new Queen(0, i, "white", false, false);       
         }
-        theBoard[1][i] = new Pawn(0, i, "white", false, false);
+        theBoard[1][i] = new Pawn(0, i, "white", false, false, false);
     }
     // setting black
     for (int i = 0; i < 8; ++i) {
@@ -45,7 +45,7 @@ Board::Board() {
         } else {
             theBoard[7][i] = new Queen(0, i, "black", false, false);        
         }
-        theBoard[6][i] = new Pawn(0, i, "black", false, false);
+        theBoard[6][i] = new Pawn(0, i, "black", false, false, false);
     }
 }
 
@@ -63,19 +63,20 @@ Board::Board(const Board &other) {
 
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
-            if (other.theBoard[i][j] != nullptr) {
-                if (other.theBoard[i][j]->getType() == "rook") {
-                    theBoard[i][j] = new Rook(i, j, other.theBoard[i][j]->getTeam(), other.theBoard[i][j]->getUndercap(), other.theBoard[i][j]->getMoved());
-                } else if (other.theBoard[i][j]->getType() == "knight") {
-                    theBoard[i][j] = new Knight(i, j, other.theBoard[i][j]->getTeam(), other.theBoard[i][j]->getUndercap(), other.theBoard[i][j]->getMoved());
-                } else if (other.theBoard[i][j]->getType() == "bishop") {
-                    theBoard[i][j] = new Bishop(i, j, other.theBoard[i][j]->getTeam(), other.theBoard[i][j]->getUndercap(), other.theBoard[i][j]->getMoved());
-                } else if (other.theBoard[i][j]->getType() == "king") {
-                    theBoard[i][j] = new King(i, j, other.theBoard[i][j]->getTeam(), other.theBoard[i][j]->getUndercap(), other.theBoard[i][j]->getMoved());
-                } else if (other.theBoard[i][j]->getType() == "queen") {
-                    theBoard[i][j] = new Queen(i, j, other.theBoard[i][j]->getTeam(), other.theBoard[i][j]->getUndercap(), other.theBoard[i][j]->getMoved());
-                } else if (other.theBoard[i][j]->getType() == "pawn") {
-                    theBoard[i][j] = new Pawn(i, j, other.theBoard[i][j]->getTeam(), other.theBoard[i][j]->getUndercap(), other.theBoard[i][j]->getMoved());
+            Piece *p = other.theBoard[i][j];
+            if (p != nullptr) {
+                if (p->getType() == "rook") {
+                    theBoard[i][j] = new Rook(i, j, p->getTeam(), p->getUndercap(), p->getMoved());
+                } else if (p->getType() == "knight") {
+                    theBoard[i][j] = new Knight(i, j, p->getTeam(), p->getUndercap(), p->getMoved());
+                } else if (p->getType() == "bishop") {
+                    theBoard[i][j] = new Bishop(i, j, p->getTeam(), p->getUndercap(), p->getMoved());
+                } else if (p->getType() == "king") {
+                    theBoard[i][j] = new King(i, j, p->getTeam(), p->getUndercap(), p->getMoved());
+                } else if (p->getType() == "queen") {
+                    theBoard[i][j] = new Queen(i, j, p->getTeam(), p->getUndercap(), p->getMoved());
+                } else if (p->getType() == "pawn") {
+                    theBoard[i][j] = new Pawn(i, j, p->getTeam(), p->getUndercap(), p->getMoved(), p->getEnpassant());
                 }
             } else {
                 theBoard[i][j] = nullptr;
@@ -94,9 +95,10 @@ bool Board::validBoard() {
 
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
+            Piece *p = theBoard[i][j];
             // both teams must have a kind on the board
-            if (theBoard[i][j]->getType() == "king") { // includ piece type parameter
-                if (theBoard[i][j]->getTeam() == "white") {
+            if (p->getType() == "king") { // includ piece type parameter
+                if (p->getTeam() == "white") {
                     wKing++;
                 } else {
                     bKing++;
@@ -104,13 +106,13 @@ bool Board::validBoard() {
             }
             // pawns cannot be on the first row of their own side
             // each team cannot have more than 8 pawns
-            if (theBoard[i][j]->getType() == "pawn") {
+            if (p->getType() == "pawn") {
                 // invalid pawn position
                 // pawns cannot be on the first or last row of the board
                 if ((i == 0) || (i == 7)) {
                     return false;
                 }
-                if (theBoard[i][j]->getTeam() == "white") {
+                if (p->getTeam() == "white") {
                     wPawn++;
                 } else {
                     bPawn++;

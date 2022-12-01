@@ -4,7 +4,7 @@
 using namespace std;
 
 Knight::Knight(int row, int col, string team, bool undercap, bool moved):
-    Piece{row, col, team, "knight", undercap, moved}
+    Piece{row, col, team, "knight", undercap, moved, false}
 {}
 
 bool Knight::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) {

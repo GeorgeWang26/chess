@@ -4,7 +4,7 @@
 using namespace std;
 
 Bishop::Bishop(int row, int col, string team, bool undercap, bool moved):
-    Piece{row, col, team, "bishop", undercap, moved}
+    Piece{row, col, team, "bishop", undercap, moved, false}
 {}
 
 
