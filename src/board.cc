@@ -1,7 +1,12 @@
 #include "board.h"
 #include "piece.h"
-#include <vector>
-#include <string>
+#include "rook.h"
+#include "bishop.h"
+#include "knight.h"
+#include "queen.h"
+#include "king.h"
+#include "pawn.h"
+// #include <vector>
 
 using namespace std;
 
@@ -15,32 +20,32 @@ Board::Board() {
     // setting white
     for (int i = 0; i < 8; ++i) {
         if ((i == 0) || (i == 7)) { // rook
-            theBoard[0][i] = new Rook(); // complete constructor late
+            theBoard[0][i] = new Rook(0, i, "white", false, false); 
         } else if ((i == 1) || (i == 6)) { // knight
-            theBoard[0][i] = new Knight(); // complete constructor late
+            theBoard[0][i] = new Knight(0, i, "white", false, false); 
         } else if ((i == 2) || (i == 5)){
-            theBoard[0][i] = new Bishop(); // complete constructor late
+            theBoard[0][i] = new Bishop(0, i, "white", false, false); 
         } else if (i == 3) {
-            theBoard[0][i] = new King(); // complete constructor late
+            theBoard[0][i] = new King(0, i, "white", false, false);
         } else {
-            theBoard[0][i] = new Queen(); // complete constructor late        
+            theBoard[0][i] = new Queen(0, i, "white", false, false);       
         }
-        theBoard[1][i] = new Pawn();
+        theBoard[1][i] = new Pawn(0, i, "white", false, false);
     }
     // setting black
     for (int i = 0; i < 8; ++i) {
-        if ((i == 0) || (i == 7)) { // rook
-            theBoard[7][i] = new Rook(); // complete constructor late
-        } else if ((i == 1) || (i == 6)) { // knight
-            theBoard[7][i] = new Knight(); // complete constructor late
+        if ((i == 0) || (i == 7)) {
+            theBoard[7][i] = new Rook(0, i, "black", false, false); 
+        } else if ((i == 1) || (i == 6)) {
+            theBoard[7][i] = new Knight(0, i, "black", false, false);
         } else if ((i == 2) || (i == 5)){
-            theBoard[7][i] = new Bishop(); // complete constructor late
+            theBoard[7][i] = new Bishop(0, i, "black", false, false);
         } else if (i == 3) {
-            theBoard[7][i] = new King(); // complete constructor late
+            theBoard[7][i] = new King(0, i, "black", false, false); 
         } else {
-            theBoard[7][i] = new Queen(); // complete constructor late        
+            theBoard[7][i] = new Queen(0, i, "black", false, false);        
         }
-        theBoard[6][i] = new Pawn();
+        theBoard[6][i] = new Pawn(0, i, "black", false, false);
     }
 }
 
@@ -65,7 +70,7 @@ bool Board::validBoard() {
         for (int j = 0; j < 8; ++j) {
             // both teams must have a kind on the board
             if (theBoard[i][j]->getType() == "king") { // includ piece type parameter
-                if (theBoard[i][j].getTeam() == "white") {
+                if (theBoard[i][j]->getTeam() == "white") {
                     wKing++;
                 } else {
                     bKing++;
@@ -93,6 +98,6 @@ bool Board::validBoard() {
     return true;
 }
 
-Piece* Board::getPiece(int *pos) {
-    return theBoard[pos[0]][pos[1]];
-}
+// Piece* Board::getPiece(int *pos) {
+//     return theBoard[pos[0]][pos[1]];
+// }

@@ -3,6 +3,12 @@
 #include "rook.h"
 #include "queen.h"
 
+using namespace std;
+
+Queen::Queen(int row, int col, string team, bool undercap, bool moved):
+    Piece{row, col, team, "queen", undercap, moved}
+{}
+
 bool Queen::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) {
     if (!(0 <= dest[0] && dest[0] < 8 && 0 <= dest[1] && dest[1] < 8) || board.theBoard[dest[0]][dest[1]]->getTeam() == team) {
         return false;

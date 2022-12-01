@@ -13,7 +13,7 @@ public:
     Board();
     ~Board() {};
     bool validBoard();
-    Piece* getPiece(int *pos);
+    // Piece* getPiece(int *pos);
 };
 
 #endif

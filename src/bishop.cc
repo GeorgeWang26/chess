@@ -1,6 +1,13 @@
 #include "bishop.h"
 #include "board.h"
 
+using namespace std;
+
+Bishop::Bishop(int row, int col, string team, bool undercap, bool moved):
+    Piece{row, col, team, "bishop", undercap, moved}
+{}
+
+
 bool Bishop::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) {
     // check for invalid squares
     if ((dest[0] < 0 ) || (dest[0] > 7) || (dest[1] < 0 ) || (dest[1] > 7) || board.theBoard[dest[0]][dest[1]]->getTeam() == team) {

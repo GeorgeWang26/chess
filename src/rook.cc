@@ -1,7 +1,12 @@
 #include "rook.h"
 #include "board.h"
 #include <iostream>
-#include <string>
+
+using namespace std;
+
+Rook::Rook(int row, int col, string team, bool undercap, bool moved):
+    Piece{row, col, team, "rook", undercap, moved}
+{}
 
 bool Rook::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) {
     if (!(0 <= dest[0] && dest[0] < 8 && 0 <= dest[1] && dest[1] < 8) || board.theBoard[dest[0]][dest[1]]->getTeam() == team) {
