@@ -9,7 +9,6 @@ class Pawn: public Piece {
 public:
     Pawn(int row, int col, std::string team, bool undercap, bool moved);
     bool validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) override;
-    bool getUndercheck(Board &board) override;
     // virtual bool canEnpassant(Board &board, int *dest) override;
     bool enpassant(Board &board, int *dest);
 };

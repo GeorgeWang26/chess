@@ -48,19 +48,3 @@ bool Knight::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bo
         return false;
     }
 }
-
-
-bool Knight::getUndercheck(Board &board) {
-    bool fake;
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
-            // suicide = true
-            // validmove will make sure [i][j] cant be same team as dest(current king)
-            Piece *p = board.theBoard[i][j];
-            if (p && p->getTeam() != team && p->validmove(board, pos, true, fake, fake, fake)) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
