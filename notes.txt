@@ -1,3 +1,5 @@
 TODO:
 
-ADD VIRTUAL DTOR TO EVERY PIECE CLASS
+Board:
+1. pawn reach end of board, free pawn, add a new piece of wanted type
+2. add check(kinda like second part of suicide)/checkmate/stalemate (maybe given a team name)

@@ -6,63 +6,59 @@
 #include "queen.h"
 #include "king.h"
 #include "pawn.h"
-// #include <vector>
 
 using namespace std;
 
-Board::Board() {
+Board::Board(bool blankBoard = false) {
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
             theBoard[i][j] = nullptr;
         }
     }
-    // default starting positions
-    // setting white
-    for (int i = 0; i < 8; ++i) {
-        if ((i == 0) || (i == 7)) { // rook
-            theBoard[0][i] = new Rook(0, i, "white", false, false); 
-        } else if ((i == 1) || (i == 6)) { // knight
-            theBoard[0][i] = new Knight(0, i, "white", false, false); 
-        } else if ((i == 2) || (i == 5)){
-            theBoard[0][i] = new Bishop(0, i, "white", false, false); 
-        } else if (i == 3) {
-            theBoard[0][i] = new King(0, i, "white", false, false);
-        } else {
-            theBoard[0][i] = new Queen(0, i, "white", false, false);       
-        }
-        theBoard[1][i] = new Pawn(0, i, "white", false, false, false);
+
+    // custom board start as empty
+    if (blankBoard) {
+        return;
     }
-    // setting black
-    for (int i = 0; i < 8; ++i) {
-        if ((i == 0) || (i == 7)) {
-            theBoard[7][i] = new Rook(0, i, "black", false, false); 
-        } else if ((i == 1) || (i == 6)) {
-            theBoard[7][i] = new Knight(0, i, "black", false, false);
-        } else if ((i == 2) || (i == 5)){
-            theBoard[7][i] = new Bishop(0, i, "black", false, false);
-        } else if (i == 3) {
-            theBoard[7][i] = new King(0, i, "black", false, false); 
+
+    // default starting positions
+    for (int j = 0; j < 8; j++) {
+        if ((j == 0) || (j == 7)) {
+            theBoard[0][j] = new Rook(0, j, "white", false, false);
+            theBoard[7][j] = new Rook(7, j, "black", false, false);
+        } else if ((j == 1) || (j == 6)) {
+            theBoard[0][j] = new Knight(0, j, "white", false, false);
+            theBoard[7][j] = new Knight(7, j, "black", false, false);
+        } else if ((j == 2) || (j == 5)){
+            theBoard[0][j] = new Bishop(0, j, "white", false, false);
+            theBoard[7][j] = new Bishop(7, j, "black", false, false);
+        } else if (j == 3) {
+            theBoard[0][j] = new Queen(0, j, "white", false, false);
+            theBoard[7][j] = new Queen(7, j, "black", false, false);
         } else {
-            theBoard[7][i] = new Queen(0, i, "black", false, false);        
+            // j == 4
+            theBoard[0][j] = new King(0, j, "white", false, false);
+            theBoard[7][j] = new King(7, j, "black", false, false);
         }
-        theBoard[6][i] = new Pawn(0, i, "black", false, false, false);
+        theBoard[1][j] = new Pawn(0, j, "white", false, false, false);
+        theBoard[6][j] = new Pawn(6, j, "black", false, false, false);
     }
 }
+
 
 Board::~Board() {
-    for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) {
-            if (theBoard[i][j] != nullptr) {
-                delete theBoard[i][j];
-            }
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            // its fine to delete nullptr
+            delete theBoard[i][j];
         }
     }
 }
 
-Board::Board(const Board &other) {
 
-    for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) {
+Board::Board(const Board &other) {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
             Piece *p = other.theBoard[i][j];
             if (p != nullptr) {
                 if (p->getType() == "rook") {
@@ -125,8 +121,3 @@ bool Board::validBoard() {
     }
     return true;
 }
-
-
-// Piece* Board::getPiece(int *pos) {
-//     return theBoard[pos[0]][pos[1]];
-// }
