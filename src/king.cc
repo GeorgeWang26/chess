@@ -23,7 +23,6 @@ bool King::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
             // SOOOOO as long as move is within valid range, return true 
             captureEnemy = true;
             return true;
-
         } else {
             Board *nb = moveto(board, dest);
             for (int i = 0; i < 8; i++) {
@@ -59,6 +58,16 @@ bool King::getUndercheck(Board &board) {
             // validmove will make sure [i][j] cant be same team as dest(current king)
             Piece *p = board.theBoard[i][j];
             // check p != nullptr
+
+            /*
+            if king is now black
+            then every p enter the condition will be white
+            so black king is undercheck as long as white p can move to my pos
+            regardless if the move will put white king under check
+            AKA suicide
+            */
+
+
             if (p && p->getTeam() != team && p->validmove(board, pos, true, fake, fake, fake)) {
                 return true;
             }
