@@ -19,7 +19,7 @@ public:
     // Chess(Board* curBoard, Board* prevBoard, std::string curPlayer, Player* white, Player* black, bool gameRunning, int result, int whiteWin, int blackWin);
     // Chess();
     ~Chess();
-    void takeTurn(Board* gameBoard);
+    void takeTurn();
     void undo();
     Board & getState();
 };
