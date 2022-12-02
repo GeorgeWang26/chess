@@ -83,41 +83,81 @@ Board::Board(const Board &other) {
 
 
 bool Board::validBoard() {
+    // dont care number of pieces on board except for king
     int wKing = 0;
     int bKing = 0;
-
-    int wPawn = 0;
-    int bPawn = 0;
 
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
             Piece *p = theBoard[i][j];
-            // both teams must have a kind on the board
-            if (p->getType() == "king") { // includ piece type parameter
+            if (p == nullptr) {
+                continue;
+            }
+            // both teams must have one and only one kind on the board
+            if (p->getType() == "king") {
                 if (p->getTeam() == "white") {
                     wKing++;
                 } else {
                     bKing++;
                 }
             }
-            // pawns cannot be on the first row of their own side
-            // each team cannot have more than 8 pawns
-            if (p->getType() == "pawn") {
-                // invalid pawn position
-                // pawns cannot be on the first or last row of the board
-                if ((i == 0) || (i == 7)) {
-                    return false;
-                }
-                if (p->getTeam() == "white") {
-                    wPawn++;
-                } else {
-                    bPawn++;
-                }
+            // no pawn on first or last row
+            if (p->getType() == "pawn" && (i == 0 || i == 7)) {
+                return false;
             }
         }
     }
-    if ((wKing != 1) || (bKing != 1) || (wPawn > 8) || (bPawn > 8)) {
+
+    if (wKing != 1 || bKing != 1 || check("white") || check("black")) {
         return false;
+    }
+    
+    return true;
+}
+
+
+bool Board::check(string team) {
+    // find king, see if king is undercheck
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            Piece *p = theBoard[i][j];
+            if (p != nullptr && p->getType() == "king" && p->getTeam() == team) {
+                return p->getUndercheck(*this);
+            }
+        }
+    }
+}
+
+
+bool Board::checkmate(string team) {
+    // currently under check, and has no valid moves (all moves will result in check)
+    if (check(team)) {
+        // see if there are any valid moves
+        return stalemate(team);
+    }
+    return false;
+}
+
+
+bool Board::stalemate(string team) {
+    // if team has no valid moves (all moves will result in check)
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            Piece *cur = theBoard[i][j];
+            // only care about if own team has any valid moves
+            if (cur != nullptr && cur->getTeam() == team) {
+                for (int desti = 0; desti < 8; desti++) {
+                    for (int destj = 0; destj < 8; destj++) {
+                        int dest[] = {desti, destj};
+                        bool fake = false;
+                        if (cur->validmove(*this, dest, false, fake, fake, fake)) {
+                            // if a valid move exist, then is not in stalemate
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
     }
     return true;
 }

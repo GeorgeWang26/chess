@@ -28,20 +28,9 @@ bool King::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
             return true;
         } else {
             Board *nb = moveto(board, dest);
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    Piece *p = nb->theBoard[i][j];
-                    if (p != nullptr && p->getTeam() == team && p->getType() == "king") {
-                        if (p->getUndercheck(*nb)) {
-                            delete nb;
-                            return false;
-                        } else {
-                            delete nb;
-                            return true;
-                        }
-                    }
-                }
-            }
+            bool isUndercheck = nb->check(team);
+            delete nb;
+            return !isUndercheck;
         }
     } else if (castle(board, dest)) {
         // already checked all needed requirement in castle()
