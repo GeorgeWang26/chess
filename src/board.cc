@@ -6,6 +6,7 @@
 #include "queen.h"
 #include "king.h"
 #include "pawn.h"
+#include <iostream>
 
 using namespace std;
 
@@ -196,6 +197,7 @@ Board* Board::moveto(int *cur, int *dest, string newType = "queen") {
     return nb;
 }
 
+
 void Board::setUndercap() {
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
@@ -205,4 +207,35 @@ void Board::setUndercap() {
             }
         }
     }
+}
+
+
+ostream & operator<< (ostream &out, Board* board) {
+    out << endl;
+    for (int i = 7; i >= 0; i--) {
+        out << i + 1 << " ";
+        for (int j = 0; j < 8; j++) {
+            Piece *p = board->theBoard[i][j];
+            if (p == nullptr) {
+                if (i % 2 == j % 2) {
+                    // i,j both odd/even -> black square (_)
+                    out << '_';
+                } else {
+                    out << ' ';
+                }
+            } else {
+                // p->type is all lower case
+                char type = p->getType()[0];
+                if (p->getType() == "knight") {
+                    type = 'n';
+                }
+                if (p->getTeam() == "white") {
+                    type = 'A' + type - 'a';
+                }
+                out << type;
+            }
+        }
+        out << endl;
+    }
+    out << "\n  abcdefgh\n" << endl;
 }

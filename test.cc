@@ -24,4 +24,9 @@ int main() {
     cout << obj.me() << endl;
     c1 objj;
     cout << objj.me() << endl;
+    int i = 10;
+    // cout << i + 33 << "asd\nasd" << endl;
+    cout << "123" << endl;
+    cout << "\n  abcdefgh\n" << endl;
+    cout << "123" << endl;
 }
