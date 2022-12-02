@@ -3,5 +3,9 @@ TODO:
 Board:
 1. pawn reach end of board, free pawn, add a new piece of wanted type
 
-Human:
+Human: Victor
 1. upon leaving setup mode, set all piece moved to be true, AKA disable castle and enpassant
+
+Player: Victor
+
+Textrender: Victor

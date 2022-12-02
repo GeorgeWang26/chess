@@ -31,6 +31,7 @@ bool Piece::getUndercap() {
 void Piece::setUndercap(Board &board) {
     if (getType() == "king") {
         undercap = getUndercheck(board);
+        return;
     }
     // regular check here
     undercap = false;
