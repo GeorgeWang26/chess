@@ -6,10 +6,7 @@ Player::Player(string team):
     team{team}
 {}
 
-
-Player::~Player() {
-
-}
+Player::~Player() {}
 
 
 string Player::playerTeam() {
