@@ -3,9 +3,10 @@
 
 #include "board.h"
 #include "player.h"
+#include "subject.h"
 #include <string>
 
-class Chess {
+class Chess: public Subject {
     std::string curPlayer;
     bool gameRunning;
     Board* curBoard;
