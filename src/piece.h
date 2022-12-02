@@ -25,6 +25,7 @@ public:
     void setUndercap(Board &board);
 
     bool getMoved();
+    void setMoved(bool status);
     bool getEnpassant();
     void setEnpassant(bool status);
 

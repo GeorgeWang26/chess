@@ -12,34 +12,41 @@
 
 using namespace std;
 
-void Human::move(Board* gameBoard) {
+Human::Human(string team):
+    Player{team}
+{}
+
+
+Board* Human::move(Board* gameBoard) {
     string command;
-    string moveCommand;
+    string pos;
     int start[2];
     int* endDest = new int[2];
 
     while (cin >> command) {
-        if (command == "move") {
-            // start position
-            cin >> moveCommand;
-            
-            start[0] = moveCommand[0] - 'a';
-            start[1] = moveCommand[1] - '0';
+        // start position
+        cin >> pos;
+        if ((pos[0] >= 'a') && (pos[0] <= 'h') && (pos[1] >= '1') && (pos[1] <= '8')) {
+            start[0] = pos[0] - 'a';
+            start[1] = pos[1] - '1';
             // check if the start position is valid (piece exists and is of the same team)
-            if (gameBoard->theBoard[start[0]][start[1]]->getTeam() == playerTeam()) {
+            Piece *p = gameBoard->theBoard[start[0]][start[1]];
+            if (p != nullptr && p->getTeam() == team) {
                 // end position
-                cin >> moveCommand;
-                endDest[0] = moveCommand[0] - 'a';
-                endDest[1] = moveCommand[1] - '0';
+                cin >> pos;
+                endDest[0] = pos[0] - 'a';
+                endDest[1] = pos[1] - '1';
 
                 bool fake = false;
                 // check for valid move
-                if (gameBoard->theBoard[start[0]][start[1]]->validmove(*gameBoard, endDest, false, fake, fake, fake)) {
-                    gameBoard->theBoard[start[0]][start[1]]->moveto(*gameBoard, endDest);
+                if (p->validmove(*gameBoard, endDest, false, fake, fake, fake)) {
+                    p->moveto(*gameBoard, endDest);
                 }
                 cout << gameBoard;
             }
-        } 
+        } else {
+            cout << "invalid command, move is out of range" << endl;
+        }
     }
     delete endDest;
 }

@@ -2,11 +2,12 @@
 #define HUMAN_H_
 
 #include "player.h"
+#include <string>
 
 class Human: public Player {
-    void forfeit();
 public:
-    void move(Board* gameBoard) override;
+    Human(std::string team);
+    Board* move(Board* gameBoard) override;
 };
 
 #endif

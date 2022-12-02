@@ -3,30 +3,20 @@
 
 using namespace std;
 
-class c1 {
-public:
-    int me() {
-        return get();
-    }
-    virtual int get() {
-        return 1;
-    }
-};
-
-class c2: public c1 {
-    int get() override {
-        return 2;
-    }
-};
-
 int main() {
-    c2 obj;
-    cout << obj.me() << endl;
-    c1 objj;
-    cout << objj.me() << endl;
-    int i = 10;
-    // cout << i + 33 << "asd\nasd" << endl;
-    cout << "123" << endl;
-    cout << "\n  abcdefgh\n" << endl;
-    cout << "123" << endl;
+    double d = 1;
+    cout << d << endl;
+    d += 0.5;
+    d++;
+    cout << d << endl;
+    d += 0.5;
+    cout << d << endl;
+    float f = 1;
+    cout << f << endl;
+    f += 0.5;
+    f++;
+    cout << f << endl;
+    f += 0.5;
+    cout << f << endl;
+    cout << sizeof(double) << " " << sizeof(float) << " " << sizeof(int) << endl;
 }

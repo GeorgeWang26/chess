@@ -6,19 +6,20 @@
 #include <string>
 
 class Chess {
+    std::string curPlayer;
+    bool gameRunning;
     Board* curBoard;
     Board* prevBoard;
-    std::string curPlayer;
     Player* white;
     Player* black;
-    bool gameRunning;
-    int result; // result 0 = white win, 1 = blackwin
-    int whiteWin;
-    int blackWin;
+    // int result; // result 0 = white win, 1 = blackwin
+    float whiteWin;
+    float blackWin;
 public:
-    Chess(Board* curBoard, Board* prevBoard, std::string curPlayer, Player* white, Player* black, bool gameRunning, int result, int whiteWin, int blackWin);
+    // Chess(Board* curBoard, Board* prevBoard, std::string curPlayer, Player* white, Player* black, bool gameRunning, int result, int whiteWin, int blackWin);
+    // Chess();
+    ~Chess();
     void takeTurn(Board* gameBoard);
-    void forfeit();
     void undo();
     Board & getState();
 };

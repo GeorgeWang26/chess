@@ -55,6 +55,11 @@ bool Piece::getMoved() {
 }
 
 
+void Piece::setMoved(bool status) {
+    moved = status;
+}
+
+
 bool Piece::getEnpassant() {
     return canEnpassant;
 }

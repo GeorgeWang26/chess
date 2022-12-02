@@ -9,6 +9,6 @@ Player::Player(string team):
 Player::~Player() {}
 
 
-string Player::playerTeam() {
-    return team;
-}
+// string Player::playerTeam() {
+//     return team;
+// }
