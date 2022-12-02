@@ -3,11 +3,10 @@
 
 #include "player.h"
 
-
 class Human: public Player {
-    public:
-        void move(Board* gameBoard) override;
+    void forfeit();
+public:
+    void move(Board* gameBoard) override;
 };
-
 
 #endif

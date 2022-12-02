@@ -2,11 +2,16 @@
 
 using namespace std;
 
-// Player::Player(string team): team{team} {}
+Player::Player(string team):
+    team{team}
+{}
 
-bool Player::checkmate() {
+
+Player::~Player() {
+
 }
 
 
-
-
+string Player::playerTeam() {
+    return team;
+}
