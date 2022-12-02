@@ -10,9 +10,10 @@
 class Subject {
     std::vector<Observer*> observers;
 public:
+    virtual ~Subject() = 0;
+    
     void attach(Observer* os);
     void detach(Observer* os);
     void notifyObservers();
-    virtual ~Subject() = 0;
 };
 #endif

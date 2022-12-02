@@ -38,46 +38,50 @@ void Chess::takeTurn() {
                 cout << "invalid command, game in progress" << endl;
                 continue;
             }
+
             string whiteP, blackP;
             cin >> whiteP >> blackP;
+
             if ((whiteP == "human" || whiteP == "computer1" || whiteP == "computer2" || whiteP == "computer3" || whiteP == "computer4") && 
             (blackP == "human" || blackP == "computer1" || blackP == "computer2" || blackP == "computer3" || blackP == "computer4")) {
                 delete prevBoard;
-                prevBoard = nullptr;
                 delete curBoard;
-                curBoard = new Board{};
                 delete white;
                 delete black;
+                prevBoard = nullptr;
+                curBoard = new Board{};
                 gameRunning = true;
                 curPlayer = "white";
+                
                 if (whiteP == "human") {
-                    white = new Human{};
+                    white = new Human{"white"};
                 } 
                 // else if (whiteP == "computer1") {
-                //     white = new Computer1{};
+                //     white = new Computer1{"white"};
                 // } else if (whiteP == "computer2") {
-                //     white = new Computer2{};
+                //     white = new Computer2{"white"};
                 // } else if (whiteP == "computer3") {
-                //     white = new Computer3{};
+                //     white = new Computer3{"white"};
                 // } else {
-                //     white = new Computer4{};
+                //     white = new Computer4{"white"};
                 // }
                 if (blackP == "human") {
-                    black = new Human{};
+                    black = new Human{"black"};
                 }
                 //  else if (blackP == "computer1") {
-                //     black = new Computer1{};
+                //     black = new Computer1{"black"};
                 // } else if (blackP == "computer2") {
-                //     black = new Computer2{};
+                //     black = new Computer2{"black"};
                 // } else if (blackP == "computer3") {
-                //     black = new Computer3{};
+                //     black = new Computer3{"black"};
                 // } else {
-                //     black = new Computer4{};
+                //     black = new Computer4{"black"};
                 // }
             } else {
                 cout << "invalid command, unknown player type" << endl;
             }
         // end of "game"
+
         } else if (command == "resign") {
             if (!gameRunning) {
                 cout << "invalid command, no game in progress" << endl;
@@ -99,6 +103,7 @@ void Chess::takeTurn() {
             black = nullptr;
             gameRunning = false;
         // end of "resign"
+
         } else if (command == "move") {
             gameRunning = true;
             // implement move in player class
@@ -116,6 +121,7 @@ void Chess::takeTurn() {
 
             // check if stalemate/checkmate/check && display message
         // end of "move"
+        
         } else if (command == "setup") {
             string pos;
             char type;

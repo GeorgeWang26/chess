@@ -1,17 +1,25 @@
 TODO:
+- Player
+1. may need to return something to indicate if move is successful
+
+- Human (player)
+1. human::move(), don't need to read in command again, make a do while, break upon valid pos and dest
 
 
-Board:
 
 
 
-Human: Victor
+- Chess (concrete subject)
 1. upon leaving setup mode, set all piece moved to be true, AKA disable castle and enpassant
+2. undo() not implemented yet
+3. getState() not implemented yet, what is it for?
 
+- Subject
+1. subject::detach(), pop specific observer!!! not just pop_back(), check my a4q4
+2. obs instead of os
 
+- Observer
+1. empty
 
-Player: Victor
-
-
-
-Textrender: Victor
+- Textrender (concrete subject)
+1. dne
