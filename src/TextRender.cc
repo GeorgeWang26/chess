@@ -1,4 +1,4 @@
-#include "TextRender.h"
+#include "textrender.h"
 #include "subject.h"
 #include <iostream>
 

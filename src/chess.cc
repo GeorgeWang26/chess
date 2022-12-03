@@ -290,8 +290,8 @@ void Chess::takeTurn() {
 }
 
 
-Board& Chess::getState() {
-    return *curBoard;
+Board* Chess::getState() const {
+    return curBoard;
 }
 
 
