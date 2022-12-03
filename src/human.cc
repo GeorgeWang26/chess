@@ -17,33 +17,33 @@ Human::Human(string team):
 {}
 
 
-Board* Human::move(Board* gameBoard) {
+Board* Human::move(Board* gameBoard, bool success) {
     string command;
-    string startPos;
-    string endPos;
-    int start[2];
-    int* endDest = new int[2];
-
+    string posS;
+    string destS;
+    
     // start position
-    cin >> startPos;
-    cin >> endPos;
+    cin >> posS;
+    cin >> destS;
 
-    if ((startPos[0] >= 'a') && (startPos[0] <= 'h') && (startPos[1] >= '1') && (startPos[1] <= '8')) {
-        if ((endPos[0] >= 'a') && (endPos[0] <= 'h') && (endPos[1] >= '1') && (endPos[1] <= '8')) {
-            start[0] = startPos[0] - 'a';
-            start[1] = startPos[1] - '1';
-            endDest[0] = endPos[0] - 'a';
-            endDest[1] = endPos[1] - '1';
+    if ('a' <= posS[0] && posS[0] <= 'h' && '1' <= posS[1] && posS[1] <= '8') {
+        if ('a' <= destS[0] && destS[0] <= 'h' && '1' <= destS[1] && destS[1] <= '8') {
+            int pos[2] = {posS[1] - '1', posS[0] - 'a'};
+            int dest[2] = {destS[1] - '1', destS[0] - 'a'};
 
-            Piece *p = gameBoard->theBoard[start[0]][start[1]];
+            Piece *p = gameBoard->theBoard[pos[0]][pos[1]];
             if (p != nullptr && p->getTeam() == team) {
-            bool fake = false;
-            // check for valid move
-            if (p->validmove(*gameBoard, endDest, false, fake, fake, fake)) {
-                p->moveto(*gameBoard, endDest);
+                bool fake = false;
+                // check for valid move
+                if (p->validmove(*gameBoard, dest, false, fake, fake, fake)) {
+                    success = true;
+                    return p->moveto(*gameBoard, dest);
+                } else {
+                    cout << "invalid command, not valid move" << endl;
+                }
+            } else {
+                cout << "invalid command, no allie piece at starting move" << endl;
             }
-            cout << gameBoard;
-        }
         } else {
             cout << "invalid command, ending move is out of range" << endl;
         }
@@ -51,31 +51,6 @@ Board* Human::move(Board* gameBoard) {
         cout << "invalid command, starting move is out of range" << endl;
     }
 
-    // cin >> pos;
-
-    // if ((pos[0] >= 'a') && (pos[0] <= 'h') && (pos[1] >= '1') && (pos[1] <= '8')) {
-    //     start[0] = pos[0] - 'a';
-    //     start[1] = pos[1] - '1';
-    //     // check if the start position is valid (piece exists and is of the same team)
-    //     Piece *p = gameBoard->theBoard[start[0]][start[1]];
-    //     if (p != nullptr && p->getTeam() == team) {
-    //         // end position
-    //         cin >> pos;
-    //         endDest[0] = pos[0] - 'a';
-    //         endDest[1] = pos[1] - '1';
-
-    //         bool fake = false;
-    //         // check for valid move
-    //         if (p->validmove(*gameBoard, endDest, false, fake, fake, fake)) {
-    //             p->moveto(*gameBoard, endDest);
-    //         }
-    //         cout << gameBoard;
-    //     }
-    // } else {
-    //     cout << "invalid command, move is out of range" << endl;
-    // }
-
-    delete endDest;
+    // if reach here, then we know move is not valid
+    success = false;
 }
-
-

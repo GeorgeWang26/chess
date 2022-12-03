@@ -101,15 +101,24 @@ void Chess::takeTurn() {
             }
 
             gameRunning = true;
-            delete prevBoard;
-            prevBoard = curBoard;
+            bool success = true;
+            Board *tmpBoard;
 
             if (curPlayer == "white") {
-                curBoard = white->move(prevBoard);
+                tmpBoard = white->move(prevBoard, success);
             } else {
                 // curPlayer == "black"
-                curBoard = black->move(prevBoard);
+                tmpBoard = black->move(prevBoard, success);
             }
+
+            if (!success) {
+                // no error message needed, human::move will display error message, robot::move will always be sucess=true
+                continue;
+            }
+
+            delete prevBoard;
+            prevBoard = curBoard;
+            curBoard = tmpBoard;
 
             // switch player
             curPlayer = curPlayer == "white" ? "black" : "white";
