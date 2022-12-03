@@ -17,17 +17,15 @@ class Chess: public Subject {
     Board* prevBoard;
     Player* white;
     Player* black;
-    // int result; // result 0 = white win, 1 = blackwin
     void reset();
 public:
     float whiteWin;
     float blackWin;
     
-    // Chess(Board* curBoard, Board* prevBoard, std::string curPlayer, Player* white, Player* black, bool gameRunning, int result, int whiteWin, int blackWin);
-    // Chess();
+    Chess();
     ~Chess() override;
     void takeTurn();
-    Board* getState() const override;
+    Board* getState() override;
 };
 
 #endif

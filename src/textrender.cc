@@ -1,5 +1,6 @@
 #include "textrender.h"
 #include "subject.h"
+#include "board.h"
 #include <iostream>
 
 using namespace std;
@@ -15,5 +16,6 @@ TextRender::~TextRender() {
 
 
 void TextRender::notify() {
+    // Board board = *(subject->getState());
     cout << subject->getState();
 }

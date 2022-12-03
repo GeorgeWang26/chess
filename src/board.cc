@@ -212,7 +212,7 @@ void Board::setUndercap() {
 }
 
 
-ostream& operator<< (ostream &out, Board* board) {
+ostream& operator<< (ostream &out, Board *board) {
     out << endl;
     for (int i = 7; i >= 0; i--) {
         out << i + 1 << " ";

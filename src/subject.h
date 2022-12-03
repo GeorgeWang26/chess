@@ -2,8 +2,10 @@
 #define SUBJECT_H
 
 #include <vector>
-#include "board.h"
-#include "observer.h"
+
+class Observer;
+
+class Board;
 
 class Subject {
     std::vector<Observer*> observers;
@@ -12,7 +14,7 @@ public:
     void attach(Observer* os);
     void detach(Observer* os);
     void notifyObservers();
-    virtual Board* getState() const = 0;
+    virtual Board* getState() = 0;
 };
 
 #endif

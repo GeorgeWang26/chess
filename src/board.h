@@ -2,6 +2,7 @@
 #define BOARD_H_
 
 #include <string>
+#include <iostream>
 
 class Piece;
 
@@ -25,5 +26,8 @@ public:
     
     void setUndercap();
 };
+
+
+std::ostream& operator<<(std::ostream &out, Board *board);
 
 #endif

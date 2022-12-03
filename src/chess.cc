@@ -14,6 +14,11 @@
 
 using namespace std;
 
+Chess::Chess():
+    gameStart{false}, curBoard{nullptr}, prevBoard{nullptr}, white{nullptr}, black{nullptr}
+{}
+
+
 Chess::~Chess() {
     delete curBoard;
     delete prevBoard;
@@ -290,7 +295,7 @@ void Chess::takeTurn() {
 }
 
 
-Board* Chess::getState() const {
+Board* Chess::getState() {
     return curBoard;
 }
 
