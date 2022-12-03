@@ -105,16 +105,49 @@ void Chess::takeTurn() {
         // end of "resign"
 
         } else if (command == "move") {
-            gameRunning = true;
+            if (!gameRunning) {
+                cout << "invalid command, cannot move when game is not running" << endl;
+            }
+
             delete prevBoard;
             prevBoard = curBoard;
 
             if (curPlayer == "white") {
                 curBoard = white->move(prevBoard);
+                // checkmate, check, stalemate
+                // should the curboard, prevboard, and players be deleted if gameRunning is false
+                if (curBoard->checkmate("black")) {
+                    cout << "Checkmate! White wins!" << endl;
+                    whiteWin++;
+                    gameRunning = false;
+                } else if (curBoard->check("black")) {
+                    cout << "Black is in check." << endl;
+                } else if (curBoard->stalemate("black")) {
+                    cout << "Stalemate!" << endl;
+                    whiteWin += 0.5;
+                    blackWin += 0.5;
+                }
+
             } else {
                 curBoard = black->move(prevBoard);
+                // checkmate, check, stalemate
+                if (curBoard->checkmate("white")) {
+                    cout << "Checkmate! Black wins!" << endl;
+                    whiteWin++;
+                    gameRunning = false;
+                } else if (curBoard->check("white")) {
+                    cout << "White is in check." << endl;
+                } else if (curBoard->stalemate("white")) {
+                    cout << "Stalemate!" << endl;
+                    whiteWin += 0.5;
+                    blackWin += 0.5;
+                }
             }
-            // print board after move is completed
+
+            // notify observers after move
+            notifyObservers();
+
+
             // switch player
             curPlayer = curPlayer == "white" ? "black" : "white";
 
@@ -220,7 +253,22 @@ void Chess::takeTurn() {
                             p->setMoved(true);
                         }
                     }
+
+
+                    // if board is stalemate on current team, output message, increase win count, playing = false
+                    if (curBoard->stalemate(curPlayer)) {
+                        cout << "Stalemate!" << endl;
+                        whiteWin += 0.5;
+                        blackWin += 0.5;
+                        gameRunning = false;
+                    } else {
+                        gameRunning = true;
+                    }
+
+                    // else playing = true
                     break;
+
+                    
                 // end of "done"
 
                 } else {
@@ -229,8 +277,31 @@ void Chess::takeTurn() {
             // end of "setup command loop"
             }
         // end of "setup"
+        } else if (command == "undo") {
+            // check if game is running
+            if (gameRunning) {
+                if (prevBoard != nullptr) {
+                    if (curPlayer == "white") {
+                        curPlayer = "black";
+                    } else {
+                        curPlayer = "white";
+                    }
+                    delete curBoard;
+                    curBoard = prevBoard;
+                    prevBoard = nullptr;
+                } else {
+                    cout << "invalid command. No prior move exists" << endl;
+                }
+            } else {
+                cout << "invalid command. No game is currenting running" << endl;
+            }
         } else {
             cout << "invalid command, not a valid command type" << endl;
         }
     }
+}
+
+
+Board & Chess::getState() {
+    return *curBoard;
 }

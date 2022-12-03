@@ -1,9 +1,20 @@
 TODO:
 - Player
-1. may need to return something to indicate if move is successful (dont implement this just yet)
+1. player::move() may need to return something to indicate if move is successful (dont implement this just yet)
 
 - Human (player)
 1. human::move(), don't need to read in command again, make a do while, break upon valid pos and dest
+
+
+problem: 
+when human::move is called, the first cmd input "move" is already read in from chess
+so should only need to process pos and validity and ........
+
+
+
+
+
+
 
 
 
@@ -11,10 +22,37 @@ TODO:
 
 - Chess (concrete subject)
 ********* 1. when processing command == "move" check if stalemate/checkmate/check && display message
+should the curboard, prevboard, and players be deleted if gameRunning is false???
+
+
+
 2. notifyObserver() whenever need to render board (after game, move, each step in setup) && display result after resign
 
-3. undo() not implemented yet
-4. getState() not implemented yet, what is it for?
+3. at the end of setup::done
+// if board is stalemate on current team, output message, increase win count, playing = false
+// else playing = true
+
+4. undo() not implemented yet
+game must be running
+prevboard != nullptr
+
+delete curboard
+curboard = prevboard
+prevboard = nullptr
+change current player
+
+
+5. getState() not implemented yet, what is it for?
+return pointer/ref to current board
+
+
+
+
+
+
+
+
+
 
 
 - Subject

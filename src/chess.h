@@ -21,6 +21,7 @@ public:
     // Chess();
     ~Chess();
     void takeTurn();
+    // undo is a command, does not require its own functino
     void undo();
     Board & getState();
 };
