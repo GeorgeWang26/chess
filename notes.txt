@@ -15,8 +15,42 @@ so should only need to process pos and validity and ........
 
 
 
+game (gameStart=false) -> set gameRunning=false, gameStart=true
+
+resign (gameStart==true) // terminate -> gameStart = false 
+
+move (gameStart==true) -> set gameRunning = true
+
+setup (gameStart==true && gameRunning==false) -> when "done", keep gameRunning=false
+
+case setup results in stalemate -> gameRunning = false, gameStart = false
+
+undo (gameRunning==true)
+
+NEED TO RESET GAMESTART=FALSE WHEN TERMINATE
 
 
+game
+setup
+setup
+
+game
+resign
+
+game
+move
+
+ (NOT ALLOWED)
+game
+redo
+
+game
+resign
+// any non-game command
+
+game
+move/resign
+setup
 
 
 
@@ -29,7 +63,7 @@ should the curboard, prevboard, and players be deleted if gameRunning is false??
 2. notifyObserver() whenever need to render board (after game, move, each step in setup) && display result after resign
 
 3. at the end of setup::done
-// if board is stalemate on current team, output message, increase win count, playing = false
+// if board is stalemate on current team, output message, increase win count, playing = false, gamestatr=false
 // else playing = true
 
 4. undo() not implemented yet
