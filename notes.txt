@@ -1,20 +1,3 @@
-TODO:
-- Player
-1. player::move() may need to return something to indicate if move is successful (dont implement this just yet)
-
-- Human (player)
-1. human::move(), don't need to read in command again, make a do while, break upon valid pos and dest
-
-
-problem: 
-when human::move is called, the first cmd input "move" is already read in from chess
-so should only need to process pos and validity and ........
-
-
-
-
-
-
 game (gameStart=false) -> set gameRunning=false, gameStart=true
 
 resign (gameStart==true) // terminate -> gameStart = false 
@@ -30,73 +13,18 @@ undo (gameRunning==true)
 NEED TO RESET GAMESTART=FALSE WHEN TERMINATE
 
 
-game
-setup
-setup
 
-game
-resign
 
-game
-move
+ERRORS SO FAR
 
- (NOT ALLOWED)
-game
+1.
+game human human
 redo
+move a2 a3
 
-game
-resign
-// any non-game command
-
-game
-move/resign
+2.
+game human human
 setup
+done
+move a2 a3
 
-
-
-- Chess (concrete subject)
-********* 1. when processing command == "move" check if stalemate/checkmate/check && display message
-should the curboard, prevboard, and players be deleted if gameRunning is false???
-
-
-
-2. notifyObserver() whenever need to render board (after game, move, each step in setup) && display result after resign
-
-3. at the end of setup::done
-// if board is stalemate on current team, output message, increase win count, playing = false, gamestatr=false
-// else playing = true
-
-4. undo() not implemented yet
-game must be running
-prevboard != nullptr
-
-delete curboard
-curboard = prevboard
-prevboard = nullptr
-change current player
-
-
-5. getState() not implemented yet, what is it for?
-return pointer/ref to current board
-
-
-
-
-
-
-
-
-
-
-
-- Subject
-1. subject::detach(), pop specific observer!!! not just pop_back(), check my a4q4
-2. obs instead of os
-
-
-- Observer
-1. empty
-
-
-- Textrender (concrete subject)
-1. dne

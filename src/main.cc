@@ -7,7 +7,7 @@ using namespace std;
 int main() {
     Chess chess;
     TextRender text {&chess};
-    while (true) {
+    while (cin) {
         chess.takeTurn();
     }
     cout << "Final Score:" << endl;

@@ -17,7 +17,9 @@ class Chess: public Subject {
     Board* prevBoard;
     Player* white;
     Player* black;
+
     void reset();
+    
 public:
     float whiteWin;
     float blackWin;

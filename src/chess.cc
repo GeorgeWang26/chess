@@ -15,7 +15,7 @@
 using namespace std;
 
 Chess::Chess():
-    gameStart{false}, curBoard{nullptr}, prevBoard{nullptr}, white{nullptr}, black{nullptr}
+    gameStart{false}, curBoard{nullptr}, prevBoard{nullptr}, white{nullptr}, black{nullptr}, whiteWin{0}, blackWin{0}
 {}
 
 
@@ -105,7 +105,6 @@ void Chess::takeTurn() {
                 continue;
             }
 
-            gameRunning = true;
             bool success = true;
             Board *tmpBoard;
 
@@ -120,7 +119,9 @@ void Chess::takeTurn() {
                 // no error message needed, human::move will display error message, robot::move will always be sucess=true
                 continue;
             }
-
+            
+            gameRunning = true;
+            
             delete prevBoard;
             prevBoard = curBoard;
             curBoard = tmpBoard;
@@ -129,7 +130,6 @@ void Chess::takeTurn() {
             curPlayer = curPlayer == "white" ? "black" : "white";
             // notify observers after move
             notifyObservers();
-            bool terminate = false;
             
             cout << "filter" << curBoard->checkmate("black") << endl;
             cout << "filter" << curBoard->checkmate("white") << endl;
@@ -138,6 +138,7 @@ void Chess::takeTurn() {
             cout << "filter" << curBoard->stalemate("black") << endl;
             cout << "filter" << curBoard->stalemate("white") << endl;
 
+            bool terminate = false;
             if (curBoard->checkmate("black")) {
                 cout << "Checkmate! White wins!" << endl;
                 whiteWin++;
@@ -318,4 +319,5 @@ void Chess::reset() {
     prevBoard = nullptr;
     white = nullptr;
     black = nullptr;
+    cout << "\n=======================\n" << endl;
 }

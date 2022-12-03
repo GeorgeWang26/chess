@@ -18,6 +18,8 @@ Human::Human(string team):
 
 
 Board* Human::move(Board* gameBoard, bool &success) {
+    success = false;
+    
     string command;
     string posS;
     string destS;
@@ -52,6 +54,5 @@ Board* Human::move(Board* gameBoard, bool &success) {
     }
 
     // if reach here, then we know move is not valid, the returned nullptr should not be used
-    success = false;
     return nullptr;
 }
