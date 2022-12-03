@@ -17,7 +17,7 @@ Human::Human(string team):
 {}
 
 
-Board* Human::move(Board* gameBoard, bool success) {
+Board* Human::move(Board* gameBoard, bool &success) {
     string command;
     string posS;
     string destS;

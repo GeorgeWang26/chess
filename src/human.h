@@ -7,7 +7,7 @@
 class Human: public Player {
 public:
     Human(std::string team);
-    Board* move(Board* gameBoard, bool success) override;
+    Board* move(Board* gameBoard, bool &success) override;
 };
 
 #endif

@@ -11,7 +11,7 @@ public:
     explicit Player(std::string team);
     virtual ~Player();
     // std::string playerTeam();
-    virtual Board* move(Board* gameBoard, bool success) = 0;
+    virtual Board* move(Board* gameBoard, bool &success) = 0;
 };
 
 #endif

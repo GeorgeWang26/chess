@@ -110,10 +110,10 @@ void Chess::takeTurn() {
             Board *tmpBoard;
 
             if (curPlayer == "white") {
-                tmpBoard = white->move(prevBoard, success);
+                tmpBoard = white->move(curBoard, success);
             } else {
                 // curPlayer == "black"
-                tmpBoard = black->move(prevBoard, success);
+                tmpBoard = black->move(curBoard, success);
             }
 
             if (!success) {
@@ -130,6 +130,13 @@ void Chess::takeTurn() {
             // notify observers after move
             notifyObservers();
             bool terminate = false;
+            
+            cout << "filter" << curBoard->checkmate("black") << endl;
+            cout << "filter" << curBoard->checkmate("white") << endl;
+            cout << "filter" << curBoard->check("black") << endl;
+            cout << "filter" << curBoard->check("white") << endl;
+            cout << "filter" << curBoard->stalemate("black") << endl;
+            cout << "filter" << curBoard->stalemate("white") << endl;
 
             if (curBoard->checkmate("black")) {
                 cout << "Checkmate! White wins!" << endl;
