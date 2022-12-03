@@ -51,6 +51,7 @@ Board* Human::move(Board* gameBoard, bool success) {
         cout << "invalid command, starting move is out of range" << endl;
     }
 
-    // if reach here, then we know move is not valid
+    // if reach here, then we know move is not valid, the returned nullptr should not be used
     success = false;
+    return nullptr;
 }

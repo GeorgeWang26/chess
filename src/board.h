@@ -10,7 +10,7 @@ public:
     Piece* theBoard[8][8];
     
     Board(bool blankBoard = false);
-    ~Board() {};
+    ~Board();
     Board(const Board &other);
 
     bool validBoard();

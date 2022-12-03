@@ -8,7 +8,7 @@
 class Subject {
     std::vector<Observer*> observers;
 public:
-    virtual ~Subject() = 0;
+    virtual ~Subject();
     void attach(Observer* os);
     void detach(Observer* os);
     void notifyObservers();

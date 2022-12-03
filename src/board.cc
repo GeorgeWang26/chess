@@ -10,7 +10,7 @@
 
 using namespace std;
 
-Board::Board(bool blankBoard = false) {
+Board::Board(bool blankBoard) {
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
             theBoard[i][j] = nullptr;
@@ -127,6 +127,8 @@ bool Board::check(string team) {
             }
         }
     }
+    // should never be reached, allie king should always exist
+    return true;
 }
 
 
@@ -172,7 +174,7 @@ bool Board::validmove(int *cur, int *dest, bool &canCheck, bool &captureEnemy, b
 }
 
 
-Board* Board::moveto(int *cur, int *dest, string newType = "queen") {
+Board* Board::moveto(int *cur, int *dest, string newType) {
     Piece *p = theBoard[cur[0]][cur[1]];
     Board *nb = p->moveto(*this, dest);
     // set undercap status in new board
@@ -210,7 +212,7 @@ void Board::setUndercap() {
 }
 
 
-ostream & operator<< (ostream &out, Board* board) {
+ostream& operator<< (ostream &out, Board* board) {
     out << endl;
     for (int i = 7; i >= 0; i--) {
         out << i + 1 << " ";
@@ -238,4 +240,5 @@ ostream & operator<< (ostream &out, Board* board) {
         out << endl;
     }
     out << "\n  abcdefgh\n" << endl;
+    return out;
 }

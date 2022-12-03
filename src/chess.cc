@@ -1,7 +1,5 @@
 #include "chess.h"
-#include <iostream>
 
-#include "piece.h"
 #include "rook.h"
 #include "bishop.h"
 #include "knight.h"
@@ -11,6 +9,8 @@
 
 #include "player.h"
 #include "human.h"
+
+#include <iostream>
 
 using namespace std;
 
@@ -145,7 +145,7 @@ void Chess::takeTurn() {
                 terminate = true;
             }
 
-            if (!gameRunning) {
+            if (terminate) {
                 reset();
             }
         // end of "move"

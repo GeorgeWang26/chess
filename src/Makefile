@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -MMD 
-EXEC = chessProgram
-OBJECTS = main.o chess.o piece.o observer.o subject.o textrender.o king.o queen.o rook.o bishop.o knight.o pawn.o player.o board.o human.o
+EXEC = chess
+OBJECTS = bishop.o board.o chess.o human.o king.o knight.o main.o observer.o pawn.o piece.o player.o queen.o rook.o subject.o textrender.o
 
 DEPENDS = ${OBJECTS:.o=.d}
 
@@ -13,4 +13,4 @@ ${EXEC}: ${OBJECTS}
 .PHONY: clean
 
 clean:
-	rm ${OBJECTS} ${EXEC} ${DEPENDS}
+	rm ${OBJECTS} ${DEPENDS}

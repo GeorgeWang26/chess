@@ -2,6 +2,9 @@
 
 using namespace std;
 
+Subject::~Subject() {}
+
+
 void Subject::attach(Observer* obs) {
     observers.emplace_back(obs);
 }

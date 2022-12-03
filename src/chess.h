@@ -25,7 +25,7 @@ public:
     
     // Chess(Board* curBoard, Board* prevBoard, std::string curPlayer, Player* white, Player* black, bool gameRunning, int result, int whiteWin, int blackWin);
     // Chess();
-    ~Chess();
+    ~Chess() override;
     void takeTurn();
     Board* getState() const override;
 };
