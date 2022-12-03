@@ -1,7 +1,6 @@
 #include "subject.h"
 
-Subject::~Subject() {}
-
+using namespace std;
 
 void Subject::attach(Observer* obs) {
     observers.emplace_back(obs);
@@ -9,7 +8,13 @@ void Subject::attach(Observer* obs) {
 
 
 void Subject::detach(Observer* obs) {
-    observers.pop_back();
+    for (vector<Observer*>::iterator it = observers.begin(); it != observers.end(); ) {
+        if (*it == obs) { 
+            it = observers.erase(it);
+        } else {
+            ++it;
+        }
+    }
 }
 
 

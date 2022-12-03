@@ -2,18 +2,17 @@
 #define SUBJECT_H
 
 #include <vector>
-#include "chess.h"
+#include "board.h"
 #include "observer.h"
-#include <iostream>
-
 
 class Subject {
     std::vector<Observer*> observers;
 public:
     virtual ~Subject() = 0;
-    
     void attach(Observer* os);
     void detach(Observer* os);
     void notifyObservers();
+    virtual Board* getState() const = 0;
 };
+
 #endif
