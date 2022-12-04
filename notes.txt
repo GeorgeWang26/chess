@@ -1,20 +1,3 @@
-game (gameStart=false) -> set gameRunning=false, gameStart=true
-
-resign (gameStart==true) // terminate -> gameStart = false 
-
-move (gameStart==true) -> set gameRunning = true
-
-setup (gameStart==true && gameRunning==false) -> when "done", keep gameRunning=false
-
-case setup results in stalemate -> gameRunning = false, gameStart = false
-
-undo (gameRunning==true)
-
-NEED TO RESET GAMESTART=FALSE WHEN TERMINATE
-
-
-
-
 enpassant:
 game human human
 move a2 a4
@@ -23,3 +6,12 @@ move a4 a5
 move b7 b5
 move a5 b6
 
+castle:
+game human human
+move e2 e4
+move a7 a6
+move g1 h3
+move a6 a5
+move f1 e2
+move a5 a4
+move e1 g1
