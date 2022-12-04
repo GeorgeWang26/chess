@@ -137,12 +137,12 @@ void Chess::takeTurn() {
             notifyObservers();
             // cout << "NOTIFY OBSERVER HERE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
             
-            cout << "filter" << curBoard->checkmate("black") << endl;
-            cout << "filter" << curBoard->checkmate("white") << endl;
-            cout << "filter" << curBoard->check("black") << endl;
-            cout << "filter" << curBoard->check("white") << endl;
-            cout << "filter" << curBoard->stalemate("black") << endl;
-            cout << "filter" << curBoard->stalemate("white") << endl;
+            // cout << "filter" << curBoard->checkmate("black") << endl;
+            // cout << "filter" << curBoard->checkmate("white") << endl;
+            // cout << "filter" << curBoard->check("black") << endl;
+            // cout << "filter" << curBoard->check("white") << endl;
+            // cout << "filter" << curBoard->stalemate("black") << endl;
+            // cout << "filter" << curBoard->stalemate("white") << endl;
 
             bool terminate = false;
             if (curBoard->checkmate("black")) {

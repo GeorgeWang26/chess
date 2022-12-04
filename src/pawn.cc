@@ -92,7 +92,7 @@ Board* Pawn::moveto(Board &board, int *dest) {
     // cout << "--------------------------------------------------------------------------------------\npawn::moveto" << endl;
     Board *nb = Piece::moveto(board, dest);
     // cout << nb;
-    if (!getMoved() && abs(dest[1] - pos[1]) == 2) {
+    if (!getMoved() && abs(dest[0] - pos[0]) == 2) {
         // first move by 2, trigger enpassant
         nb->theBoard[dest[0]][dest[1]]->setEnpassant(true);
     } else if (enpassant(board, dest)) {
