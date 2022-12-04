@@ -49,7 +49,7 @@ void Chess::takeTurn() {
                 delete white;
                 delete black;
                 prevBoard = nullptr;
-                curBoard = new Board{};
+                curBoard = new Board {};
                 
                 curPlayer = "white";
                 
@@ -277,6 +277,10 @@ void Chess::takeTurn() {
                         }
                         break;
                     // end of "done"
+                    } else if (command == "blank") {
+                        delete curBoard;
+                        curBoard = new Board {true};
+                        notifyObservers();
                     } else {
                         cout << "invalid command, unknown setup command" << endl;
                     }
@@ -296,6 +300,7 @@ void Chess::takeTurn() {
                     delete curBoard;
                     curBoard = prevBoard;
                     prevBoard = nullptr;
+                    notifyObservers();
                 } else {
                     cout << "invalid command. No prior move exists" << endl;
                 }
