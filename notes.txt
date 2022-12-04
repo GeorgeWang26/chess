@@ -15,16 +15,11 @@ NEED TO RESET GAMESTART=FALSE WHEN TERMINATE
 
 
 
-ERRORS SO FAR
-
-1.
+enpassant:
 game human human
-redo
-move a2 a3
-
-2.
-game human human
-setup
-done
-move a2 a3
+move a2 a4
+move h7 h5
+move a4 a5
+move b7 b5
+move a5 b6
 
