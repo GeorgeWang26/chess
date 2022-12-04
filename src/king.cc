@@ -16,7 +16,7 @@ bool King::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
     }
     // if dest has a piece, then it's guranteed to be different team!!!!!!!!!!
     
-    if (abs(dest[0] - pos[0]) == 1 && abs(dest[1] - pos[1]) == 1) {
+    if (abs(dest[0] - pos[0]) <= 1 && abs(dest[1] - pos[1]) <= 1) {
         // move is within valid range
         if (suicide) {
             // suicide=true only when validmove() is called from King::getUndercheck()

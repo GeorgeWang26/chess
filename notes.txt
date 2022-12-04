@@ -35,3 +35,12 @@ move a6 a5
 move f1 e2
 move a5 a4
 move e1 g1
+
+
+stalemate test: (requires empty board)
+game human human
+setup
+(empty board)
++ k e8
++ P e7
++ K e6
