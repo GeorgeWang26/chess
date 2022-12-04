@@ -7,3 +7,7 @@ for escape, need to track if cur piece is udnercap before and after move
 (done) when making newboard, should set capture status for all pieces
 
 (do this now) after move, should update capture status for all pieces
+
+
+
+test pawn to last row
