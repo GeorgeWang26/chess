@@ -7,8 +7,3 @@ Player::Player(string team):
 {}
 
 Player::~Player() {}
-
-
-// string Player::playerTeam() {
-//     return team;
-// }

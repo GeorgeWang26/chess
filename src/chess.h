@@ -1,8 +1,6 @@
-#ifndef CHESS_H_
-#define CHESS_H_
+#ifndef CHESS_H
+#define CHESS_H
 
-// #include "board.h"
-// #include "player.h"
 #include "subject.h"
 #include <string>
 

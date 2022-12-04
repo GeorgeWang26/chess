@@ -1,5 +1,5 @@
-#ifndef QUEEN_H_
-#define QUEEN_H_
+#ifndef QUEEN_H
+#define QUEEN_H
 
 #include "piece.h"
 

@@ -1,8 +1,9 @@
-#ifndef PLAYER_H_
-#define PLAYER_H_
+#ifndef PLAYER_H
+#define PLAYER_H
 
-#include "board.h"
-#include "piece.h"
+#include <string>
+
+class Board;
 
 class Player {
 protected:
@@ -10,7 +11,6 @@ protected:
 public:
     explicit Player(std::string team);
     virtual ~Player();
-    // std::string playerTeam();
     virtual Board* move(Board* gameBoard, bool &success) = 0;
 };
 

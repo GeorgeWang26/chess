@@ -1,16 +1,10 @@
-#include "level1.h"
-#include <iostream>
-#include <sstream>
-
+#include "robot1.h"
+#include "board.h"
 #include "piece.h"
-// #include "rook.h"
-// #include "bishop.h"
-// #include "knight.h"
-// #include "queen.h"
-// #include "king.h"
-// #include "pawn.h"
 
-Level1::Level1(string team): Player{team} {}
+using namespace std;
+
+Robot1::Robot1(string team): Player{team} {}
 
 // king pawn check 9 possible move
 int* checkKP(Board* gameBoard, int i, int j){
@@ -110,7 +104,7 @@ int* checkBRQ(Board* gameBoard, int i, int j) {
 
 
 // bishop/rook/queen check digonal/horizental/vertial
-Board* Level1::move(Board* gameBoard, bool &success) {
+Board* Robot1::move(Board* gameBoard, bool &success) {
     success = false;
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
@@ -139,3 +133,18 @@ Board* Level1::move(Board* gameBoard, bool &success) {
 }
 
 
+for (int i = 0; i < 8; i++) {
+    for (int j = 0; j < 8; j++) {
+        Piece *p = board[i][j];
+        if (p == nullptr) {
+            continue;
+        }
+        for (int desti = 0; desti < 8; desti++) {
+            for (int destj = 0; destj < 8; destj++) {
+                if (p->validmove([desti, destj])) {
+                    // do something
+                }
+            }
+        }
+    }
+}

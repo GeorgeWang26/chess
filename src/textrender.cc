@@ -16,6 +16,7 @@ TextRender::~TextRender() {
 
 
 void TextRender::notify() {
+    // cout << Board* is declared in board.h, so must include it
     // Board board = *(subject->getState());
     cout << subject->getState();
 }

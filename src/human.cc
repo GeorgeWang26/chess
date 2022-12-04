@@ -1,14 +1,7 @@
-#include "human.h"
 #include <iostream>
-#include <sstream>
-
+#include "human.h"
 #include "piece.h"
-#include "rook.h"
-#include "bishop.h"
-#include "knight.h"
-#include "queen.h"
-#include "king.h"
-#include "pawn.h"
+#include "board.h"
 
 using namespace std;
 

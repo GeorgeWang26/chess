@@ -1,12 +1,12 @@
 #include "chess.h"
-
+#include "board.h"
+#include "piece.h"
 #include "rook.h"
 #include "bishop.h"
 #include "knight.h"
 #include "queen.h"
 #include "king.h"
 #include "pawn.h"
-
 #include "player.h"
 #include "human.h"
 
