@@ -28,7 +28,7 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
         } else if (dest[0] == pos[0] + 1 && dest[1] == pos[1] && destpiece == nullptr) {
             // move up by 1
             valid = true;
-        } else if (!getMoved() && dest[0] == 3 && dest[1] == pos[1] && destpiece == nullptr && board.theBoard[2][pos[1]] == nullptr) {
+        } else if (pos[0] == 1 && dest[0] == 3 && dest[1] == pos[1] && destpiece == nullptr && board.theBoard[2][pos[1]] == nullptr) {
             // white pawn is making first move, attempt to go up by 2 to row 3
             // check that up_by_1 (row 2) AND up_by_2 (row 3, dest) are both empty
             valid = true;
@@ -38,20 +38,25 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
         // black can only go down
         if (dest[0] == pos[0] - 1 && abs(dest[1] - pos[1]) == 1 && destpiece != nullptr) {
             // overtake down diagonal by 1
+            // cout << "FUCK" << endl;
             valid = true;
         } else if (dest[0] == pos[0] - 1 && dest[1] == pos[1] && destpiece == nullptr) {
             // move down by 1
             valid = true;
-        } else if (!getMoved() && dest[0] == 4 && dest[1] == pos[1] && destpiece == nullptr && board.theBoard[5][pos[1]] == nullptr) {
+            // cout << "FUCK2" << endl;
+        } else if (pos[0] == 6 && dest[0] == 4 && dest[1] == pos[1] && destpiece == nullptr && board.theBoard[5][pos[1]] == nullptr) {
             // black pawn is making first move, attempt to go down by 2 to row 4
             // check that down_by_1 (row 5) AND down_by_2 (row 4, dest) are both empty
             valid = true;
+            // cout << "FUCK3" << endl;
         }
     }
 
+    // cout << "before enpassant, " << valid << endl;
     if (enpassant(board, dest)) {
         valid = true;
     }
+    // cout << "after enpassant, " << valid << endl;
 
     if (!valid) {
         return false;
@@ -84,7 +89,9 @@ bool Pawn::enpassant(Board &board, int *dest) {
 
 
 Board* Pawn::moveto(Board &board, int *dest) {
+    // cout << "--------------------------------------------------------------------------------------\npawn::moveto" << endl;
     Board *nb = Piece::moveto(board, dest);
+    // cout << nb;
     if (!getMoved() && abs(dest[1] - pos[1]) == 2) {
         // first move by 2, trigger enpassant
         nb->theBoard[dest[0]][dest[1]]->setEnpassant(true);
@@ -93,5 +100,6 @@ Board* Pawn::moveto(Board &board, int *dest) {
         free(nb->theBoard[pos[0]][dest[1]]);
         nb->theBoard[pos[0]][dest[1]] = nullptr;
     }
+    // cout << "end of pawn::moveto\n--------------------------------------------------------------------------------------\n\n\n" << endl;
     return nb;
 }

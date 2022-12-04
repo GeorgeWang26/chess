@@ -41,7 +41,7 @@ Board::Board(bool blankBoard) {
             theBoard[0][j] = new King(0, j, "white", false, false);
             theBoard[7][j] = new King(7, j, "black", false, false);
         }
-        theBoard[1][j] = new Pawn(0, j, "white", false, false, false);
+        theBoard[1][j] = new Pawn(1, j, "white", false, false, false);
         theBoard[6][j] = new Pawn(6, j, "black", false, false, false);
     }
 }
@@ -153,6 +153,8 @@ bool Board::stalemate(string team) {
                     for (int destj = 0; destj < 8; destj++) {
                         int dest[] = {desti, destj};
                         bool fake = false;
+                        cout << this;
+                        // cout << "pos:" << i << " " << j << "   dest:"  << desti << " " << destj << endl;
                         if (cur->validmove(*this, dest, false, fake, fake, fake)) {
                             // if a valid move exist, then is not in stalemate
                             return false;
