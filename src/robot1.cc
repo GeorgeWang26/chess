@@ -6,6 +6,7 @@ using namespace std;
 
 Robot1::Robot1(string team): Player{team} {}
 
+/*
 // king pawn check 9 possible move
 int* checkKP(Board* gameBoard, int i, int j){
     // i - 1 <= x <= i + 1
@@ -22,6 +23,7 @@ int* checkKP(Board* gameBoard, int i, int j){
     // if no valid move 
     return nullptr;
 }
+
 
 // knight check 8 possible move
 int* checkN(Board* gameBoard, int i, int j) {
@@ -118,12 +120,12 @@ Board* Robot1::move(Board* gameBoard, bool &success) {
                     if (dest != nullptr) { return p->moveto(*gameBoard, dest); }
                 }
                 else if (PieceType == "knight") {
-                    /*checkN*/
+                    
                     int* dest = checkN(gameBoard, i, j);
                     if (dest != nullptr) { return p->moveto(*gameBoard, dest);}
                 }
                 else {
-                    /*checkBRQ*/
+                    
                     int* dest = checkBRQ(gameBoard, i, j);
                     if (dest != nullptr) { return p->moveto(*gameBoard, dest);}
                 }
@@ -131,20 +133,25 @@ Board* Robot1::move(Board* gameBoard, bool &success) {
         }
     }
 }
+*/
 
-
-for (int i = 0; i < 8; i++) {
-    for (int j = 0; j < 8; j++) {
-        Piece *p = board[i][j];
-        if (p == nullptr) {
-            continue;
-        }
-        for (int desti = 0; desti < 8; desti++) {
-            for (int destj = 0; destj < 8; destj++) {
-                if (p->validmove([desti, destj])) {
-                    // do something
+Board* Robot1::move(Board* gameBoard, bool &success) {
+    success = true;
+    bool fake = false;
+    for (int i = 0; i < 0; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            Piece* p = gameBoard->theBoard[i][j];
+            if (p == nullptr) { continue; }
+            for (int desti = 0; desti < 8; ++desti) {
+                for (int destj = 0; destj < 8; ++destj) {
+                    int dest[2] = {desti, destj};
+                    if (p->validmove(*gameBoard, dest, false, fake, fake, fake)) {
+                        p->moveto(*gameBoard, dest);
+                    }
                 }
-            }
+            } 
         }
     }
 }
+
+
