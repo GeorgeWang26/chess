@@ -3,6 +3,10 @@
 #include "piece.h"
 #include <iostream>
 #include <vector>
+<<<<<<< HEAD
+=======
+#include <stdlib.h>
+>>>>>>> refs/remotes/origin/main
 
 using namespace std;
 
@@ -138,9 +142,9 @@ Board* Robot1::move(Board* gameBoard, bool &success) {
 */
 
 Board* Robot1::move(Board *gameBoard, bool &success) {
-    vector<vector<int>> potentialMoves;
-    // cout << "robot1 on the move" << endl;
-    // cout << team << endl;
+    // robot will always have a valid move
+    success = true;
+    vector<vector<int>> regmove;
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
             Piece *p = gameBoard->theBoard[i][j];
@@ -152,19 +156,25 @@ Board* Robot1::move(Board *gameBoard, bool &success) {
                     int dest[2] = {desti, destj};
                     bool fake = false;
                     if (p->validmove(*gameBoard, dest, false, fake, fake, fake)) {
+<<<<<<< HEAD
                         // add to regular vector
                         // cout << "pos:" << i << " " << j << "   dest:" << dest[0] << " " << dest[1] << endl;
                         success = true;
                         // return p->moveto(*gameBoard, dest);
+=======
+                        vector<int> move {i, j, desti, destj};
+                        regmove.push_back(move);
+>>>>>>> refs/remotes/origin/main
                     }
                 }
-            } 
+            }
         }
     }
-    // return random element from regular vector
-    // this should NEVER reach
-    success = false;
-    return nullptr;
+    // return random element from regmove
+    vector<int> move = regmove[rand() % (regmove.size())];
+    int pos[] = {move[0], move[1]};
+    int dest[] = {move[2], move[3]};
+    return gameBoard->moveto(pos, dest);
 }
 
 
