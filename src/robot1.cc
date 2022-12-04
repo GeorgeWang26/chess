@@ -1,13 +1,44 @@
 #include "robot1.h"
 #include "board.h"
-#include "piece.h"
-#include <iostream>
 #include <vector>
-#include <stdlib.h>
 
 using namespace std;
 
-Robot1::Robot1(string team): Player{team} {}
+Robot1::Robot1(string team):
+    Player{team}
+{}
+
+
+Board* Robot1::move(Board *gameBoard, bool &success) {
+    // robot will always have a valid move
+    success = true;
+    bool fake;
+    vector<vector<int>> regmove;
+
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            int pos[] = {i, j};
+            for (int desti = 0; desti < 8; ++desti) {
+                for (int destj = 0; destj < 8; ++destj) {
+                    int dest[] = {desti, destj};
+                    if (gameBoard->validmove(team, pos, dest, fake, fake, fake)) {
+                        vector<int> move {i, j, desti, destj};
+                        regmove.push_back(move);
+                    }
+                }
+            }
+        }
+    }
+
+    // return random regmove
+    vector<int> move = regmove[rand() % (regmove.size())];
+    int pos[] = {move[0], move[1]};
+    int dest[] = {move[2], move[3]};
+    return gameBoard->moveto(pos, dest);
+}
+
+
+
 
 /*
 // king pawn check 9 possible move
@@ -137,29 +168,3 @@ Board* Robot1::move(Board* gameBoard, bool &success) {
     }
 }
 */
-
-Board* Robot1::move(Board *gameBoard, bool &success) {
-    // robot will always have a valid move
-    success = true;
-    bool fake = false;
-    vector<vector<int>> regmove;
-    for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) {
-            int pos[] = {i, j};
-            for (int desti = 0; desti < 8; ++desti) {
-                for (int destj = 0; destj < 8; ++destj) {
-                    int dest[] = {desti, destj};
-                    if (gameBoard->validmove(team, pos, dest, fake, fake, fake)) {
-                        vector<int> move {i, j, desti, destj};
-                        regmove.push_back(move);
-                    }
-                }
-            }
-        }
-    }
-    // return random element from regmove
-    vector<int> move = regmove[rand() % (regmove.size())];
-    int pos[] = {move[0], move[1]};
-    int dest[] = {move[2], move[3]};
-    return gameBoard->moveto(pos, dest);
-}

@@ -1,6 +1,5 @@
 #include <iostream>
 #include "human.h"
-#include "piece.h"
 #include "board.h"
 
 using namespace std;
@@ -21,8 +20,8 @@ Board* Human::move(Board* gameBoard, bool &success) {
 
     if ('a' <= posS[0] && posS[0] <= 'h' && '1' <= posS[1] && posS[1] <= '8') {
         if ('a' <= destS[0] && destS[0] <= 'h' && '1' <= destS[1] && destS[1] <= '8') {
-            int pos[2] = {posS[1] - '1', posS[0] - 'a'};
-            int dest[2] = {destS[1] - '1', destS[0] - 'a'};
+            int pos[] = {posS[1] - '1', posS[0] - 'a'};
+            int dest[] = {destS[1] - '1', destS[0] - 'a'};
             bool fake;
             if (gameBoard->validmove(team, pos, dest, fake, fake, fake)) {
                 success = true;

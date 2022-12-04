@@ -121,6 +121,7 @@ bool King::getUndercheck(Board &board) {
             // suicide = true
             // validmove will make sure [i][j] cant be same team as dest(current king)
             Piece *p = board.theBoard[i][j];
+            // cannot use board::validmove cuz it always have suicide=false
             if (p != nullptr && p->getTeam() != team && p->validmove(board, pos, true, fake, fake, fake)) {  
                 /*
                 if king is now black

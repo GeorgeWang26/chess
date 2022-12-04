@@ -10,4 +10,11 @@ for escape, need to track if cur piece is udnercap before and after move
 
 
 
-test pawn to last row
+
+
+TODO:
+1. add human::move handle for pawn promotion
+2. test pawn promotion (human & robot1-4)
+3. add robot4
+4. test that robot indeed fallback to regmove when there are no alphamove
+5. instant draw when only two king left
