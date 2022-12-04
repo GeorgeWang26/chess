@@ -61,9 +61,10 @@ bool King::castle(Board &board, int *dest) {
             // make sure king is not in check on middle and end pos
             for (int i = 2; i <= 3; i++) {
                 int arr[] = {row, i};
-                Board *nb = moveto(board, arr);
+                Board *nb = Piece::moveto(board, arr);
                 Piece *king = nb->theBoard[row][i];
                 if (king->getUndercheck(*nb)) {
+                    delete nb;
                     return false;
                 }
                 delete nb;
@@ -75,18 +76,20 @@ bool King::castle(Board &board, int *dest) {
         // [row][7] is allie rook that never moved before
         Piece *rightrook = board.theBoard[row][7];
         if (rightrook != nullptr && rightrook->getTeam() == team && rightrook->getType() == "rook" && !rightrook->getMoved()) {
+            // return false;
             // no piece between king and rook
             // make sure king is not in check on middle and end pos
             for (int i = 5; i <= 6; i++) {
                 // no piece in between
                 if (board.theBoard[row][i] != nullptr) {
-                    return false;;
+                    return false;
                 }
                 // not in check
                 int arr[] = {row, i};
-                Board *nb = moveto(board, arr);
+                Board *nb = Piece::moveto(board, arr);
                 Piece *king = nb->theBoard[row][i];
                 if (king->getUndercheck(*nb)) {
+                    delete nb;
                     return false;
                 }
                 delete nb;

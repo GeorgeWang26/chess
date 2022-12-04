@@ -1,32 +1,12 @@
-game (gameStart=false) -> set gameRunning=false, gameStart=true
+enpassant:
+game human human
+move a2 a4
+move h7 h5
+move a4 a5
+move b7 b5
+move a5 b6
 
-resign (gameStart==true) // terminate -> gameStart = false 
-
-move (gameStart==true) -> set gameRunning = true
-
-setup (gameStart==true && gameRunning==false) -> when "done", keep gameRunning=false
-
-case setup results in stalemate -> gameRunning = false, gameStart = false
-
-undo (gameRunning==true)
-
-NEED TO RESET GAMESTART=FALSE WHEN TERMINATE
-
-
-
-
-
-move, separate terminate check, only check opposite side after move
-
-
-
-
-
-
-
-
-
-castle:
+right castle:
 game human human
 move e2 e4
 move a7 a6
@@ -36,11 +16,14 @@ move f1 e2
 move a5 a4
 move e1 g1
 
-
-stalemate test: (requires empty board)
+left castle:
 game human human
-setup
-(empty board)
-+ k e8
-+ P e7
-+ K e6
+move d2 d4
+move a7 a6
+move b1 a3
+move a6 a5
+move c1 e3
+move a5 a4
+move d1 d2
+move b7 b6
+move e1 c1
