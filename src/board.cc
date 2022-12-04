@@ -153,7 +153,7 @@ bool Board::stalemate(string team) {
                     for (int destj = 0; destj < 8; destj++) {
                         int dest[] = {desti, destj};
                         bool fake = false;
-                        cout << this;
+                        // cout << this;
                         // cout << "pos:" << i << " " << j << "   dest:"  << desti << " " << destj << endl;
                         if (cur->validmove(*this, dest, false, fake, fake, fake)) {
                             // if a valid move exist, then is not in stalemate

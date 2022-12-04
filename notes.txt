@@ -15,16 +15,5 @@ NEED TO RESET GAMESTART=FALSE WHEN TERMINATE
 
 
 
-ERRORS SO FAR
 
-1.
-game human human
-redo
-move a2 a3
-
-2.
-game human human
-setup
-done
-move a2 a3
-
+move, separate terminate check, only check opposite side after move
