@@ -168,11 +168,14 @@ bool Board::stalemate(string team) {
 }
 
 
-bool Board::validmove(int *cur, int *dest, bool &canCheck, bool &captureEnemy, bool &escape) {
+bool Board::validmove(string team, int *cur, int *dest, bool &canCheck, bool &captureEnemy, bool &escape) {
     Piece *p = theBoard[cur[0]][cur[1]];
-    // suicide always false when player/robot is trying to move a piece
-    // suicie=true only in king::getUndercheck()
-    return p->validmove(*this, dest, false, canCheck, captureEnemy, escape);
+    if (p != nullptr && p->getTeam() == team) {
+        // suicide always false when player/robot is trying to move a piece
+        // suicie=true only in king::getUndercheck()
+        return p->validmove(*this, dest, false, canCheck, captureEnemy, escape);
+    }
+    return false;
 }
 
 

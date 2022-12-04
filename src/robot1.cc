@@ -141,18 +141,15 @@ Board* Robot1::move(Board* gameBoard, bool &success) {
 Board* Robot1::move(Board *gameBoard, bool &success) {
     // robot will always have a valid move
     success = true;
+    bool fake = false;
     vector<vector<int>> regmove;
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
-            Piece *p = gameBoard->theBoard[i][j];
-            if (p == nullptr || p->getTeam() != team) {
-                continue;
-            }
+            int pos[] = {i, j};
             for (int desti = 0; desti < 8; ++desti) {
                 for (int destj = 0; destj < 8; ++destj) {
-                    int dest[2] = {desti, destj};
-                    bool fake = false;
-                    if (p->validmove(*gameBoard, dest, false, fake, fake, fake)) {
+                    int dest[] = {desti, destj};
+                    if (gameBoard->validmove(team, pos, dest, fake, fake, fake)) {
                         vector<int> move {i, j, desti, destj};
                         regmove.push_back(move);
                     }
@@ -166,5 +163,3 @@ Board* Robot1::move(Board *gameBoard, bool &success) {
     int dest[] = {move[2], move[3]};
     return gameBoard->moveto(pos, dest);
 }
-
-
