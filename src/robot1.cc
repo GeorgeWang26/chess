@@ -2,6 +2,7 @@
 #include "board.h"
 #include "piece.h"
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -137,6 +138,7 @@ Board* Robot1::move(Board* gameBoard, bool &success) {
 */
 
 Board* Robot1::move(Board *gameBoard, bool &success) {
+    vector<vector<int>> potentialMoves;
     // cout << "robot1 on the move" << endl;
     // cout << team << endl;
     for (int i = 0; i < 8; ++i) {
@@ -153,7 +155,7 @@ Board* Robot1::move(Board *gameBoard, bool &success) {
                         // add to regular vector
                         // cout << "pos:" << i << " " << j << "   dest:" << dest[0] << " " << dest[1] << endl;
                         success = true;
-                        return p->moveto(*gameBoard, dest);
+                        // return p->moveto(*gameBoard, dest);
                     }
                 }
             } 

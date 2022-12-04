@@ -10,6 +10,9 @@ Robot2::Robot2(string team):
 {}
 
 Board* Robot2::move(Board* gameBoard, bool &success) {
+    vector<vector<int>> preferredMoves;
+    vector<vector<int>> potentialMoves;
+
     cout << "robot2 on the move" << endl;
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
@@ -20,14 +23,15 @@ Board* Robot2::move(Board* gameBoard, bool &success) {
                         bool canCheck;
                         bool canCapture;
                         bool fake;
-                        int dest[2] = {desti, destj};
+                        vector<int> dest = {desti, destj};
                         if (p->validmove(*gameBoard, dest, false, canCheck, canCapture, fake)) {
+                            success = true;
                             if (canCapture || canCheck) {
                                 // add into alpha vector
-                                success = true;
-                                return p->moveto(*gameBoard, dest);
+                                preferredMoves.emplace_back(dest);  
                             } else {
                                 // add into regular vector
+                                potentialMoves.emplace_back(dest);
                                 continue;
                             }
                         }
@@ -36,8 +40,15 @@ Board* Robot2::move(Board* gameBoard, bool &success) {
             }
         }
     }
-    // if has alpha, return random alpha element
-    // else return random regular element
+    if (preferredMoves.size() > 0) {
+        // choose random element in preferred moves
+        return p->moveto(*gameBoard, dest);
+    } else {
+        // choose random element in potential moves
+        return p->moveto(*gameBoard, dest);
+    }
+    
+    // should never occur
     success = false;
     return nullptr;
 }
