@@ -28,6 +28,7 @@ bool Knight::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bo
             string enemy = team == "white" ? "black" : "white";
             canCheck = nb->check(enemy);
             captureEnemy = destpiece != nullptr ? true : false;
+            escape = board.theBoard[pos[0]][pos[1]]->getUndercap() && !nb->theBoard[dest[0]][dest[1]]->getUndercap() ? true : false;
             delete nb;
             return !isUndercheck;
         }
