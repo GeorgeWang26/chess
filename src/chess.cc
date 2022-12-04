@@ -257,7 +257,8 @@ void Chess::takeTurn() {
                         }
 
                         notifyObservers();
-
+                        // update undercap status for 
+                        curBoard->setUndercap();
                         // upon leaving setup mode, set all piece moved to be true, AKA disable castle and enpassant
                         for (int i = 0; i < 8; i++) {
                             for (int j = 0; j < 8; j++) {
