@@ -59,11 +59,14 @@ bool Bishop::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bo
     // also, if dest has a piece, it is guranteed to be enemy piece
 
     if (suicide) {
-        captureEnemy = true;
+        // status doesnt matter, since suicide=true only when validmove() is called from 
         return true;
     } else {
         Board *nb = moveto(board, dest);
         bool isUndercheck = nb->check(team);
+        string enemy = team == "white" ? "black" : "white";
+        canCheck = nb->check(enemy);
+        captureEnemy = destpiece != nullptr ? true : false;
         delete nb;
         return !isUndercheck;
     }

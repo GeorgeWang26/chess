@@ -1,0 +1,8 @@
+check & capture are easy to check
+in validmove(), check if after move, enemy is captured or enemy king is now in check
+
+for escape, need to track if cur piece is udnercap before and after move
+
+when leave setup, should set capture status for all pieces
+when making newboard, should set capture status for all pieces
+after move, should update capture status for all pieces
