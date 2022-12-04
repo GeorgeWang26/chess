@@ -3,10 +3,7 @@
 #include "piece.h"
 #include <iostream>
 #include <vector>
-<<<<<<< HEAD
-=======
 #include <stdlib.h>
->>>>>>> refs/remotes/origin/main
 
 using namespace std;
 
@@ -156,15 +153,8 @@ Board* Robot1::move(Board *gameBoard, bool &success) {
                     int dest[2] = {desti, destj};
                     bool fake = false;
                     if (p->validmove(*gameBoard, dest, false, fake, fake, fake)) {
-<<<<<<< HEAD
-                        // add to regular vector
-                        // cout << "pos:" << i << " " << j << "   dest:" << dest[0] << " " << dest[1] << endl;
-                        success = true;
-                        // return p->moveto(*gameBoard, dest);
-=======
                         vector<int> move {i, j, desti, destj};
                         regmove.push_back(move);
->>>>>>> refs/remotes/origin/main
                     }
                 }
             }

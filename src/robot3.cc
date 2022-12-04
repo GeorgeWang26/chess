@@ -1,6 +1,8 @@
 #include "robot3.h"
 #include "piece.h"
 #include "board.h"
+#include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -9,33 +11,44 @@ Robot3::Robot3(string team):
 {}
 
 Board* Robot3::move(Board* gameBoard, bool &success) {
-    // int pos[2];
-    int dest[2];
+    vector<vector<int>> preferredMoves;
+    vector<vector<int>> potentialMoves;
+
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            Piece *p = gameBoard->theBoard[i][j];
-            if (p != nullptr && p->getTeam() == team) {
-                for (int m = 0; m < 8; m++) {
-                    for (int n = 0; n < 8; n++) {
-                        bool canCheck;
-                        bool canCapture;
-                        bool canEscape;
-                        if (p->validmove(*gameBoard, dest, false, canCheck, canCapture, canEscape)) {
-                            if (canCapture || canCheck || canEscape) {
-                                // add to alpha vector
-                                success = true;
-                                return p->moveto(*gameBoard, dest);
-                            } else {
-                                // add to regular vector
-                            }
+            for (int desti = 0; desti < 8; desti++) {
+                for (int destj = 0; destj < 8; destj++) {
+                    bool canCheck;
+                    bool canCapture;
+                    bool canEscape;
+                    int dest[2] = {desti, destj};
+                    if (validmove(*gameBoard, dest, false, canCheck, canCapture, canEscape)) {
+                        success = true;
+                        vector<int> move {i, j, desti, destj};
+                        if (canCapture || canCheck) {
+                            // add into alpha vector
+                            preferredMoves.emplace_back(move);  
+                        } else {
+                            // add into regular vector
+                            potentialMoves.emplace_back(move);
+                            continue;
                         }
                     }
                 }
             }
         }
     }
-    // if alpha exist, return random element from alpha vector
-    // else return random element from regular vector
+    if (preferredMoves.size() > 0) {
+        // choose random element in preferred moves
+         vector<int> move = preferredMoves[rand() % (preferredMoves.size())];
+        return p->moveto(*gameBoard, dest);
+    } else {
+        // choose random element in potential moves
+        vector<int> move = potentialMoves[rand() % (potentialMoves.size())];
+        return p->moveto(*gameBoard, dest);
+    }
+    
+    // should never occur
     success = false;
     return nullptr;
 }
