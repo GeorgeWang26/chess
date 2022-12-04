@@ -157,7 +157,7 @@ void Chess::takeTurn() {
                 cout << "Black is in check." << endl;
             } else if (curBoard->check("white")) {
                 cout << "White is in check." << endl;
-            } else if (curBoard->stalemate("black") || curBoard->stalemate("white")) {
+            } else if ((curPlayer == "black" && curBoard->stalemate("black")) || (curPlayer == "white" && curBoard->stalemate("white"))) {
                 cout << "Stalemate!" << endl;
                 whiteWin += 0.5;
                 blackWin += 0.5;
