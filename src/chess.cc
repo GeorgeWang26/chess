@@ -10,6 +10,8 @@
 #include "player.h"
 #include "human.h"
 #include "robot1.h"
+#include "robot2.h"
+#include "robot3.h"
 
 #include <iostream>
 
@@ -58,23 +60,23 @@ void Chess::takeTurn() {
                     white = new Human{"white"};
                 } else if (whiteP == "robot1") {
                     white = new Robot1{"white"};
-                // } else if (whiteP == "robot2") {
-                //     white = new Computer2{"white"};
-                // } else if (whiteP == "robot3") {
-                //     white = new Computer3{"white"};
+                } else if (whiteP == "robot2") {
+                    white = new Robot2{"white"};
+                } else if (whiteP == "robot3") {
+                    white = new Robot3{"white"};
                 // } else {
-                //     white = new Computer4{"white"};
+                    // white = new Robot4{"white"};
                 }
                 if (blackP == "human") {
                     black = new Human{"black"};
-                } else if (blackP == "computer1") {
+                } else if (blackP == "robot1") {
                     black = new Robot1{"black"};
-                // } else if (blackP == "computer2") {
-                //     black = new Computer2{"black"};
-                // } else if (blackP == "computer3") {
-                //     black = new Computer3{"black"};
+                } else if (blackP == "robot2") {
+                    black = new Robot2{"black"};
+                } else if (blackP == "robot3") {
+                    black = new Robot3{"black"};
                 // } else {
-                //     black = new Computer4{"black"};
+                    // black = new Robot4{"black"};
                 }
                 notifyObservers();
             } else {
@@ -111,11 +113,14 @@ void Chess::takeTurn() {
                 tmpBoard = white->move(curBoard, success);
             } else {
                 // curPlayer == "black"
+                // cout << "hello?" << endl;
                 tmpBoard = black->move(curBoard, success);
+                // cout << tmpBoard;
+                // cout << "fuck you" << endl;
             }
 
             // cout << "SHOULD BE END OF MOVE HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
-
+            // cout << "success?????? " << success << endl;
             if (!success) {
                 // no error message needed, human::move will display error message, robot::move will always be sucess=true
                 continue;

@@ -1,6 +1,7 @@
 #include "robot1.h"
 #include "board.h"
 #include "piece.h"
+#include <iostream>
 
 using namespace std;
 
@@ -135,23 +136,33 @@ Board* Robot1::move(Board* gameBoard, bool &success) {
 }
 */
 
-Board* Robot1::move(Board* gameBoard, bool &success) {
-    success = true;
-    bool fake = false;
-    for (int i = 0; i < 0; ++i) {
+Board* Robot1::move(Board *gameBoard, bool &success) {
+    // cout << "robot1 on the move" << endl;
+    // cout << team << endl;
+    for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
-            Piece* p = gameBoard->theBoard[i][j];
-            if (p == nullptr) { continue; }
+            Piece *p = gameBoard->theBoard[i][j];
+            if (p == nullptr || p->getTeam() != team) {
+                continue;
+            }
             for (int desti = 0; desti < 8; ++desti) {
                 for (int destj = 0; destj < 8; ++destj) {
                     int dest[2] = {desti, destj};
+                    bool fake = false;
                     if (p->validmove(*gameBoard, dest, false, fake, fake, fake)) {
-                        p->moveto(*gameBoard, dest);
+                        // add to regular vector
+                        // cout << "pos:" << i << " " << j << "   dest:" << dest[0] << " " << dest[1] << endl;
+                        success = true;
+                        return p->moveto(*gameBoard, dest);
                     }
                 }
             } 
         }
     }
+    // return random element from regular vector
+    // this should NEVER reach
+    success = false;
+    return nullptr;
 }
 
 

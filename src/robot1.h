@@ -6,7 +6,7 @@
 class Robot1: public Player {
 public:
     Robot1(std::string team);
-    Board* move(Board* gameBoard, bool &success) override;
+    Board* move(Board *gameBoard, bool &success) override;
 };
 
 #endif

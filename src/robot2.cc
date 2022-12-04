@@ -1,6 +1,7 @@
 #include "robot2.h"
 #include "piece.h"
 #include "board.h"
+#include <iostream>
 
 using namespace std;
 
@@ -9,34 +10,34 @@ Robot2::Robot2(string team):
 {}
 
 Board* Robot2::move(Board* gameBoard, bool &success) {
-    success = true;
-    int pos[2];
-    int dest[2];
+    cout << "robot2 on the move" << endl;
     for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 0; j++) {
+        for (int j = 0; j < 8; j++) {
             Piece *p = gameBoard->theBoard[i][j];
             if (p != nullptr && p->getTeam() == team) {
-                for (int m = 0; m < 8; m++) {
-                    for (int n = 0; n < 8; n++) {
+                for (int desti = 0; desti < 8; desti++) {
+                    for (int destj = 0; destj < 8; destj++) {
                         bool canCheck;
                         bool canCapture;
                         bool fake;
+                        int dest[2] = {desti, destj};
                         if (p->validmove(*gameBoard, dest, false, canCheck, canCapture, fake)) {
                             if (canCapture || canCheck) {
+                                // add into alpha vector
+                                success = true;
                                 return p->moveto(*gameBoard, dest);
+                            } else {
+                                // add into regular vector
+                                continue;
                             }
-                        }
-                    }
-                }
-                for (int m = 0; m < 8; m++) {
-                    for (int n = 0; n < 8; n++) {
-                        bool fake;
-                        if (p->validmove(*gameBoard, dest, false, fake, fake, fake)) {
-                            return p->moveto(*gameBoard, dest);
                         }
                     }
                 }
             }
         }
     }
+    // if has alpha, return random alpha element
+    // else return random regular element
+    success = false;
+    return nullptr;
 }
