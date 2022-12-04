@@ -17,3 +17,21 @@ NEED TO RESET GAMESTART=FALSE WHEN TERMINATE
 
 
 move, separate terminate check, only check opposite side after move
+
+
+
+
+
+
+
+
+
+castle:
+game human human
+move e2 e4
+move a7 a6
+move g1 h3
+move a6 a5
+move f1 e2
+move a5 a4
+move e1 g1
