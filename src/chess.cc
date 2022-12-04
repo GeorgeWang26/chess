@@ -9,6 +9,7 @@
 #include "pawn.h"
 #include "player.h"
 #include "human.h"
+#include "robot1.h"
 
 #include <iostream>
 
@@ -39,8 +40,8 @@ void Chess::takeTurn() {
             string whiteP, blackP;
             cin >> whiteP >> blackP;
 
-            if ((whiteP == "human" || whiteP == "computer1" || whiteP == "computer2" || whiteP == "computer3" || whiteP == "computer4") && 
-            (blackP == "human" || blackP == "computer1" || blackP == "computer2" || blackP == "computer3" || blackP == "computer4")) {
+            if ((whiteP == "human" || whiteP == "robot1" || whiteP == "robot2" || whiteP == "robot3" || whiteP == "robot4") && 
+            (blackP == "human" || blackP == "robot1" || blackP == "robot2" || blackP == "robot3" || blackP == "robot4")) {
                 gameStart = true;
                 gameRunning = false;
 
@@ -55,28 +56,26 @@ void Chess::takeTurn() {
                 
                 if (whiteP == "human") {
                     white = new Human{"white"};
-                } 
-                // else if (whiteP == "computer1") {
-                //     white = new Computer1{"white"};
-                // } else if (whiteP == "computer2") {
+                } else if (whiteP == "robot1") {
+                    white = new Robot1{"white"};
+                // } else if (whiteP == "robot2") {
                 //     white = new Computer2{"white"};
-                // } else if (whiteP == "computer3") {
+                // } else if (whiteP == "robot3") {
                 //     white = new Computer3{"white"};
                 // } else {
                 //     white = new Computer4{"white"};
-                // }
+                }
                 if (blackP == "human") {
                     black = new Human{"black"};
-                }
-                //  else if (blackP == "computer1") {
-                //     black = new Computer1{"black"};
+                } else if (blackP == "computer1") {
+                    black = new Robot1{"black"};
                 // } else if (blackP == "computer2") {
                 //     black = new Computer2{"black"};
                 // } else if (blackP == "computer3") {
                 //     black = new Computer3{"black"};
                 // } else {
                 //     black = new Computer4{"black"};
-                // }
+                }
                 notifyObservers();
             } else {
                 cout << "invalid command, unknown player type" << endl;
