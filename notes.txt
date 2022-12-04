@@ -6,7 +6,7 @@ move a4 a5
 move b7 b5
 move a5 b6
 
-castle:
+right castle:
 game human human
 move e2 e4
 move a7 a6
@@ -15,3 +15,15 @@ move a6 a5
 move f1 e2
 move a5 a4
 move e1 g1
+
+left castle:
+game human human
+move d2 d4
+move a7 a6
+move b1 a3
+move a6 a5
+move c1 e3
+move a5 a4
+move d1 d2
+move b7 b6
+move e1 c1
