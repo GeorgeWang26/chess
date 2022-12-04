@@ -8,7 +8,7 @@ class Board;
 class Piece {
 protected:
     // make sure this is does NOT live on heap
-    // int pos[2];
+    int pos[2];
     std::string team;  // black, white
     std::string type;  // king, queen, bishop, rook, knight, pawn
     bool undercap;
@@ -16,8 +16,9 @@ protected:
     bool canEnpassant;
 
 public:
-    int pos[2];
-    
+    // int pos[2];
+    // bool canEnpassant;
+
     Piece(int row, int col, std::string team, std::string type, bool undercap, bool moved, bool canEnpassant);
     virtual ~Piece();
     std::string getTeam();
