@@ -11,8 +11,9 @@ Robot2::Robot2(string team):
 {}
 
 Board* Robot2::move(Board* gameBoard, bool &success) {
-    vector<vector<int>> preferredMoves;
-    vector<vector<int>> potentialMoves;
+    success = true;
+    vector<vector<int>> alphamove;
+    vector<vector<int>> regmove;
 
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
@@ -23,33 +24,31 @@ Board* Robot2::move(Board* gameBoard, bool &success) {
                     bool canCapture;
                     bool fake;
                     int dest[] = {desti, destj};
-                    if (gameBoard->validmove(team, dest, false, canCheck, canCapture, fake)) {
-                        success = true;
+                    if (gameBoard->validmove(team, pos, dest, canCheck, canCapture, fake)) {
                         vector<int> move {i, j, desti, destj};
                         if (canCapture || canCheck) {
                             // add into alpha vector
-                            preferredMoves.emplace_back(move);  
+                            alphamove.emplace_back(move);
                         } else {
                             // add into regular vector
-                            potentialMoves.emplace_back(move);
-                            continue;
+                            regmove.emplace_back(move);
                         }
                     }
                 }
             }
         }
     }
-    if (preferredMoves.size() > 0) {
+    if (alphamove.size() > 0) {
         // choose random element in preferred moves
-         vector<int> move = preferredMoves[rand() % (preferredMoves.size())];
-        return p->moveto(*gameBoard, dest);
+        vector<int> move = alphamove[rand() % (alphamove.size())];
+        int pos[] = {move[0], move[1]};
+        int dest[] = {move[2], move[3]};
+        return gameBoard->moveto(pos, dest);
     } else {
         // choose random element in potential moves
-        vector<int> move = potentialMoves[rand() % (potentialMoves.size())];
-        return p->moveto(*gameBoard, dest);
+        vector<int> move = regmove[rand() % (regmove.size())];
+        int pos[] = {move[0], move[1]};
+        int dest[] = {move[2], move[3]};
+        return gameBoard->moveto(pos, dest);
     }
-    
-    // should never occur
-    success = false;
-    return nullptr;
 }
