@@ -63,11 +63,15 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
     }
 
     if (suicide) {
-        captureEnemy = true;
+        // status doesnt matter, since suicide=true only when validmove() is called from 
         return true;
     } else {
         Board *nb = moveto(board, dest);
         bool isUndercheck = nb->check(team);
+        string enemy = team == "white" ? "black" : "white";
+        canCheck = nb->check(enemy);
+        captureEnemy = destpiece != nullptr ? true : false;
+        escape = board.theBoard[pos[0]][pos[1]]->getUndercap() && !nb->theBoard[dest[0]][dest[1]]->getUndercap() ? true : false;
         delete nb;
         return !isUndercheck;
     }

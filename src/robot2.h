@@ -1,12 +1,13 @@
-#ifndef ROBOT1_H
-#define ROBOT1_H
+#ifndef ROBOT2_H
+#define ROBOT2_H
 
 #include "player.h"
 
-class Robot1: public Player {
+class Robot2: public Player {
 public:
-    Robot1(std::string team);
+    Robot2(std::string team);
     Board* move(Board *gameBoard, bool &success) override;
 };
+
 
 #endif

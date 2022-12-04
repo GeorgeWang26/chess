@@ -14,8 +14,10 @@ bool King::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
         // dest is: out of bounds, same team (if dest==pos, team will be same)
         return false;
     }
-    // if dest has a piece, then it's guranteed to be different team!!!!!!!!!!
+    // if dest has a piece, then it's guranteed to be different team!!!!!!!!!!    
     
+    string enemy = team == "white" ? "black" : "white";
+
     if (abs(dest[0] - pos[0]) <= 1 && abs(dest[1] - pos[1]) <= 1) {
         // move is within valid range
         if (suicide) {
@@ -24,16 +26,25 @@ bool King::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
             // also, since we are checking if it's valid to check enemy king, it doesn't matter if
             // this will put our own king in danger, because validmove() is now called from enemy's king
             // SOOOOO as long as move is within valid range, return true 
-            captureEnemy = true;
             return true;
         } else {
             Board *nb = moveto(board, dest);
             bool isUndercheck = nb->check(team);
+            canCheck = nb->check(enemy);
+            captureEnemy = destpiece != nullptr ? true : false;
+            escape = board.theBoard[pos[0]][pos[1]]->getUndercap() && !nb->theBoard[dest[0]][dest[1]]->getUndercap() ? true : false;
             delete nb;
             return !isUndercheck;
         }
     } else if (castle(board, dest)) {
         // already checked all needed requirement in castle()
+        // for castle, captureEnemy=escape=false
+        // but could check/checkmate enemy
+        Board *nb = moveto(board, dest);
+        canCheck = nb->check(enemy);
+        captureEnemy = false;
+        escape = false;
+        delete nb;
         return true;
     }
     return false;
@@ -110,6 +121,7 @@ bool King::getUndercheck(Board &board) {
             // suicide = true
             // validmove will make sure [i][j] cant be same team as dest(current king)
             Piece *p = board.theBoard[i][j];
+            // cannot use board::validmove cuz it always have suicide=false
             if (p != nullptr && p->getTeam() != team && p->validmove(board, pos, true, fake, fake, fake)) {  
                 /*
                 if king is now black

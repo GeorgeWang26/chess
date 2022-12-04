@@ -19,7 +19,7 @@ public:
     bool checkmate(std::string team);
     bool stalemate(std::string team);
 
-    bool validmove(int *cur, int *dest, bool &canCheck, bool &captureEnemy, bool &escape);
+    bool validmove(std::string team, int *cur, int *dest, bool &canCheck, bool &captureEnemy, bool &escape);
     // user will need to free (delete) the returned Board*
     Board* moveto(int *cur, int *dest, std::string newType = "queen");
     
