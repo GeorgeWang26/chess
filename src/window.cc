@@ -73,8 +73,8 @@ void Xwindow::drawString(int x, int y, string msg) {
     XDrawString(d, w, DefaultGC(d, s), x, y, msg.c_str(), msg.length());
 }
 
-void drawR(int x, int y) {
-    Xwindow w{100, 100};
+void Xwindow::drawR(int x, int y) {
+    //Xwindow w{100, 100};
     // w.fillRectangle(0, 0, 100, 100, w.Black);
     // w.fillRectangle(0, 0, 10, 10, w.Green);
     // w.fillRectangle(10, 0, 10, 10, w.Green);
@@ -143,45 +143,43 @@ void drawR(int x, int y) {
     }
 */
     for(int i = 3; i < 7; ++i) {
-        w.fillRectangle(i*10, 20, 10, 10, w.Black);
+        fillRectangle(i*10, 20, 10, 10, Black);
     }
     // column
     for(int i = 2; i < 9; ++i) {
-        w.fillRectangle(30, i*10, 10, 10, w.Black);
+        fillRectangle(30, i*10, 10, 10, Black);
     }
     for(int i = 4; i < 7; ++i) {
-        w.fillRectangle(i * 10, 50, 10, 10, w.Black);
+        fillRectangle(i * 10, 50, 10, 10, Black);
     }
     for(int i = 3; i < 5; ++i) {
-        w.fillRectangle(60, i * 10, 10, 10, w.Black);
+        fillRectangle(60, i * 10, 10, 10, Black);
     }
     for(int i = 5; i < 8; ++i) {
-        w.fillRectangle(i * 10, (4 + i - 3) * 10 , 10, 10, w.Black);
+        fillRectangle(i * 10, (4 + i - 3) * 10 , 10, 10, Black);
     }
-
-
     while(true) {
         continue;
     }
 }
 
-void drawB(int x, int y) {
+void Xwindow::drawB(int x, int y) {
     Xwindow w{100, 100};
     for(int i = 3; i < 7; ++i) {
-        w.fillRectangle(i*10, 20, 10, 10, w.Black);
+        fillRectangle(i*10, 20, 10, 10, Black);
     }
     for(int i = 3; i < 7; ++i) {
-        w.fillRectangle(i*10, 50, 10, 10, w.Black);
+        fillRectangle(i*10, 50, 10, 10, Black);
     }
     for(int i = 3; i < 7; ++i) {
-        w.fillRectangle(i*10, 80, 10, 10, w.Black);
+        fillRectangle(i*10, 80, 10, 10, Black);
     }
     for(int i = 2; i < 9; ++i) {
-        w.fillRectangle(30, i*10, 10, 10, w.Black);
+        fillRectangle(30, i*10, 10, 10, Black);
     }
     for(int i = 3; i < 9; ++i) {
         if ( i != 2 && i != 5 && i != 8) {
-            w.fillRectangle(70, i*10, 10, 10, w.Black);
+            fillRectangle(70, i*10, 10, 10, Black);
         }
     }
     while(true) {
@@ -189,83 +187,83 @@ void drawB(int x, int y) {
     }
 }
 
-void drawN(int x, int y) {
+void Xwindow::drawN(int x, int y) {
     Xwindow w{100, 100};
     for(int i = 2; i < 9; ++i) {
-        w.fillRectangle(30, i*10, 10, 10, w.Black);
+        fillRectangle(30, i*10, 10, 10, Black);
     }
-    w.fillRectangle(40, 40, 10, 10, w.Black);
-    w.fillRectangle(50, 50, 10, 10, w.Black);
-    w.fillRectangle(60, 60, 10, 10, w.Black);
+    fillRectangle(40, 40, 10, 10, Black);
+    fillRectangle(50, 50, 10, 10, Black);
+    fillRectangle(60, 60, 10, 10, Black);
     for(int i = 2; i < 9; ++i) {
-        w.fillRectangle(70, i*10, 10, 10, w.Black);
+        fillRectangle(70, i*10, 10, 10, Black);
     }
     while(true) {
         continue;
     }
 }
 
-void drawQ(int x, int y) {
-    Xwindow w{100, 100};
+void Xwindow::drawQ(int x, int y) {
+    //Xwindow w{100, 100};
     for(int i = 3; i < 8; ++i) {
-        w.fillRectangle(30, i*10, 10, 10, w.Black);
+        fillRectangle(30, i*10, 10, 10, Black);
     }
     for(int i = 3; i < 8; ++i) {
-        w.fillRectangle(70, i*10, 10, 10, w.Black);
+        fillRectangle(70, i*10, 10, 10, Black);
     }
     for(int i = 4; i < 7; ++i) {
-        w.fillRectangle(i*10, 20, 10, 10, w.Black);
+        fillRectangle(i*10, 20, 10, 10, Black);
     }
     for(int i = 4; i < 7; ++i) {
-        w.fillRectangle(i*10, 80, 10, 10, w.Black);
+        fillRectangle(i*10, 80, 10, 10, Black);
     }
-    w.fillRectangle(60, 70, 10, 10, w.Black);
-    w.fillRectangle(50, 60, 10, 10, w.Black);
+    fillRectangle(60, 70, 10, 10, Black);
+    fillRectangle(50, 60, 10, 10, Black);
     while(true) {
         continue;
     }
 }
 
-void drawK(int x, int y) {
+void Xwindow::drawK(int x, int y) {
     Xwindow w{100, 100};
     for(int i = 3; i < 9; ++i) {
-        w.fillRectangle(30, i*10, 10, 10, w.Black);
+        fillRectangle(30, i*10, 10, 10, w.Black);
     }
-    w.fillRectangle(40, 50, 10, 10, w.Black);
-    w.fillRectangle(50, 50, 10, 10, w.Black);
-    w.fillRectangle(50, 50, 10, 10, w.Black);
-    w.fillRectangle(50, 50, 10, 10, w.Black);
-    w.fillRectangle(60, 40, 10, 10, w.Black);
-    w.fillRectangle(60, 60, 10, 10, w.Black);
-    w.fillRectangle(70, 30, 10, 10, w.Black);
-    w.fillRectangle(70, 40, 10, 10, w.Black);
-    w.fillRectangle(70, 70, 10, 10, w.Black);
-    w.fillRectangle(70, 80, 10, 10, w.Black);
+    fillRectangle(40, 50, 10, 10, Black);
+    fillRectangle(50, 50, 10, 10, Black);
+    fillRectangle(50, 50, 10, 10, Black);
+    fillRectangle(50, 50, 10, 10, Black);
+    fillRectangle(60, 40, 10, 10, Black);
+    fillRectangle(60, 60, 10, 10, Black);
+    fillRectangle(70, 30, 10, 10, Black);
+    fillRectangle(70, 40, 10, 10, Black);
+    fillRectangle(70, 70, 10, 10, Black);
+    fillRectangle(70, 80, 10, 10, Black);
     while(true) {
         continue;
     }
     
 }
 
-void drawP(int x, int y) {
-    Xwindow w{100, 100};
+void Xwindow::drawP(int x, int y) {
+    //Xwindow w{100, 100};
     for(int i = 2; i < 9; ++i) {
-        w.fillRectangle(30, i*10, 10, 10, w.Black);
+        fillRectangle(30, i*10, 10, 10, Black);
     }
     for(int i = 4; i < 7; ++i) {
-        w.fillRectangle(i*10, 20, 10, 10, w.Black);
+        fillRectangle(i*10, 20, 10, 10, Black);
     }
     for(int i = 4; i < 7; ++i) {
-        w.fillRectangle(i*10, 50, 10, 10, w.Black);
+        fillRectangle(i*10, 50, 10, 10, Black);
     }
-    w.fillRectangle(70, 30, 10, 10, w.Black);
-    w.fillRectangle(70, 40, 10, 10, w.Black);
+    fillRectangle(70, 30, 10, 10, Black);
+    fillRectangle(70, 40, 10, 10, Black);
     while(true) {
         continue;
     }   
 }
 
-int main() {
+void Xwindow::drawChessBoard() {
     //drawR(0, 0);
     //drawB(0, 0);
     //drawN(0, 0);
@@ -273,36 +271,36 @@ int main() {
     //drawK(0, 0);
     //drawP(0, 0);
     Xwindow w{950, 950};
-        string curr = "white";
-        string curr_row = "8";
-        string curr_col = "a";
-        for (int y = 0; y < 8; ++y) {
-            for (int x = 0; x < 8; ++x) {
-                if (x == 0) {
-                    w.drawString((x+1)*50, (y+1.5)*100+5, curr_row);
-                    curr_row[0] -= 1;
-                }
-                if (curr == "black") {
-                    w.fillRectangle( (x+1)*100, (y+1)*100, 100, 100, w.Brown);
-                }
-                else {
-                    w.fillRectangle( (x+1)*100, (y+1)*100, 100, 100, w.Blue);
-                }
-                if (x != 7) {
-                    curr = curr == "white" ? "black" : "white";
-                }
+    string curr = "white";
+    string curr_row = "8";
+    string curr_col = "a";
+    for (int y = 0; y < 8; ++y) {
+        for (int x = 0; x < 8; ++x) {
+            if (x == 0) {
+                drawString((x+1)*50, (y+1.5)*100+5, curr_row);
+                curr_row[0] -= 1;
+            }
+            if (curr == "black") {
+                fillRectangle( (x+1)*100, (y+1)*100, 100, 100, Brown);
+            }
+            else {
+                fillRectangle( (x+1)*100, (y+1)*100, 100, 100, Blue);
+            }
+            if (x != 7) {
+                curr = curr == "white" ? "black" : "white";
             }
         }
-        for (int z = 0; z <= 8; ++z) {
-            if (z == 0) {
-                continue;
-            }
-            w.drawString((z + 0.5)*100 + 5, 50, curr_col);
-            curr_col[0] += 1;
-        }
-        while(true) {
+    }
+    for (int z = 0; z <= 8; ++z) {
+        if (z == 0) {
             continue;
         }
+        drawString((z + 0.5)*100 + 5, 50, curr_col);
+        curr_col[0] += 1;
+    }
+    while(true) {
+        continue;
+    }
 }
 
 

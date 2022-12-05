@@ -29,4 +29,6 @@ public:
 
 std::ostream& operator<<(std::ostream &out, Board *board);
 
+
+
 #endif
