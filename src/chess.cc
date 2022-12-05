@@ -296,8 +296,11 @@ void Chess::takeTurn() {
                         break;
                     // end of "done"
                     } else if (command == "blank") {
+                        // graphic.prev == chess.cur
                         delete curBoard;
+                        // delete graphive.prev, graphics.prev still == chess.cur, and dereference it is now undefined behaviour, cuz its freed already
                         curBoard = new Board {true};
+                        // finally, graphics.prev != chess.cur, but graphics.prev still has undfined dereference behaviour
                         notifyObservers();
                     } else {
                         cout << "invalid command, unknown setup command" << endl;

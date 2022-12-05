@@ -5,12 +5,15 @@
 #include "piece.h"
 #include <string>
 
+#include <iostream>
+
 using namespace std;
 
 GraphicsRender::GraphicsRender(Subject *sub):
-    subject{sub}, xwindow{925, 925}, blankBoard{true}, prevBoard{&blankBoard}
+    subject{sub}, xwindow{925, 925}, prevBoard{true}
 {
     subject->attach(this);
+    // draw empty board, same as prev board
     xwindow.drawChessBoard();
 }
 
@@ -22,11 +25,11 @@ GraphicsRender::~GraphicsRender() {
 
 void GraphicsRender::notify() {
     Board *board = subject->getState();
-    for (int i = 7; i >= 0; i--) {  
-        for (int j = 0; j < 8; j++) {
+    for (int i = 7; i >= 0; --i) {  
+        for (int j = 0; j < 8; ++j) {
             Piece *p = board->theBoard[i][j];
-            Piece *prevP = prevBoard->theBoard[i][j];
-
+            Piece *prevP = prevBoard.theBoard[i][j];
+            
             if ((p == nullptr && prevP == nullptr) || 
             (p != nullptr && prevP != nullptr && p->getType() == prevP->getType() && p->getTeam() == prevP->getTeam())) {
                 continue;
@@ -34,7 +37,6 @@ void GraphicsRender::notify() {
             // empty -> piece   dont need to paint background
             // piece -> empty   paint background
             // piece -> piece   paitn background
-            // int x = (j+1) * 100;
             int x = j * 100 + 60;
             int y = (7 - i) * 100 + 60;
             if (prevP != nullptr) {
@@ -68,5 +70,5 @@ void GraphicsRender::notify() {
             }
         }
     }
-    prevBoard = board;
+    prevBoard = Board {*board};
 }

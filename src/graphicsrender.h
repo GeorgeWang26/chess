@@ -10,8 +10,7 @@ class Subject;
 class GraphicsRender : public Observer {
     Subject *subject;
     Xwindow xwindow;
-    Board blankBoard;
-    Board *prevBoard;
+    Board prevBoard;
     
 public:
     GraphicsRender(Subject *sub);
