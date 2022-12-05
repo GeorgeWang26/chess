@@ -4,11 +4,13 @@
 #include "observer.h"
 
 class Subject;
+class Xwindow;
 
-class GraphicsRender : public Observer{
-    Subject* subject;
+class GraphicsRender : public Observer {
+    Subject *subject;
+    Xwindow xwindow;
 public:
-    GraphicsRender(Subject* sub);
+    GraphicsRender(Subject *sub);
     ~GraphicsRender() override;
     void notify() override;
 };
