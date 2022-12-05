@@ -40,11 +40,9 @@ void GraphicsRender::notify() {
             if (prevP != nullptr) {
                 if (i % 2 == j % 2) {
                     // i,j both odd/even -> black square
-                    // xwindow.drawBlackSquare(x, y);
                     xwindow.drawBlackSquare(x, y);
                 } else {
-                    // xwindow.drawWhiteSquare(x, y);
-                    xwindow.drawBlackSquare(x, y);
+                    xwindow.drawWhiteSquare(x, y);
                 }
             }
             // when reach here, we have pure background
