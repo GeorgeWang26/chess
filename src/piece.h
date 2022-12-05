@@ -34,12 +34,12 @@ public:
 
     // return true as long as it obey moving rules and doesnt put own king in check
     // how to check if own king is in check? see notes.txt
-    virtual bool validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) = 0;
+    virtual bool validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape, bool &canCheckmate, std::string newType) = 0;
     
     // return a new dynamically allocated board, user need to delete
     // OOOOOOOOOOOOOONLY OVERRIDE IN KING(castle) AND PAWN(enpassant)
     // should set all canEnpassant=false
-    virtual Board* moveto(Board &board, int *dest, std::string newType = "queen");
+    virtual Board* moveto(Board &board, int *dest, std::string newType);
 
     // OOOOOOOOOOOOOONLY OVERRIDE IN KING
     virtual bool getUndercheck(Board &board);

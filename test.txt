@@ -117,3 +117,35 @@ blank
 + R h1
 done
 move
+
+
+verify piece::setUndercap
+game human human
+setup
+blank
++ k a1
++ K h1
++ q a8
++ P b7
+done
+
+
+
+SMART PROMOTION
+game robot4 robot4
+setup
+blank
++ K a1
++ k a7
++ q a8
++ n b8
++ p b7
++ p b6
++ p a6
+
++ P c7
+
+= white
+done 
+move
+

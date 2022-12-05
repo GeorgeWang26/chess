@@ -1,6 +1,6 @@
 #include "chess.h"
 #include "textrender.h"
-#include "graphicsrender.h"
+// #include "graphicsrender.h"
 #include <iostream>
 
 using namespace std;
@@ -8,7 +8,7 @@ using namespace std;
 int main() {
     Chess chess;
     TextRender text {&chess};
-    GraphicsRender graphics {&chess};
+    // GraphicsRender graphics {&chess};
     while (cin) {
         chess.takeTurn();
     }

@@ -8,7 +8,7 @@ Knight::Knight(int row, int col, string team, bool undercap, bool moved):
 {}
 
 
-bool Knight::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) {
+bool Knight::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape, bool &canCheckmate, string newType) {
     Piece *destpiece = board.theBoard[dest[0]][dest[1]];
     if (!(0 <= dest[0] && dest[0] < 8 && 0 <= dest[1] && dest[1] < 8) || (destpiece != nullptr && destpiece->getTeam() == team)) {
         // dest is: out of bounds, same team (if dest==pos, team will be same)
@@ -23,12 +23,14 @@ bool Knight::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bo
             // status doesnt matter, since suicide=true only when validmove() is called from 
             return true;
         } else {
-            Board *nb = moveto(board, dest);
+            // knight cannot promote
+            Board *nb = moveto(board, dest, "DNE");
             bool isUndercheck = nb->check(team);
             string enemy = team == "white" ? "black" : "white";
             canCheck = nb->check(enemy);
             captureEnemy = destpiece != nullptr ? true : false;
             escape = board.theBoard[pos[0]][pos[1]]->getUndercap() && !nb->theBoard[dest[0]][dest[1]]->getUndercap() ? true : false;
+            canCheckmate = nb->checkmate(enemy);
             delete nb;
             return !isUndercheck;
         }

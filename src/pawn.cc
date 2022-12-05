@@ -13,7 +13,7 @@ Pawn::Pawn(int row, int col, string team, bool undercap, bool moved, bool canEnp
 
 
 // CHECK FOR ENPASSANT
-bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) {
+bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape, bool &canCheckmate, string newType) {
     Piece *destpiece = board.theBoard[dest[0]][dest[1]];
     if (!(0 <= dest[0] && dest[0] < 8 && 0 <= dest[1] && dest[1] < 8) || (destpiece != nullptr && destpiece->getTeam() == team)) {
         // dest is: out of bounds, same team (if dest==pos, team will be same)
@@ -42,7 +42,6 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
         // black can only go down
         if (dest[0] == pos[0] - 1 && abs(dest[1] - pos[1]) == 1 && destpiece != nullptr) {
             // overtake down diagonal by 1
-            // cout << "FUCK" << endl;
             valid = true;
         } else if (dest[0] == pos[0] - 1 && dest[1] == pos[1] && destpiece == nullptr) {
             // move down by 1
@@ -56,11 +55,9 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
         }
     }
 
-    // cout << "before enpassant, " << valid << endl;
     if (enpassant(board, dest)) {
         valid = true;
     }
-    // cout << "after enpassant, " << valid << endl;
 
     if (!valid) {
         return false;
@@ -70,12 +67,14 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
         // status doesnt matter, since suicide=true only when validmove() is called from 
         return true;
     } else {
-        Board *nb = moveto(board, dest);
+        // pawn can promote
+        Board *nb = moveto(board, dest, newType);
         bool isUndercheck = nb->check(team);
         string enemy = team == "white" ? "black" : "white";
         canCheck = nb->check(enemy);
         captureEnemy = destpiece != nullptr ? true : false;
         escape = board.theBoard[pos[0]][pos[1]]->getUndercap() && !nb->theBoard[dest[0]][dest[1]]->getUndercap() ? true : false;
+        canCheckmate = nb->checkmate(enemy);
         delete nb;
         return !isUndercheck;
     }
@@ -97,7 +96,9 @@ bool Pawn::enpassant(Board &board, int *dest) {
 
 
 Board* Pawn::moveto(Board &board, int *dest, string newType) {
-    Board *nb = Piece::moveto(board, dest);
+    // piece::moveto() ignore newType, pawn promotion will be handled separately bellow
+    // piece::moveto() only update pos & undercap for new piece
+    Board *nb = Piece::moveto(board, dest, "DNE");
     if (!getMoved() && abs(dest[0] - pos[0]) == 2) {
         // first move by 2, trigger enpassant
         nb->theBoard[dest[0]][dest[1]]->setEnpassant(true);

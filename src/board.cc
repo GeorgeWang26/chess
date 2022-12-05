@@ -153,9 +153,8 @@ bool Board::stalemate(string team) {
                     for (int destj = 0; destj < 8; destj++) {
                         int dest[] = {desti, destj};
                         bool fake = false;
-                        // cout << this;
-                        // cout << "pos:" << i << " " << j << "   dest:"  << desti << " " << destj << endl;
-                        if (cur->validmove(*this, dest, false, fake, fake, fake)) {
+                        // pawn promote could be a valid move, so deault use queen
+                        if (cur->validmove(*this, dest, false, fake, fake, fake, fake, "queen")) {
                             // if a valid move exist, then is not in stalemate
                             return false;
                         }
@@ -180,7 +179,7 @@ bool Board::twoKing() {
 }
 
 
-bool Board::validmove(string team, int *cur, int *dest, bool &canCheck, bool &captureEnemy, bool &escape) {
+bool Board::validmove(string team, int *cur, int *dest, bool &canCheck, bool &captureEnemy, bool &escape, bool &canCheckmate, string newType) {
     Piece *p = theBoard[cur[0]][cur[1]];
     if (p != nullptr && p->getTeam() == team) {
         // suicide always false when player/robot is trying to move a piece
@@ -188,7 +187,7 @@ bool Board::validmove(string team, int *cur, int *dest, bool &canCheck, bool &ca
 
         // check if can check/checkmate for pawn promotion
 
-        return p->validmove(*this, dest, false, canCheck, captureEnemy, escape);
+        return p->validmove(*this, dest, false, canCheck, captureEnemy, escape, canCheckmate, newType);
     }
     return false;
 }

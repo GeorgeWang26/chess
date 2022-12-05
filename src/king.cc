@@ -8,7 +8,7 @@ King::King(int row, int col, string team, bool undercap, bool moved):
 {}
 
 
-bool King::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) {
+bool King::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape, bool &canCheckmate, string newType) {
     Piece *destpiece = board.theBoard[dest[0]][dest[1]];
     if (!(0 <= dest[0] && dest[0] < 8 && 0 <= dest[1] && dest[1] < 8) || (destpiece != nullptr && destpiece->getTeam() == team)) {
         // dest is: out of bounds, same team (if dest==pos, team will be same)
@@ -28,11 +28,13 @@ bool King::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
             // SOOOOO as long as move is within valid range, return true 
             return true;
         } else {
-            Board *nb = moveto(board, dest);
+            // king cannot promote
+            Board *nb = moveto(board, dest, "DNE");
             bool isUndercheck = nb->check(team);
             canCheck = nb->check(enemy);
             captureEnemy = destpiece != nullptr ? true : false;
             escape = board.theBoard[pos[0]][pos[1]]->getUndercap() && !nb->theBoard[dest[0]][dest[1]]->getUndercap() ? true : false;
+            canCheckmate = nb->checkmate(enemy);
             delete nb;
             return !isUndercheck;
         }
@@ -40,10 +42,12 @@ bool King::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
         // already checked all needed requirement in castle()
         // for castle, captureEnemy=escape=false
         // but could check/checkmate enemy
-        Board *nb = moveto(board, dest);
+        // king cannot promote
+        Board *nb = moveto(board, dest, "DNE");
         canCheck = nb->check(enemy);
         captureEnemy = false;
         escape = false;
+        canCheckmate = nb->checkmate(enemy);
         delete nb;
         return true;
     }
@@ -72,7 +76,8 @@ bool King::castle(Board &board, int *dest) {
             // make sure king is not in check on middle and end pos
             for (int i = 2; i <= 3; i++) {
                 int arr[] = {row, i};
-                Board *nb = Piece::moveto(board, arr);
+                // king cannot promote, especially since piece::moveto() ignore newType
+                Board *nb = Piece::moveto(board, arr, "DNE");
                 Piece *king = nb->theBoard[row][i];
                 if (king->getUndercheck(*nb)) {
                     delete nb;
@@ -97,7 +102,8 @@ bool King::castle(Board &board, int *dest) {
                 }
                 // not in check
                 int arr[] = {row, i};
-                Board *nb = Piece::moveto(board, arr);
+                // king cannot promote, especially since piece::moveto() ignore newType
+                Board *nb = Piece::moveto(board, arr, "DNE");
                 Piece *king = nb->theBoard[row][i];
                 if (king->getUndercheck(*nb)) {
                     delete nb;
@@ -122,7 +128,9 @@ bool King::getUndercheck(Board &board) {
             // validmove will make sure [i][j] cant be same team as dest(current king)
             Piece *p = board.theBoard[i][j];
             // cannot use board::validmove cuz it always have suicide=false
-            if (p != nullptr && p->getTeam() != team && p->validmove(board, pos, true, fake, fake, fake)) {  
+            // newType="DNE" cuz suicide=true, so pawn::validmove() will return true
+            // before generate newboard with promotion type
+            if (p != nullptr && p->getTeam() != team && p->validmove(board, pos, true, fake, fake, fake, fake, "DNE")) {  
                 /*
                 if king is now black
                 then every p enter the condition will be white
@@ -139,7 +147,8 @@ bool King::getUndercheck(Board &board) {
 
 
 Board* King::moveto(Board &board, int *dest, string newType) {
-    Board *nb = Piece::moveto(board, dest);
+    // king cannot promote, moreover, piece::moveto() ignore newType
+    Board *nb = Piece::moveto(board, dest, "DNE");
     if (castle(board, dest)) {
         int row = pos[0];
         // move rook, set rook's moved status to true, or simply using piece::moveto()
@@ -147,14 +156,16 @@ Board* King::moveto(Board &board, int *dest, string newType) {
             // left castle
             Piece *leftrook = nb->theBoard[row][0];
             int arr[] = {row, 3};
-            Board *nnb = leftrook->moveto(*nb, arr);
+            // rook cannot promote
+            Board *nnb = leftrook->moveto(*nb, arr, "DNE");
             delete nb;
             nb = nnb;
         } else {
             // right castle
             Piece *rightrook = nb->theBoard[row][7];
             int arr[] = {row, 5};
-            Board *nnb = rightrook->moveto(*nb, arr);
+            // rook cannot promote
+            Board *nnb = rightrook->moveto(*nb, arr, "DNE");
             delete nb;
             nb = nnb;
         }

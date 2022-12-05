@@ -41,7 +41,9 @@ void Piece::setUndercap(Board &board) {
         for (int j = 0; j < 8; j++) {
             Piece *p = board.theBoard[i][j];
             // suicide = false
-            if (p != nullptr && p->validmove(board, pos, false, fake, fake, fake)) {
+            // pawn could overtake enemy on last row, this will trigger pawn promotion
+            // use queen as newType place holder
+            if (p != nullptr && p->validmove(board, pos, false, fake, fake, fake, fake, "queen")) {
                 undercap = true;
                 return;
             }

@@ -25,5 +25,5 @@ TODO:
 
 (done) 7. check the pawn promotion lead to checkmate case for robot (robot4 should priorituize this move always)
 
-1. robot4 smart pawn promotion
+(done) 1. robot4 smart pawn promotion
 pawn promote to knight will checkmate but queen will not

@@ -20,9 +20,9 @@ public:
     bool stalemate(std::string team);
     bool twoKing();
 
-    bool validmove(std::string team, int *cur, int *dest, bool &canCheck, bool &captureEnemy, bool &escape);
+    bool validmove(std::string team, int *cur, int *dest, bool &canCheck, bool &captureEnemy, bool &escape, bool &canCheckmate, std::string newType);
     // user will need to free (delete) the returned Board*
-    Board* moveto(int *cur, int *dest, std::string newType = "queen");
+    Board* moveto(int *cur, int *dest, std::string newType);
     
     void setUndercap();
 };

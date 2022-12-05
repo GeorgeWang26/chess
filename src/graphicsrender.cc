@@ -5,8 +5,6 @@
 #include "piece.h"
 #include <string>
 
-#include <iostream>
-
 using namespace std;
 
 GraphicsRender::GraphicsRender(Subject *sub):
@@ -25,8 +23,8 @@ GraphicsRender::~GraphicsRender() {
 
 void GraphicsRender::notify() {
     Board *board = subject->getState();
-    for (int i = 7; i >= 0; --i) {  
-        for (int j = 0; j < 8; ++j) {
+    for (int i = 7; i >= 0; i--) {  
+        for (int j = 0; j < 8; j++) {
             Piece *p = board->theBoard[i][j];
             Piece *prevP = prevBoard.theBoard[i][j];
             

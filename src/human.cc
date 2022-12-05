@@ -24,7 +24,8 @@ Board* Human::move(Board* gameBoard, bool &success) {
             int pos[] = {posS[1] - '1', posS[0] - 'a'};
             int dest[] = {destS[1] - '1', destS[0] - 'a'};
             bool fake;
-            if (gameBoard->validmove(team, pos, dest, fake, fake, fake)) {
+            // this validmove check could be pawn promotion, use queen as placeholder, acutal type is used later
+            if (gameBoard->validmove(team, pos, dest, fake, fake, fake, fake, "queen")) {
                 Piece *curpiece = gameBoard->theBoard[pos[0]][pos[1]];
 
                 if (curpiece->getType() == "pawn" && (dest[0] == 0 || dest[0] == 7)) {
@@ -54,7 +55,8 @@ Board* Human::move(Board* gameBoard, bool &success) {
 
                 } else {
                     success = true;
-                    return gameBoard->moveto(pos, dest);
+                    // non-promotion move, DNE will not be used
+                    return gameBoard->moveto(pos, dest, "DNE");
                 }
             }
         }
