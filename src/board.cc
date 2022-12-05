@@ -167,12 +167,27 @@ bool Board::stalemate(string team) {
     return true;
 }
 
+bool Board::twoKing() {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            Piece *cur = theBoard[i][j];
+            if (cur != nullptr && cur->getType() != "king") {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 
 bool Board::validmove(string team, int *cur, int *dest, bool &canCheck, bool &captureEnemy, bool &escape) {
     Piece *p = theBoard[cur[0]][cur[1]];
     if (p != nullptr && p->getTeam() == team) {
         // suicide always false when player/robot is trying to move a piece
         // suicie=true only in king::getUndercheck()
+
+        // check if can check/checkmate for pawn promotion
+
         return p->validmove(*this, dest, false, canCheck, captureEnemy, escape);
     }
     return false;
@@ -184,23 +199,6 @@ Board* Board::moveto(int *cur, int *dest, string newType) {
     Board *nb = p->moveto(*this, dest);
     // set undercap status in new board
     nb->setUndercap();
-    p = nb->theBoard[dest[0]][dest[1]];
-
-    if (p->getType() == "pawn" && (dest[0] == 0 || dest[0] == 7)) {
-        // pawn reach first or last row, change to newType
-        free(p);
-        if (newType == "rook") {
-            nb->theBoard[dest[0]][dest[1]] = new Rook(dest[0], dest[1], p->getTeam(), p->getUndercap(), true);
-        } else if (newType == "knight") {
-            nb->theBoard[dest[0]][dest[1]] = new Knight(dest[0], dest[1], p->getTeam(), p->getUndercap(), true);
-        } else if (newType == "bishop") {
-            nb->theBoard[dest[0]][dest[1]] = new Bishop(dest[0], dest[1], p->getTeam(), p->getUndercap(), true);
-        } else if (newType == "queen") {
-            nb->theBoard[dest[0]][dest[1]] = new Queen(dest[0], dest[1], p->getTeam(), p->getUndercap(), true);
-        } else {
-            throw "Board::moveto() recieved unknown newType!!!!!!!!!!!!!!!";
-        }
-    }
     return nb;
 }
 

@@ -138,7 +138,7 @@ bool King::getUndercheck(Board &board) {
 }
 
 
-Board* King::moveto(Board &board, int *dest) {
+Board* King::moveto(Board &board, int *dest, string newType) {
     Board *nb = Piece::moveto(board, dest);
     if (castle(board, dest)) {
         int row = pos[0];

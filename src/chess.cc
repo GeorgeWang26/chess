@@ -166,6 +166,11 @@ void Chess::takeTurn() {
                 whiteWin += 0.5;
                 blackWin += 0.5;
                 terminate = true;
+            } else if (curBoard->twoKing()) {
+                cout << "Draw!" << endl;
+                whiteWin += 0.5;
+                blackWin += 0.5;
+                terminate = true;
             }
 
             if (terminate) {
@@ -276,6 +281,11 @@ void Chess::takeTurn() {
                         // if board is stalemate on current team, output message, increase win count, playing = false
                         if (curBoard->stalemate(curPlayer)) {
                             cout << "Stalemate!" << endl;
+                            whiteWin += 0.5;
+                            blackWin += 0.5;
+                            reset();
+                        } else if (curBoard->twoKing()) {
+                            cout << "Draw!" << endl;
                             whiteWin += 0.5;
                             blackWin += 0.5;
                             reset();

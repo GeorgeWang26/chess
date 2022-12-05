@@ -1,5 +1,9 @@
 #include "pawn.h"
 #include "board.h"
+#include "rook.h"
+#include "queen.h"
+#include "bishop.h"
+#include "knight.h"
 
 using namespace std;
 
@@ -92,10 +96,8 @@ bool Pawn::enpassant(Board &board, int *dest) {
 }
 
 
-Board* Pawn::moveto(Board &board, int *dest) {
-    // cout << "--------------------------------------------------------------------------------------\npawn::moveto" << endl;
+Board* Pawn::moveto(Board &board, int *dest, string newType) {
     Board *nb = Piece::moveto(board, dest);
-    // cout << nb;
     if (!getMoved() && abs(dest[0] - pos[0]) == 2) {
         // first move by 2, trigger enpassant
         nb->theBoard[dest[0]][dest[1]]->setEnpassant(true);
@@ -104,6 +106,24 @@ Board* Pawn::moveto(Board &board, int *dest) {
         free(nb->theBoard[pos[0]][dest[1]]);
         nb->theBoard[pos[0]][dest[1]] = nullptr;
     }
-    // cout << "end of pawn::moveto\n--------------------------------------------------------------------------------------\n\n\n" << endl;
+    
+    // pawn promotion
+    if (dest[0] == 0 || dest[0] == 7) {
+        // pawn reach first or last row, change to newType
+        bool cap = nb->theBoard[dest[0]][dest[1]];
+        free(nb->theBoard[dest[0]][dest[1]]);
+        if (newType == "rook") {
+            nb->theBoard[dest[0]][dest[1]] = new Rook(dest[0], dest[1], team, cap, true);
+        } else if (newType == "knight") {
+            nb->theBoard[dest[0]][dest[1]] = new Knight(dest[0], dest[1], team, cap, true);
+        } else if (newType == "bishop") {
+            nb->theBoard[dest[0]][dest[1]] = new Bishop(dest[0], dest[1], team, cap, true);
+        } else if (newType == "queen") {
+            nb->theBoard[dest[0]][dest[1]] = new Queen(dest[0], dest[1], team, cap, true);
+        } else {
+            throw "Board::moveto() recieved unknown newType!!!!!!!!!!!!!!!";
+        }
+    }
+    
     return nb;
 }

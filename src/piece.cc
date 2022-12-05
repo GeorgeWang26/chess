@@ -70,7 +70,7 @@ void Piece::setEnpassant(bool status) {
 }
 
 
-Board* Piece::moveto(Board &board, int *dest) {
+Board* Piece::moveto(Board &board, int *dest, string newType) {
     // cout << "=============================================\npiece::moveto" << endl;
     // cout << getType() << endl;
     // cout << pos[0] << " " << pos[1] << endl;

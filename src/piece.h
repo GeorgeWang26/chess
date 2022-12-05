@@ -39,7 +39,7 @@ public:
     // return a new dynamically allocated board, user need to delete
     // OOOOOOOOOOOOOONLY OVERRIDE IN KING(castle) AND PAWN(enpassant)
     // should set all canEnpassant=false
-    virtual Board* moveto(Board &board, int *dest);
+    virtual Board* moveto(Board &board, int *dest, std::string newType = "queen");
 
     // OOOOOOOOOOOOOONLY OVERRIDE IN KING
     virtual bool getUndercheck(Board &board);

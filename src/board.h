@@ -18,6 +18,7 @@ public:
     bool check(std::string team);
     bool checkmate(std::string team);
     bool stalemate(std::string team);
+    bool twoKing();
 
     bool validmove(std::string team, int *cur, int *dest, bool &canCheck, bool &captureEnemy, bool &escape);
     // user will need to free (delete) the returned Board*

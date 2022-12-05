@@ -9,7 +9,7 @@ public:
     King(int row, int col, std::string team, bool undercap, bool moved);
     bool validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool &captureEnemy, bool &escape) override;
     bool getUndercheck(Board &board) override;
-    Board* moveto(Board &board, int *dest) override;
+    Board* moveto(Board &board, int *dest, std::string newType = "queen") override;
 };
 
 #endif
