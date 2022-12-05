@@ -115,15 +115,9 @@ void Chess::takeTurn() {
             if (curPlayer == "white") {
                 tmpBoard = white->move(curBoard, success);
             } else {
-                // curPlayer == "black"
-                // cout << "hello?" << endl;
                 tmpBoard = black->move(curBoard, success);
-                // cout << tmpBoard;
-                // cout << "fuck you" << endl;
             }
 
-            // cout << "SHOULD BE END OF MOVE HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
-            // cout << "success?????? " << success << endl;
             if (!success) {
                 // no error message needed, human::move will display error message, robot::move will always be sucess=true
                 continue;
@@ -138,20 +132,9 @@ void Chess::takeTurn() {
             // switch player
             curPlayer = curPlayer == "white" ? "black" : "white";
             // notify observers after move
-
-            // cout << "NOTIFY OBSERVER HERE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-
             notifyObservers();
-            // cout << "NOTIFY OBSERVER HERE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-            
-            // cout << "filter" << curBoard->checkmate("black") << endl;
-            // cout << "filter" << curBoard->checkmate("white") << endl;
-            // cout << "filter" << curBoard->check("black") << endl;
-            // cout << "filter" << curBoard->check("white") << endl;
-            // cout << "filter" << curBoard->stalemate("black") << endl;
-            // cout << "filter" << curBoard->stalemate("white") << endl;
-
             bool terminate = false;
+
             if (curBoard->checkmate("black")) {
                 cout << "Checkmate! White wins!" << endl;
                 whiteWin++;

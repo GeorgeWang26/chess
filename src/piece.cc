@@ -73,10 +73,6 @@ void Piece::setEnpassant(bool status) {
 
 
 Board* Piece::moveto(Board &board, int *dest, string newType) {
-    // cout << "=============================================\npiece::moveto" << endl;
-    // cout << getType() << endl;
-    // cout << pos[0] << " " << pos[1] << endl;
-    // cout << dest[0] << " " << dest[1] << endl;
     // deepcopy old board
     Board *nb = new Board {board};
     // delete old piece at dest, could be nullptr or actual piece (heap allocated)
@@ -99,8 +95,6 @@ Board* Piece::moveto(Board &board, int *dest, string newType) {
             }
         }
     }
-    // cout << nb;
-    // cout << "\nend of piece::moveto\n=============================================" << endl;
     // return new board (heap allocated)
     // USER NEEEEEEED TO DELETE
     return nb;

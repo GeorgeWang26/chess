@@ -46,12 +46,10 @@ bool Pawn::validmove(Board &board, int *dest, bool suicide, bool &canCheck, bool
         } else if (dest[0] == pos[0] - 1 && dest[1] == pos[1] && destpiece == nullptr) {
             // move down by 1
             valid = true;
-            // cout << "FUCK2" << endl;
         } else if (pos[0] == 6 && dest[0] == 4 && dest[1] == pos[1] && destpiece == nullptr && board.theBoard[5][pos[1]] == nullptr) {
             // black pawn is making first move, attempt to go down by 2 to row 4
             // check that down_by_1 (row 5) AND down_by_2 (row 4, dest) are both empty
             valid = true;
-            // cout << "FUCK3" << endl;
         }
     }
 
