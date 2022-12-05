@@ -26,6 +26,13 @@ public:
     // Draws a string
     void drawString(int x, int y, std::string msg);
 
+    void drawR(int x, int y);
+    void drawB(int x, int y);
+    void drawN(int x, int y);
+    void drawQ(int x, int y);
+    void drawK(int x, int y);
+    void drawP(int x, int y);
+    void drawChessBoard();
 };
 
 #endif
