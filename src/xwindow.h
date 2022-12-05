@@ -32,6 +32,8 @@ public:
     void drawK(int x, int y, int color);
     void drawP(int x, int y, int color);
     void drawChessBoard();
+    void drawBlackSquare(int x, int y);
+    void drawWhiteSquare(int x, int y);
 };
 
 #endif

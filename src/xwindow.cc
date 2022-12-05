@@ -79,125 +79,115 @@ void Xwindow::drawString(int x, int y, string msg) {
 
 void Xwindow::drawR(int x, int y, int color) {
     for(int i = 3; i < 7; ++i) {
-        fillRectangle(i*10, 20, 10, 10, color);
+        fillRectangle(i*10 + x, 20 + y, 10, 10, color);
     }
     for(int i = 2; i < 9; ++i) {
-        fillRectangle(30, i*10, 10, 10, color);
+        fillRectangle(30 + x, i*10 + y, 10, 10, color);
     }
     for(int i = 4; i < 7; ++i) {
-        fillRectangle(i * 10, 50, 10, 10, color);
+        fillRectangle(i * 10 + x, 50 + y, 10, 10, color);
     }
     for(int i = 3; i < 5; ++i) {
-        fillRectangle(60, i * 10, 10, 10, color);
+        fillRectangle(60 + x, i * 10 + y, 10, 10, color);
     }
     for(int i = 5; i < 8; ++i) {
-        fillRectangle(i * 10, (4 + i - 3) * 10 , 10, 10, color);
-    }
-    while(true) {
-        continue;
+        fillRectangle(i * 10 + x, (4 + i - 3) * 10 + y, 10, 10, color);
     }
 }
 
 
 void Xwindow::drawB(int x, int y, int color) {
     for(int i = 3; i < 7; ++i) {
-        fillRectangle(i*10, 20, 10, 10, color);
+        fillRectangle(i*10 + x, 20 + y, 10, 10, color);
     }
     for(int i = 3; i < 7; ++i) {
-        fillRectangle(i*10, 50, 10, 10, color);
+        fillRectangle(i*10 + x, 50 + y, 10, 10, color);
     }
     for(int i = 3; i < 7; ++i) {
-        fillRectangle(i*10, 80, 10, 10, color);
+        fillRectangle(i*10 + x, 80 + y, 10, 10, color);
     }
     for(int i = 2; i < 9; ++i) {
-        fillRectangle(30, i*10, 10, 10, color);
+        fillRectangle(30 + x, i*10 + y, 10, 10, color);
     }
     for(int i = 3; i < 9; ++i) {
         if ( i != 2 && i != 5 && i != 8) {
-            fillRectangle(70, i*10, 10, 10, color);
+            fillRectangle(70 + x, i*10 + y, 10, 10, color);
         }
-    }
-    while(true) {
-        continue;
     }
 }
 
 
 void Xwindow::drawN(int x, int y, int color) {
     for(int i = 2; i < 9; ++i) {
-        fillRectangle(30, i*10, 10, 10, color);
+        fillRectangle(30 + x, i*10 + y, 10, 10, color);
     }
-    fillRectangle(40, 40, 10, 10, color);
-    fillRectangle(50, 50, 10, 10, color);
-    fillRectangle(60, 60, 10, 10, color);
+    fillRectangle(40 + x, 40 + y, 10, 10, color);
+    fillRectangle(50 + x, 50 + y, 10, 10, color);
+    fillRectangle(60 + x, 60 + y, 10, 10, color);
     for(int i = 2; i < 9; ++i) {
-        fillRectangle(70, i*10, 10, 10, color);
-    }
-    while(true) {
-        continue;
+        fillRectangle(70 + x, i*10 + y, 10, 10, color);
     }
 }
 
 
 void Xwindow::drawQ(int x, int y, int color) {
     for(int i = 3; i < 8; ++i) {
-        fillRectangle(30, i*10, 10, 10, color);
+        fillRectangle(30 + x, i*10 + y, 10, 10, color);
     }
     for(int i = 3; i < 8; ++i) {
-        fillRectangle(70, i*10, 10, 10, color);
+        fillRectangle(70 + x, i*10 + y, 10, 10, color);
     }
     for(int i = 4; i < 7; ++i) {
-        fillRectangle(i*10, 20, 10, 10, color);
+        fillRectangle(i*10 + x, 20 + y, 10, 10, color);
     }
     for(int i = 4; i < 7; ++i) {
-        fillRectangle(i*10, 80, 10, 10, color);
+        fillRectangle(i*10 + x, 80 + y, 10, 10, color);
     }
-    fillRectangle(60, 70, 10, 10, color);
-    fillRectangle(50, 60, 10, 10, color);
-    while(true) {
-        continue;
-    }
+    fillRectangle(60 + x, 70 + y, 10, 10, color);
+    fillRectangle(50 + x, 60 + y, 10, 10, color);
 }
 
 
 void Xwindow::drawK(int x, int y, int color) {
     for(int i = 3; i < 9; ++i) {
-        fillRectangle(30, i*10, 10, 10, color);
+        fillRectangle(30 + x, i*10 + y, 10, 10, color);
     }
-    fillRectangle(40, 50, 10, 10, color);
-    fillRectangle(50, 50, 10, 10, color);
-    fillRectangle(50, 50, 10, 10, color);
-    fillRectangle(50, 50, 10, 10, color);
-    fillRectangle(60, 40, 10, 10, color);
-    fillRectangle(60, 60, 10, 10, color);
-    fillRectangle(70, 30, 10, 10, color);
-    fillRectangle(70, 40, 10, 10, color);
-    fillRectangle(70, 70, 10, 10, color);
-    fillRectangle(70, 80, 10, 10, color);
-    while(true) {
-        continue;
-    }
-    
+    fillRectangle(40 + x, 50 + y, 10, 10, color);
+    fillRectangle(50 + x, 50 + y, 10, 10, color);
+    fillRectangle(50 + x, 50 + y, 10, 10, color);
+    fillRectangle(50 + x, 50 + y, 10, 10, color);
+    fillRectangle(60 + x, 40 + y, 10, 10, color);
+    fillRectangle(60 + x, 60 + y, 10, 10, color);
+    fillRectangle(70 + x, 30 + y, 10, 10, color);
+    fillRectangle(70 + x, 40 + y, 10, 10, color);
+    fillRectangle(70 + x, 70 + y, 10, 10, color);
+    fillRectangle(70 + x, 80 + y, 10, 10, color);
 }
 
 
 void Xwindow::drawP(int x, int y, int color) {
     for(int i = 2; i < 9; ++i) {
-        fillRectangle(30, i*10, 10, 10, color);
+        fillRectangle(30 + x, i*10 + y, 10, 10, color);
     }
     for(int i = 4; i < 7; ++i) {
-        fillRectangle(i*10, 20, 10, 10, color);
+        fillRectangle(i*10 + x, 20 + y, 10, 10, color);
     }
     for(int i = 4; i < 7; ++i) {
-        fillRectangle(i*10, 50, 10, 10, color);
+        fillRectangle(i*10 + x, 50 + y, 10, 10, color);
     }
-    fillRectangle(70, 30, 10, 10, color);
-    fillRectangle(70, 40, 10, 10, color);
-    while(true) {
-        continue;
-    }   
+    fillRectangle(70 + x, 30 + y, 10, 10, color);
+    fillRectangle(70 + x, 40 + y, 10, 10, color);
 }
 
+
+void Xwindow::drawBlackSquare(int x, int y) {
+    fillRectangle(x, y, 100, 100, Red);
+}
+
+
+void Xwindow::drawWhiteSquare(int x, int y) {
+    fillRectangle(x, y, 100, 100, Blue);
+}
 
 void Xwindow::drawChessBoard() {
     string curr = "white";
@@ -210,10 +200,9 @@ void Xwindow::drawChessBoard() {
                 curr_row[0] -= 1;
             }
             if (curr == "black") {
-                fillRectangle( (x+1)*100, (y+1)*100, 100, 100, Brown);
-            }
-            else {
-                fillRectangle( (x+1)*100, (y+1)*100, 100, 100, Blue);
+                drawBlackSquare((x+1)*100, (y+1)*100);
+            } else {
+                drawWhiteSquare((x+1)*100, (y+1)*100);
             }
             if (x != 7) {
                 curr = curr == "white" ? "black" : "white";
@@ -227,7 +216,7 @@ void Xwindow::drawChessBoard() {
         drawString((z + 0.5)*100 + 5, 50, curr_col);
         curr_col[0] += 1;
     }
-    while(true) {
-        continue;
-    }
 }
+
+
+
