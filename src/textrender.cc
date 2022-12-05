@@ -5,7 +5,7 @@
 
 using namespace std;
 
-TextRender::TextRender(Subject* sub): subject{sub} {
+TextRender::TextRender(Subject *sub): subject{sub} {
     subject->attach(this);
 }
 

@@ -6,9 +6,9 @@
 class Subject;
 
 class TextRender: public Observer{
-    Subject* subject;
+    Subject *subject;
 public:
-    TextRender(Subject* sub);
+    TextRender(Subject *sub);
     ~TextRender() override;
     void notify() override;
 };

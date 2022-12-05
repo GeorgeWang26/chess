@@ -1,7 +1,6 @@
-#ifndef __WINDOW_H__
-#define __WINDOW_H__
+#ifndef XWINDOW_H
+#define XWINDOW_H
 #include <X11/Xlib.h>
-#include <iostream>
 #include <string>
 
 class Xwindow {
@@ -26,13 +25,15 @@ public:
     // Draws a string
     void drawString(int x, int y, std::string msg);
 
-    void drawR(int x, int y);
-    void drawB(int x, int y);
-    void drawN(int x, int y);
-    void drawQ(int x, int y);
-    void drawK(int x, int y);
-    void drawP(int x, int y);
+    void drawR(int x, int y, int color);
+    void drawB(int x, int y, int color);
+    void drawN(int x, int y, int color);
+    void drawQ(int x, int y, int color);
+    void drawK(int x, int y, int color);
+    void drawP(int x, int y, int color);
     void drawChessBoard();
+    void drawBlackSquare(int x, int y);
+    void drawWhiteSquare(int x, int y);
 };
 
 #endif
