@@ -9,6 +9,8 @@ int main() {
     Chess chess;
     TextRender text {&chess};
     GraphicsRender graphics {&chess};
+    // seed random num generation, so rand() won't return same sequence everytime
+    srand(time(0));
     while (cin) {
         chess.takeTurn();
     }
