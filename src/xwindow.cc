@@ -196,24 +196,23 @@ void Xwindow::drawChessBoard() {
     for (int y = 0; y < 8; ++y) {
         for (int x = 0; x < 8; ++x) {
             if (x == 0) {
-                drawString((x+1)*50, (y+1.5)*100+5, curr_row);
+                drawString( 30, 110 + 100 * y, curr_row);
                 curr_row[0] -= 1;
             }
             if (curr == "black") {
-                drawBlackSquare((x+1)*100, (y+1)*100);
+                // drawBlackSquare((x+1)*100, (y+1)*100);
+                drawBlackSquare(x*100 + 60, y*100 + 60);
             } else {
-                drawWhiteSquare((x+1)*100, (y+1)*100);
+                // drawWhiteSquare((x+1)*100, (y+1)*100);
+                drawWhiteSquare(x*100 + 60, y*100 + 60);
             }
             if (x != 7) {
                 curr = curr == "white" ? "black" : "white";
             }
         }
     }
-    for (int z = 0; z <= 8; ++z) {
-        if (z == 0) {
-            continue;
-        }
-        drawString((z + 0.5)*100 + 5, 50, curr_col);
+    for (int z = 0; z < 8; ++z) {
+        drawString(110 + z * 100, 890, curr_col);
         curr_col[0] += 1;
     }
 }

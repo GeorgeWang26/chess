@@ -8,7 +8,7 @@
 using namespace std;
 
 GraphicsRender::GraphicsRender(Subject *sub):
-    subject{sub}, xwindow{950, 950}, blankBoard{true}, prevBoard{&blankBoard}
+    subject{sub}, xwindow{925, 925}, blankBoard{true}, prevBoard{&blankBoard}
 {
     subject->attach(this);
     xwindow.drawChessBoard();
@@ -34,14 +34,17 @@ void GraphicsRender::notify() {
             // empty -> piece   dont need to paint background
             // piece -> empty   paint background
             // piece -> piece   paitn background
-            int x = (j+1) * 100;
-            int y = (abs(i - 7) + 1) * 100;
+            // int x = (j+1) * 100;
+            int x = j * 100 + 60;
+            int y = (7 - i) * 100 + 60;
             if (prevP != nullptr) {
                 if (i % 2 == j % 2) {
                     // i,j both odd/even -> black square
+                    // xwindow.drawBlackSquare(x, y);
                     xwindow.drawBlackSquare(x, y);
                 } else {
-                    xwindow.drawWhiteSquare(x, y);
+                    // xwindow.drawWhiteSquare(x, y);
+                    xwindow.drawBlackSquare(x, y);
                 }
             }
             // when reach here, we have pure background
