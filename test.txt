@@ -68,3 +68,15 @@ blank
 = white
 done
 move a4 a5
+
+
+pawn promotion
+game human human
+setup
+blank
++ K a1
++ k e1
++ P h7
+= white
+done
+move h7 h8

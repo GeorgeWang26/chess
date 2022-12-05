@@ -13,8 +13,14 @@ for escape, need to track if cur piece is udnercap before and after move
 
 
 TODO:
-1. add human::move handle for pawn promotion
-2. test pawn promotion (human & robot1-4)
-3. add robot4
-4. test that robot indeed fallback to regmove when there are no alphamove
-5. instant draw when only two king left
+
+(done) 2. test pawn promotion (human & robot1-4)
+(should be fine) 4. test that robot indeed fallback to regmove when there are no alphamove
+(done) 5. instant draw when only two king left
+(done) 6. add pawn promotion -> in valid move (board.cc)
+
+1. add human::move handle for pawn promotion (MUUUUUUUUUUST SPECIFY TYPE FOR PAWN PROMOTION)
+
+3. add robot4 (prefer checkmate above all other moves, MAYBE smart pawn promotion)
+
+7. check the pawn promotion lead to checkmate case for robot (robot4 should priorituize this move always)
