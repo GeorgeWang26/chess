@@ -12,6 +12,7 @@
 #include "robot1.h"
 #include "robot2.h"
 #include "robot3.h"
+#include "robot4.h"
 
 #include <iostream>
 
@@ -64,9 +65,10 @@ void Chess::takeTurn() {
                     white = new Robot2{"white"};
                 } else if (whiteP == "robot3") {
                     white = new Robot3{"white"};
-                // } else {
-                    // white = new Robot4{"white"};
+                } else {
+                    white = new Robot4{"white"};
                 }
+
                 if (blackP == "human") {
                     black = new Human{"black"};
                 } else if (blackP == "robot1") {
@@ -75,9 +77,10 @@ void Chess::takeTurn() {
                     black = new Robot2{"black"};
                 } else if (blackP == "robot3") {
                     black = new Robot3{"black"};
-                // } else {
-                    // black = new Robot4{"black"};
+                } else {
+                    black = new Robot4{"black"};
                 }
+                
                 notifyObservers();
             } else {
                 cout << "invalid command, unknown player type" << endl;
@@ -106,7 +109,7 @@ void Chess::takeTurn() {
                 continue;
             }
 
-            bool success = true;
+            bool success;
             Board *tmpBoard;
 
             if (curPlayer == "white") {

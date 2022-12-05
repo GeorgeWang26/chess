@@ -80,3 +80,40 @@ blank
 = white
 done
 move h7 h8
+
+
+manual promotion
+
+game human human
+setup
+blank
++ K a1
++ k e1
++ P a7
+done
+move a7 a8
+N
+
+game human human
+setup
+blank
++ K a1
++ k e1
++ p h2
+= black
+done
+
+move h2 h1
+b
+
+
+robot 4 checkmate
+game robot4 robot4
+setup
+blank
++ K a1
++ k a8
++ R g7
++ R h1
+done
+move

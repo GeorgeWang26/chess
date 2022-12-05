@@ -1,5 +1,6 @@
 #include <iostream>
 #include "human.h"
+#include "piece.h"
 #include "board.h"
 
 using namespace std;
@@ -24,8 +25,37 @@ Board* Human::move(Board* gameBoard, bool &success) {
             int dest[] = {destS[1] - '1', destS[0] - 'a'};
             bool fake;
             if (gameBoard->validmove(team, pos, dest, fake, fake, fake)) {
-                success = true;
-                return gameBoard->moveto(pos, dest);
+                Piece *curpiece = gameBoard->theBoard[pos[0]][pos[1]];
+
+                if (curpiece->getType() == "pawn" && (dest[0] == 0 || dest[0] == 7)) {
+                    // pawn promotion
+                    string promotionType;
+                    cin >> promotionType;
+                    
+                    if ((team == "white" && promotionType != "Q" && promotionType != "R" && promotionType != "B" && promotionType != "N") ||
+                    (team == "black" && promotionType != "q" && promotionType != "r" && promotionType != "b" && promotionType != "n")) {
+                        cout << "invalid piece type" << endl;
+                        success = false;
+                        return nullptr;
+                    }
+
+                    if (promotionType == "Q" || promotionType == "q") {
+                        promotionType = "queen";
+                    } else if (promotionType == "R" || promotionType == "r") {
+                        promotionType = "rook";
+                    } else if (promotionType == "B" || promotionType == "b") {
+                        promotionType = "bishop";
+                    } else if (promotionType == "N" || promotionType == "n") {
+                        promotionType = "knight";
+                    }
+                    
+                    success = true;
+                    return gameBoard->moveto(pos, dest, promotionType);
+
+                } else {
+                    success = true;
+                    return gameBoard->moveto(pos, dest);
+                }
             }
         }
     }

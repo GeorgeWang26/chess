@@ -19,8 +19,11 @@ TODO:
 (done) 5. instant draw when only two king left
 (done) 6. add pawn promotion -> in valid move (board.cc)
 
-1. add human::move handle for pawn promotion (MUUUUUUUUUUST SPECIFY TYPE FOR PAWN PROMOTION)
+(done) 1. add human::move handle for pawn promotion (MUUUUUUUUUUST SPECIFY TYPE FOR PAWN PROMOTION)
 
-3. add robot4 (prefer checkmate above all other moves, MAYBE smart pawn promotion)
+(done) 3. add robot4 (prefer checkmate above all other moves, MAYBE smart pawn promotion)
 
-7. check the pawn promotion lead to checkmate case for robot (robot4 should priorituize this move always)
+(done) 7. check the pawn promotion lead to checkmate case for robot (robot4 should priorituize this move always)
+
+1. robot4 smart pawn promotion
+pawn promote to knight will checkmate but queen will not

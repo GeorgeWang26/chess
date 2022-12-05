@@ -196,7 +196,7 @@ bool Board::validmove(string team, int *cur, int *dest, bool &canCheck, bool &ca
 
 Board* Board::moveto(int *cur, int *dest, string newType) {
     Piece *p = theBoard[cur[0]][cur[1]];
-    Board *nb = p->moveto(*this, dest);
+    Board *nb = p->moveto(*this, dest, newType);
     // set undercap status in new board
     nb->setUndercap();
     return nb;
