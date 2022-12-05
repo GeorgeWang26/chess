@@ -83,6 +83,12 @@ Board::Board(const Board &other) {
 }
 
 
+Board& Board::operator=(Board &&other) {
+    swap(theBoard, other.theBoard);
+    return *this;
+}
+
+
 bool Board::validBoard() {
     // dont care number of pieces on board except for king
     int wKing = 0;

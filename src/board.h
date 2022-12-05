@@ -12,6 +12,8 @@ public:
     Board(bool blankBoard = false);
     ~Board();
     Board(const Board &other);
+    // needed for graphicsrender.cc
+    Board& operator=(Board &&other);
 
     bool validBoard();
 
