@@ -102,7 +102,7 @@ Board* Pawn::moveto(Board &board, int *dest, string newType) {
         nb->theBoard[dest[0]][dest[1]]->setEnpassant(true);
     } else if (enpassant(board, dest)) {
         // free piece at same row as pos, and same col as dest
-        delete(nb->theBoard[pos[0]][dest[1]]);
+        delete nb->theBoard[pos[0]][dest[1]];
         nb->theBoard[pos[0]][dest[1]] = nullptr;
     }
     
@@ -110,7 +110,7 @@ Board* Pawn::moveto(Board &board, int *dest, string newType) {
     if (dest[0] == 0 || dest[0] == 7) {
         // pawn reach first or last row, change to newType
         bool cap = nb->theBoard[dest[0]][dest[1]];
-        delete(nb->theBoard[dest[0]][dest[1]]);
+        delete nb->theBoard[dest[0]][dest[1]];
         if (newType == "rook") {
             nb->theBoard[dest[0]][dest[1]] = new Rook(dest[0], dest[1], team, cap, true);
         } else if (newType == "knight") {

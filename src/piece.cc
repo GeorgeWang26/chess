@@ -76,7 +76,7 @@ Board* Piece::moveto(Board &board, int *dest, string newType) {
     // deepcopy old board
     Board *nb = new Board {board};
     // delete old piece at dest, could be nullptr or actual piece (heap allocated)
-    delete(nb->theBoard[dest[0]][dest[1]]);
+    delete nb->theBoard[dest[0]][dest[1]];
     // set dest to be the current piece (which is at pos)
     nb->theBoard[dest[0]][dest[1]] = nb->theBoard[pos[0]][pos[1]];
     // set pos to be nullptr
