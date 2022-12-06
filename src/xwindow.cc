@@ -31,7 +31,7 @@ Xwindow::Xwindow(int width, int height) {
     char color_vals[10][10]={"white", "black", "red", "green", "blue", "cyan", "yellow", "magenta", "orange", "brown"};
 
     cmap=DefaultColormap(d,DefaultScreen(d));
-    for(int i=0; i < 5; ++i) {
+    for(int i=0; i < 10; ++i) {
         XParseColor(d,cmap,color_vals[i],&xcolour);
         XAllocColor(d,cmap,&xcolour);
         colours[i]=xcolour.pixel;
@@ -181,12 +181,12 @@ void Xwindow::drawP(int x, int y, int color) {
 
 
 void Xwindow::drawBlackSquare(int x, int y) {
-    fillRectangle(x, y, 100, 100, Red);
+    fillRectangle(x, y, 100, 100, Brown);
 }
 
 
 void Xwindow::drawWhiteSquare(int x, int y) {
-    fillRectangle(x, y, 100, 100, Blue);
+    fillRectangle(x, y, 100, 100, Orange);
 }
 
 void Xwindow::drawChessBoard() {
