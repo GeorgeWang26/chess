@@ -149,3 +149,32 @@ blank
 done 
 move
 
+
+
+
+
+segfault during demo
+
+this is fine
+
+game human human
+setup
+blank
++ K e1
++ Q d2
++ k e8
++ r d7
+done
+move d2 e2
+
+this gets segfault
+
+game human human
+setup
+blank
++ K e2
++ Q d3
++ k e8
++ r d7
+done
+move d3 e3
